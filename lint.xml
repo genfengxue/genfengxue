@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="HandlerLeak">
+        <ignore path="src/com/example/windenglish/Check.java" />
+        <ignore path="src/com/example/windenglish/Main.java" />
+    </issue>
+    <issue id="InflateParams">
+        <ignore path="src/com/example/windenglish/Check.java" />
+        <ignore path="src/com/example/windenglish/CheckTest.java" />
+    </issue>
+    <issue id="RtlHardcoded">
+        <ignore path="src/com/example/windenglish/Check.java" />
+        <ignore path="src/com/example/windenglish/CheckTest.java" />
+    </issue>
+    <issue id="SdCardPath" severity="ignore" />
+    <issue id="WorldReadableFiles" severity="ignore" />
+</lint>

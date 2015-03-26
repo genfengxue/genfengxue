@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+    	android:paddingStart="15dp"
+    	android:paddingRight="15dp"
+  		android:paddingLeft="15dp"
+  		android:paddingTop="7dp"
+        android:layout_height="35dp" >
+
+
+        <Button
+            android:id="@+id/checkBackButton"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/back" />
+        
+        <Button
+            android:id="@+id/checkSubButton"
+            android:layout_width="60dp"
+            android:layout_height="28dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/check_sub"
+            android:background="#eeeeee"
+            android:textColor="#691281"
+            android:textSize="15sp" />
+        
+    </RelativeLayout>
+    
+    <!-- 
+    <VideoView
+        android:id="@+id/checkVideo"
+        android:layout_width="360dp"
+        android:layout_height="270dp"
+		android:layout_gravity="center_horizontal"
+		android:gravity="center_horizontal" />
+ 	-->
+
+
+	
+	<ScrollView
+	android:layout_width="fill_parent"
+	android:layout_height="0dp"
+	android:layout_weight="1">
+    <TextView
+        android:id="@+id/answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="4dp"
+    	android:paddingLeft="30dp"
+    	android:paddingRight="30dp"
+        android:textSize="16sp" 
+        android:isScrollContainer="true">
+    </TextView>
+	</ScrollView>
+	
+	    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingRight="15dp"
+   		android:paddingLeft="15dp"
+        android:layout_height="36dp">
+
+        <Button
+            android:id="@+id/backVideoButton"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/back3s"
+            />        
+      
+        <!-- 
+    	<SeekBar
+        	android:id="@+id/checkSeekBar"
+        	android:layout_width="0dp"
+        	android:layout_height="wrap_content"
+            android:background="#691281"
+             android:layout_gravity="center_vertical"
+        	android:layout_weight="1" />		
+        -->
+
+        <RelativeLayout
+            android:id="@+id/checkRelative"
+            android:layout_width="0dp"
+            android:layout_height="27dp"
+            android:layout_weight="1"
+            android:clickable="true"  
+            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="3dp"
+            android:background="#dddddd" >
+
+            <Button
+                android:id="@+id/pauseVideoButton"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/pause" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
+

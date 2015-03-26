@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">口语跟风学</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="login_hint">Please input your name:</string>
+    <string name="login_button">进入课堂</string>
+    <string name="login_text">输入昵称</string>
+    <string name="username">default_username</string>
+    <string name="start_play">开始播放</string>
+    <string name="popup_string_1">视频共播放三遍，第一遍无字幕</string>
+    <string name="popup_string_2">第二遍有英文字幕</string>
+    <string name="popup_string_3">第三遍有中文字幕</string>
+    <string name="check_back">退出</string>
+    <string name="check_title">对答案</string>
+    <string name="check_sub">提交</string>
+    <string name="check_video_back">向前3秒</string>
+    <string name="check_video_pause">暂停</string>
+    <string name="versions">v0.3.7</string>
+    <string name="login_emailHint">Please input your email:</string>
+    <string name="inputEmail">确定</string>
+
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#FBEDB6"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    
+    <ScrollView
+        android:layout_width="320dp"
+        android:layout_height="128dp" >
+
+    <TextView
+    android:id="@+id/checkPopupText" 
+    android:layout_height="128dp" 
+	android:layout_width="300dp" 
+	android:textSize="14sp"
+	android:layout_marginLeft="9dp"
+	android:layout_marginStart="9dp"
+	android:layout_marginTop="9dp"
+	android:textColor="#000000"/>
+    </ScrollView>
+    
+    <RelativeLayout 
+    android:layout_width="60dp"
+    android:layout_height="fill_parent" 
+    android:orientation="vertical"   >
+
+        <Button
+            android:id="@+id/checkLike"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/like" />
+
+        <Button
+            android:id="@+id/checkQuestion"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/windavatar" />
+        
+    </RelativeLayout>
+
+</LinearLayout>
