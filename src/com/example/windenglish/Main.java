@@ -1,3 +1,7 @@
+ï»¿/**
+ * ä¸»èœå•@author vita
+ */
+
 package com.example.windenglish;
 
 import java.io.File;
@@ -26,7 +30,6 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-//µÇÂ½activity
 public class Main extends Activity{
 	private TextView mainUsername;
 	private String userdata;
@@ -51,13 +54,13 @@ public class Main extends Activity{
             switch(msg.what)  
             {  
             case 1:
-				pd.setMessage("ÒÑÏÂÔØ25%¡­¡­");
+				pd.setMessage("å·²ä¸‹è½½25%â€¦â€¦");
 				break;
             case 2:
-				pd.setMessage("ÒÑÏÂÔØ50%¡­¡­");
+				pd.setMessage("å·²ä¸‹è½½50%â€¦â€¦");
 				break;
             case 3:
-				pd.setMessage("ÒÑÏÂÔØ75%¡­¡­");
+				pd.setMessage("å·²ä¸‹è½½75%â€¦â€¦");
 				break;
             case 4:  
             	pd.dismiss();
@@ -75,8 +78,8 @@ public class Main extends Activity{
 		            e.printStackTrace();  
 		        }  
 				Dialog alertDialogSucceed = new AlertDialog.Builder(Main.this)
-				.setMessage("ÊÓÆµÏÂÔØÍê±Ï£¡")
-				.setPositiveButton("È·¶¨",new DialogInterface.OnClickListener() {
+				.setMessage("è§†é¢‘ä¸‹è½½å®Œæ¯•ï¼")
+				.setPositiveButton("ç¡®å®š",new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -91,8 +94,8 @@ public class Main extends Activity{
             default:  
             	pd.dismiss();
 				Dialog alertDialogError = new AlertDialog.Builder(Main.this)
-				.setMessage("ÊÓÆµÏÂÔØ³ö´í£¬ÇëÖØÊÔ¡£")
-				.setPositiveButton("È·¶¨",null)
+				.setMessage("è§†é¢‘ä¸‹è½½å‡ºé”™ï¼Œè¯·é‡è¯•ã€‚")
+				.setPositiveButton("ç¡®å®š",null)
 				.create();
 				alertDialogError.show(); 
                 break;  
@@ -104,7 +107,7 @@ public class Main extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
-		//½çÃæ³õÊ¼»¯
+		//ç•Œé¢åˆå§‹åŒ–
 		File eFile = new File("/data/data/com.example.windenglish/files/email");
 		if(!eFile.exists())
 		{
@@ -123,7 +126,7 @@ public class Main extends Activity{
         }
 		
         
-		//³¢ÊÔ´Ó¶ÁÈ¡ÓÃ»§ĞÅÏ¢
+		//å°è¯•ä»è¯»å–ç”¨æˆ·ä¿¡æ¯
 		try{   
 	         FileInputStream fin = openFileInput(fileName);   
 	         int length = fin.available();   
@@ -141,15 +144,15 @@ public class Main extends Activity{
         mainUsername.setText(names[0]); 
         
 
-        //ÔÊĞíĞŞ¸ÄÓÃ»§ĞÅÏ¢
+        //å…è®¸ä¿®æ”¹ç”¨æˆ·ä¿¡æ¯
         mainUsername.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 
 		    	Dialog alertDialog = new AlertDialog.Builder(Main.this)
-				.setMessage("Çë×¢Òâ£¬ÈôĞŞ¸ÄêÇ³Æ½«»áÉ¾³ıÄãµÄÈ«²¿Ñ§Ï°¼ÇÂ¼£¡")
-				.setPositiveButton("ĞŞ¸ÄêÇ³Æ",new DialogInterface.OnClickListener() {
+				.setMessage("è¯·æ³¨æ„ï¼Œè‹¥ä¿®æ”¹æ˜µç§°å°†ä¼šåˆ é™¤ä½ çš„å…¨éƒ¨å­¦ä¹ è®°å½•ï¼")
+				.setPositiveButton("ä¿®æ”¹æ˜µç§°",new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -160,11 +163,11 @@ public class Main extends Activity{
 						Main.this.finish();
 					}
 				})
-				.setNegativeButton("È¡Ïû", null)
+				.setNegativeButton("å–æ¶ˆ", null)
 				
 				
 				
-				.setNeutralButton("ĞŞ¸ÄÓÊÏä", new DialogInterface.OnClickListener() {
+				.setNeutralButton("ä¿®æ”¹é‚®ç®±", new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -189,17 +192,17 @@ public class Main extends Activity{
         File file = new File("");
         String frontFile = "/data/data/com.example.windenglish/files/videos/video";
         
-        //°ó¶¨Êı¾İ
+        //ç»‘å®šæ•°æ®
         videoList = (ListView)findViewById(R.id.videoList);
         ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String,Object>>();
         
-        //TODO:ÔÚÕâÀïÊÖ¶¯Ìí¼ÓÃ¿Ò»´Î¿Î³ÌµÄÏêÏ¸ĞÅÏ¢
+        //TODO:åœ¨è¿™é‡Œæ‰‹åŠ¨æ·»åŠ æ¯ä¸€æ¬¡è¯¾ç¨‹çš„è¯¦ç»†ä¿¡æ¯
         
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson1);//¼ÓÈëÍ¼Æ¬          
-        map.put("ItemTitle", "1");  //ĞòºÅ
+        map.put("ItemImage", R.drawable.lesson1);//åŠ å…¥å›¾ç‰‡          
+        map.put("ItemTitle", "1");  //åºå·
         map.put("ItemTextEnglish", "Introduction 1");  
-        map.put("ItemTextChinese", "×ÔÎÒ½éÉÜ 1"); 
+        map.put("ItemTextChinese", "è‡ªæˆ‘ä»‹ç» 1"); 
         file = new File(frontFile + "1_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -212,10 +215,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson2);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson2);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "2");  
         map.put("ItemTextEnglish", "Introduction 2");  
-        map.put("ItemTextChinese", "×ÔÎÒ½éÉÜ 2"); 
+        map.put("ItemTextChinese", "è‡ªæˆ‘ä»‹ç» 2"); 
         file = new File(frontFile + "2_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -228,10 +231,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson3);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson3);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "3");  
         map.put("ItemTextEnglish", "Job Description");  
-        map.put("ItemTextChinese", "ÃèÊö¹¤×÷");  
+        map.put("ItemTextChinese", "æè¿°å·¥ä½œ");  
         file = new File(frontFile + "3_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -244,10 +247,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson4);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson4);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "4");  
         map.put("ItemTextEnglish", "Baby Talk");  
-        map.put("ItemTextChinese", "ÓëÓ¤¶ùµÄÌ¸»°");   
+        map.put("ItemTextChinese", "ä¸å©´å„¿çš„è°ˆè¯");   
         file = new File(frontFile + "4_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -260,10 +263,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson5);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson5);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "5");  
         map.put("ItemTextEnglish", "Time Flies");  
-        map.put("ItemTextChinese", "Ê±¹â·ÉÊÅ");  
+        map.put("ItemTextChinese", "æ—¶å…‰é£é€");  
         file = new File(frontFile + "5_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -276,10 +279,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson6);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson6);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "6");  
         map.put("ItemTextEnglish", "The Brochure");  
-        map.put("ItemTextChinese", "Ğ¡²á×Ó");   
+        map.put("ItemTextChinese", "å°å†Œå­");   
         file = new File(frontFile + "6_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -292,10 +295,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson7);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson7);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "7");  
         map.put("ItemTextEnglish", "Out to Lunch-Decision");  
-        map.put("ItemTextChinese", "Íâ³öÎç²Í-¾ö¶¨");   
+        map.put("ItemTextChinese", "å¤–å‡ºåˆé¤-å†³å®š");   
         file = new File(frontFile + "7_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -308,10 +311,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson8);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson8);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "8");  
         map.put("ItemTextEnglish", "Out to Lunch-Ordering");  
-        map.put("ItemTextChinese", "Íâ³öÎç²Í-µã²Ë");   
+        map.put("ItemTextChinese", "å¤–å‡ºåˆé¤-ç‚¹èœ");   
         file = new File(frontFile + "8_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -324,10 +327,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson9);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson9);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "9");  
         map.put("ItemTextEnglish", "Not Without My Bags!");  
-        map.put("ItemTextChinese", "ÎÒµÄ°ü²»¼ûÁË£¡");   
+        map.put("ItemTextChinese", "æˆ‘çš„åŒ…ä¸è§äº†ï¼");   
         file = new File(frontFile + "9_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -340,10 +343,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson10);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson10);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "10");  
         map.put("ItemTextEnglish", "Check In");  
-        map.put("ItemTextChinese", "µÇ¼Ç");   
+        map.put("ItemTextChinese", "ç™»è®°");   
         file = new File(frontFile + "10_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -356,10 +359,10 @@ public class Main extends Activity{
         listItem.add(map);    
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson11);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson11);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "11");  
         map.put("ItemTextEnglish", "Partners");  
-        map.put("ItemTextChinese", "»ï°é");   
+        map.put("ItemTextChinese", "ä¼™ä¼´");   
         file = new File(frontFile + "11_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -372,10 +375,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson12);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson12);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "12");  
         map.put("ItemTextEnglish", "No Cream");  
-        map.put("ItemTextChinese", "²»ÒªÄÌÓÍ");   
+        map.put("ItemTextChinese", "ä¸è¦å¥¶æ²¹");   
         file = new File(frontFile + "12_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -388,10 +391,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson13);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson13);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "13");  
         map.put("ItemTextEnglish", "City Tour");  
-        map.put("ItemTextChinese", "³ÇÊĞ¹Û¹â");   
+        map.put("ItemTextChinese", "åŸå¸‚è§‚å…‰");   
         file = new File(frontFile + "13_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -405,10 +408,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson14);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson14);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "14");  
         map.put("ItemTextEnglish", "Star Signs");  
-        map.put("ItemTextChinese", "ĞÇ×ù");   
+        map.put("ItemTextChinese", "æ˜Ÿåº§");   
         file = new File(frontFile + "14_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -422,10 +425,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson15);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson15);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "15");  
         map.put("ItemTextEnglish", "Baggage Experts");  
-        map.put("ItemTextChinese", "ĞĞÀî×¨¼Ò");   
+        map.put("ItemTextChinese", "è¡Œæä¸“å®¶");   
         file = new File(frontFile + "15_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -439,10 +442,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson16);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson16);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "16");  
         map.put("ItemTextEnglish", "Market Research");  
-        map.put("ItemTextChinese", "ÊĞ³¡µ÷²é");   
+        map.put("ItemTextChinese", "å¸‚åœºè°ƒæŸ¥");   
         file = new File(frontFile + "16_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -456,10 +459,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson17);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson17);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "17");  
         map.put("ItemTextEnglish", "Wendy at Work");  
-        map.put("ItemTextChinese", "¹¤×÷Ê±µÄwendy");   
+        map.put("ItemTextChinese", "å·¥ä½œæ—¶çš„wendy");   
         file = new File(frontFile + "17_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -473,10 +476,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson18);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson18);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "18");  
         map.put("ItemTextEnglish", "William's Day-off");  
-        map.put("ItemTextChinese", "WilliamµÄ¼ÙÈÕ");   
+        map.put("ItemTextChinese", "Williamçš„å‡æ—¥");   
         file = new File(frontFile + "18_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -490,10 +493,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson19);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson19);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "19");  
         map.put("ItemTextEnglish", "Nu la's Interview");  
-        map.put("ItemTextChinese", "Å¬À­µÄÃæÊÔ");   
+        map.put("ItemTextChinese", "åŠªæ‹‰çš„é¢è¯•");   
         file = new File(frontFile + "19_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -507,10 +510,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson20);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson20);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "20");  
         map.put("ItemTextEnglish", "Celebrity!");  
-        map.put("ItemTextChinese", "ÃûÈË");   
+        map.put("ItemTextChinese", "åäºº");   
         file = new File(frontFile + "20_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -524,10 +527,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson21);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson21);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "21");  
         map.put("ItemTextEnglish", "Whose Day Off");  
-        map.put("ItemTextChinese", "Ë­µÄ¼ÙÈÕ");   
+        map.put("ItemTextChinese", "è°çš„å‡æ—¥");   
         file = new File(frontFile + "21_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -541,10 +544,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson22);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson22);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "22");  
         map.put("ItemTextEnglish", "No Problem");  
-        map.put("ItemTextChinese", "Ã»ÎÊÌâ");   
+        map.put("ItemTextChinese", "æ²¡é—®é¢˜");   
         file = new File(frontFile + "22_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -558,10 +561,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson23);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson23);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "23");  
         map.put("ItemTextEnglish", "Use the Computer");  
-        map.put("ItemTextChinese", "Ê¹ÓÃµçÄÔ");  
+        map.put("ItemTextChinese", "ä½¿ç”¨ç”µè„‘");  
         file = new File(frontFile + "23_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -575,10 +578,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson24);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson24);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "24");  
         map.put("ItemTextEnglish", "A Small Problem");  
-        map.put("ItemTextChinese", "Ğ¡ÎÊÌâ");   
+        map.put("ItemTextChinese", "å°é—®é¢˜");   
         file = new File(frontFile + "24_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -592,10 +595,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson25);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson25);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "25");  
         map.put("ItemTextEnglish", "Dean's Birthday Present");  
-        map.put("ItemTextChinese", "DeanµÄÉúÈÕÀñÎï");   
+        map.put("ItemTextChinese", "Deançš„ç”Ÿæ—¥ç¤¼ç‰©");   
         file = new File(frontFile + "25_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -609,10 +612,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson26);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson26);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "26");  
         map.put("ItemTextEnglish", "Office Supplies");  
-        map.put("ItemTextChinese", "°ì¹«ÓÃÆ·");   
+        map.put("ItemTextChinese", "åŠå…¬ç”¨å“");   
         file = new File(frontFile + "26_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -626,10 +629,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson27);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson27);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "27");  
         map.put("ItemTextEnglish", "Simon's Dream");  
-        map.put("ItemTextChinese", "SimonµÄÃÎ");   
+        map.put("ItemTextChinese", "Simonçš„æ¢¦");   
         file = new File(frontFile + "27_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -642,10 +645,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson28);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson28);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "28");  
         map.put("ItemTextEnglish", "Anne's passport");  
-        map.put("ItemTextChinese", "AnneµÄ»¤ÕÕ");   
+        map.put("ItemTextChinese", "Anneçš„æŠ¤ç…§");   
         file = new File(frontFile + "28_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -658,10 +661,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson29);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson29);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "29");  
         map.put("ItemTextEnglish", "Relatives");  
-        map.put("ItemTextChinese", "Ç×Êô");   
+        map.put("ItemTextChinese", "äº²å±");   
         file = new File(frontFile + "29_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -674,10 +677,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson30);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson30);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "30");  
         map.put("ItemTextEnglish", "No turns");  
-        map.put("ItemTextChinese", "²»×¼µôÊô");   
+        map.put("ItemTextChinese", "ä¸å‡†æ‰å±");   
         file = new File(frontFile + "30_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -690,10 +693,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson31);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson31);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "31");  
         map.put("ItemTextEnglish", "Where is it");  
-        map.put("ItemTextChinese", "ËüÔÚÄÄÀï");   
+        map.put("ItemTextChinese", "å®ƒåœ¨å“ªé‡Œ");   
         file = new File(frontFile + "31_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -706,10 +709,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson32);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson32);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "32");  
         map.put("ItemTextEnglish", "No jet lag");  
-        map.put("ItemTextChinese", "Ã»ÓĞÊ±²î");   
+        map.put("ItemTextChinese", "æ²¡æœ‰æ—¶å·®");   
         file = new File(frontFile + "32_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -722,10 +725,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson33);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson33);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "33");  
         map.put("ItemTextEnglish", "Trip report");  
-        map.put("ItemTextChinese", "ÂÃĞĞ±¨¸æ");   
+        map.put("ItemTextChinese", "æ—…è¡ŒæŠ¥å‘Š");   
         file = new File(frontFile + "33_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -738,10 +741,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson34);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson34);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "34");  
         map.put("ItemTextEnglish", "On foot");  
-        map.put("ItemTextChinese", "²½ĞĞ");   
+        map.put("ItemTextChinese", "æ­¥è¡Œ");   
         file = new File(frontFile + "34_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -754,10 +757,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson35);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson35);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "35");  
         map.put("ItemTextEnglish", "William's dream");  
-        map.put("ItemTextChinese", "WilliamµÄÃÎ");   
+        map.put("ItemTextChinese", "Williamçš„æ¢¦");   
         file = new File(frontFile + "35_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -770,10 +773,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson36);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson36);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "36");  
         map.put("ItemTextEnglish", "Business report");  
-        map.put("ItemTextChinese", "ÉÌÒµ±¨¸æ");   
+        map.put("ItemTextChinese", "å•†ä¸šæŠ¥å‘Š");   
         file = new File(frontFile + "36_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -786,10 +789,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson37);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson37);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "37");  
         map.put("ItemTextEnglish", "Education");  
-        map.put("ItemTextChinese", "½ÌÓı");   
+        map.put("ItemTextChinese", "æ•™è‚²");   
         file = new File(frontFile + "37_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -802,10 +805,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson38);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson38);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "38");  
         map.put("ItemTextEnglish", "One percent");  
-        map.put("ItemTextChinese", "°Ù·ÖÖ®Ò»");   
+        map.put("ItemTextChinese", "ç™¾åˆ†ä¹‹ä¸€");   
         file = new File(frontFile + "38_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -818,10 +821,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson39);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson39);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "39");  
         map.put("ItemTextEnglish", "Not your job!");  
-        map.put("ItemTextChinese", "²»ÊÇÄãµÄ¹¤×÷");   
+        map.put("ItemTextChinese", "ä¸æ˜¯ä½ çš„å·¥ä½œ");   
         file = new File(frontFile + "39_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -834,10 +837,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson40);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson40);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "40");  
         map.put("ItemTextEnglish", "Doctor!");  
-        map.put("ItemTextChinese", "Ò½Éú!");   
+        map.put("ItemTextChinese", "åŒ»ç”Ÿ!");   
         file = new File(frontFile + "40_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -850,10 +853,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson41);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson41);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "41");  
         map.put("ItemTextEnglish", "Business travel");  
-        map.put("ItemTextChinese", "³ö²î");   
+        map.put("ItemTextChinese", "å‡ºå·®");   
         file = new File(frontFile + "41_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -866,10 +869,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson42);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson42);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "42");  
         map.put("ItemTextEnglish", "Blind date");  
-        map.put("ItemTextChinese", "ÏàÇ×");   
+        map.put("ItemTextChinese", "ç›¸äº²");   
         file = new File(frontFile + "42_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -882,10 +885,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson43);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson43);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "43");  
         map.put("ItemTextEnglish", "An interesting combination");  
-        map.put("ItemTextChinese", "ÓĞÈ¤µÄ×éºÏ");   
+        map.put("ItemTextChinese", "æœ‰è¶£çš„ç»„åˆ");   
         file = new File(frontFile + "43_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -898,10 +901,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson44);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson44);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "44");  
         map.put("ItemTextEnglish", "Business with Nu La");  
-        map.put("ItemTextChinese", "ÓëNu La×öÉúÒâ");   
+        map.put("ItemTextChinese", "ä¸Nu Laåšç”Ÿæ„");   
         file = new File(frontFile + "44_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -914,10 +917,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson45);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson45);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "45");  
         map.put("ItemTextEnglish", "Menu planning");  
-        map.put("ItemTextChinese", "ÖÆ¶¨²Ëµ¥");   
+        map.put("ItemTextChinese", "åˆ¶å®šèœå•");   
         file = new File(frontFile + "45_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -930,10 +933,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson46);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson46);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "46");  
         map.put("ItemTextEnglish", "New menu");  
-        map.put("ItemTextChinese", "ĞÂ²Ëµ¥");   
+        map.put("ItemTextChinese", "æ–°èœå•");   
         file = new File(frontFile + "46_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -946,10 +949,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson47);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson47);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "47");  
         map.put("ItemTextEnglish", "Rock star");  
-        map.put("ItemTextChinese", "Ò¡¹öÃ÷ĞÇ");   
+        map.put("ItemTextChinese", "æ‘‡æ»šæ˜æ˜Ÿ");   
         file = new File(frontFile + "47_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -962,10 +965,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson48);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson48);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "48");  
         map.put("ItemTextEnglish", "On camera");  
-        map.put("ItemTextChinese", "ÉÏ¾µ");   
+        map.put("ItemTextChinese", "ä¸Šé•œ");   
         file = new File(frontFile + "48_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -978,10 +981,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson49);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson49);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "49");  
         map.put("ItemTextEnglish", "Phone call");  
-        map.put("ItemTextChinese", "´òµç»°");   
+        map.put("ItemTextChinese", "æ‰“ç”µè¯");   
         file = new File(frontFile + "49_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -994,10 +997,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson50);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson50);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "50");  
         map.put("ItemTextEnglish", "A beauty");  
-        map.put("ItemTextChinese", "Ò»¸öÃÀÈË");   
+        map.put("ItemTextChinese", "ä¸€ä¸ªç¾äºº");   
         file = new File(frontFile + "50_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -1010,10 +1013,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson51);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson51);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "51");  
         map.put("ItemTextEnglish", "On the road");  
-        map.put("ItemTextChinese", "ÔÚÂ·ÉÏ");   
+        map.put("ItemTextChinese", "åœ¨è·¯ä¸Š");   
         file = new File(frontFile + "51_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -1026,10 +1029,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson52);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson52);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "52");  
         map.put("ItemTextEnglish", "A long way from home");  
-        map.put("ItemTextChinese", "Àë¼ÒºÜÔ¶");   
+        map.put("ItemTextChinese", "ç¦»å®¶å¾ˆè¿œ");   
         file = new File(frontFile + "52_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -1042,10 +1045,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson53);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson53);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "53");  
         map.put("ItemTextEnglish", "Group booking");  
-        map.put("ItemTextChinese", "ÍÅÌåÔ¤¶©");   
+        map.put("ItemTextChinese", "å›¢ä½“é¢„è®¢");   
         file = new File(frontFile + "53_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -1058,10 +1061,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson54);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson54);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "54");  
         map.put("ItemTextEnglish", "Travel plans");  
-        map.put("ItemTextChinese", "ÂÃĞĞ¼Æ»®");   
+        map.put("ItemTextChinese", "æ—…è¡Œè®¡åˆ’");   
         file = new File(frontFile + "54_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -1074,10 +1077,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson55);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson55);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "55");  
         map.put("ItemTextEnglish", "Radio reporter");  
-        map.put("ItemTextChinese", "¹ã²¥µçÌ¨¼ÇÕß");   
+        map.put("ItemTextChinese", "å¹¿æ’­ç”µå°è®°è€…");   
         file = new File(frontFile + "55_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -1090,10 +1093,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson56);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson56);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "56");  
         map.put("ItemTextEnglish", "I wanna do that!");  
-        map.put("ItemTextChinese", "ÎÒÏë×öÄÇ¸ö");   
+        map.put("ItemTextChinese", "æˆ‘æƒ³åšé‚£ä¸ª");   
         file = new File(frontFile + "56_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -1106,10 +1109,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson57);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson57);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "57");  
         map.put("ItemTextEnglish", "Computer training");  
-        map.put("ItemTextChinese", "¼ÆËã»úÅàÑµ");   
+        map.put("ItemTextChinese", "è®¡ç®—æœºåŸ¹è®­");   
         file = new File(frontFile + "57_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -1122,10 +1125,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson58);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson58);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "58");  
         map.put("ItemTextEnglish", "I made it!");  
-        map.put("ItemTextChinese", "ÎÒ³É¹¦ÁË!");   
+        map.put("ItemTextChinese", "æˆ‘æˆåŠŸäº†!");   
         file = new File(frontFile + "58_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -1138,10 +1141,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson59);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson59);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "59");  
         map.put("ItemTextEnglish", "Look before you leap");  
-        map.put("ItemTextChinese", "ÈıË¼¶øºóĞĞ");   
+        map.put("ItemTextChinese", "ä¸‰æ€è€Œåè¡Œ");   
         file = new File(frontFile + "59_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -1154,10 +1157,10 @@ public class Main extends Activity{
         listItem.add(map);  
 
         map = new HashMap<String, Object>();  
-        map.put("ItemImage", R.drawable.lesson60);//¼ÓÈëÍ¼Æ¬          
+        map.put("ItemImage", R.drawable.lesson60);//åŠ å…¥å›¾ç‰‡          
         map.put("ItemTitle", "60");  
         map.put("ItemTextEnglish", "Real estate");  
-        map.put("ItemTextChinese", "·¿µØ²ú");   
+        map.put("ItemTextChinese", "æˆ¿åœ°äº§");   
         file = new File(frontFile + "60_4.mp4");
         if(!file.exists())
         	map.put("ItemState", R.drawable.waitingdownload);
@@ -1187,7 +1190,7 @@ public class Main extends Activity{
 				final Intent intent = new Intent();
 				final int fposition = position;
 				
-				//Èç¹ûÎÄ¼ş²»´æÔÚ£¬Ê×ÏÈÏÂÔØÎÄ¼ş
+				//å¦‚æœæ–‡ä»¶ä¸å­˜åœ¨ï¼Œé¦–å…ˆä¸‹è½½æ–‡ä»¶
 				String videoPath = "/data/data/com.example.windenglish/files/videos/video";
 				videoPath += videoIdString;
 				videoPath += "_4.mp4";
@@ -1196,34 +1199,34 @@ public class Main extends Activity{
 
 				if(!f.exists())
 		        {  
-					//ÌáÊ¾ÓÃ»§ĞèÒªÏÂÔØÎÄ¼ş
+					//æç¤ºç”¨æˆ·éœ€è¦ä¸‹è½½æ–‡ä»¶
 					Dialog alertDialog = new AlertDialog.Builder(Main.this)
-					.setMessage("ÊÓÆµÉĞÎ´ÏÂÔØ£¬ÄúÒªÏÖÔÚ¿ªÊ¼ÏÂÔØÂğ£¿")
+					.setMessage("è§†é¢‘å°šæœªä¸‹è½½ï¼Œæ‚¨è¦ç°åœ¨å¼€å§‹ä¸‹è½½å—ï¼Ÿ")
 					.setCancelable(false)
-					.setPositiveButton("È·¶¨",new DialogInterface.OnClickListener() {
+					.setPositiveButton("ç¡®å®š",new DialogInterface.OnClickListener() {
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							// TODO Auto-generated method stub
 							//dFlag=1;
 							cancelFlag=0;
-							//¼ì²é
+							//æ£€æŸ¥
 							Context context = getApplicationContext();
 							if(CheckIfWifi.checkIfWifi(context)== -1 )
 							{
 								//dFlag=0;
 								Dialog alertDialog = new AlertDialog.Builder(Main.this)
-								.setMessage("ÎŞ¿ÉÓÃÍøÂçÁ¬½Ó")
-								.setPositiveButton("È·¶¨", null)
+								.setMessage("æ— å¯ç”¨ç½‘ç»œè¿æ¥")
+								.setPositiveButton("ç¡®å®š", null)
 								.create();
 								alertDialog.show();
 							}
 							else if(CheckIfWifi.checkIfWifi(context)==0)
 							{
 								Dialog alertDialogDownload = new AlertDialog.Builder(Main.this)
-								.setMessage("ÄúÈ·¶¨ÒªÔÚ·ÇWi-fi»·¾³ÏÂÏÂÔØÂğ£¿")
+								.setMessage("æ‚¨ç¡®å®šè¦åœ¨éWi-fiç¯å¢ƒä¸‹ä¸‹è½½å—ï¼Ÿ")
 								.setCancelable(false)
-								.setPositiveButton("È·¶¨", new DialogInterface.OnClickListener() {
+								.setPositiveButton("ç¡®å®š", new DialogInterface.OnClickListener() {
 									
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
@@ -1233,8 +1236,8 @@ public class Main extends Activity{
 										pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 										pd.setCanceledOnTouchOutside(false);
 										pd.setCancelable(true);
-										pd.setMessage("ÒÑÏÂÔØ5%¡­¡­");
-										pd.setTitle("ÏÂÔØÖĞ");
+										pd.setMessage("å·²ä¸‹è½½5%â€¦â€¦");
+										pd.setTitle("ä¸‹è½½ä¸­");
 								        pd.setOnCancelListener(new DialogInterface.OnCancelListener() {  
 								            @Override  
 								            public void onCancel(DialogInterface dialog) {  
@@ -1254,7 +1257,7 @@ public class Main extends Activity{
 								                Message message3=new Message();  
 								                Message message4=new Message();  
 												int flag=1;
-												//ÏÂÔØµÚÒ»¶ÎÊÓÆµ
+												//ä¸‹è½½ç¬¬ä¸€æ®µè§†é¢‘
 												
 												flag = VideoDownload.videoDownload(videoId,1);
 												if(flag==0) 
@@ -1269,7 +1272,7 @@ public class Main extends Activity{
 													message1.what=1;  
 													mHandler.sendMessage(message1);  
 													
-													//ÏÂÔØµÚ¶ş¶ÎÊÓÆµ
+													//ä¸‹è½½ç¬¬äºŒæ®µè§†é¢‘
 													flag = VideoDownload.videoDownload(videoId,2);
 													if(flag==0)
 													{
@@ -1283,7 +1286,7 @@ public class Main extends Activity{
 														message2.what=2;  
 														mHandler.sendMessage(message2);  
 														
-														//ÏÂÔØµÚÈı¶ÎÊÓÆµ
+														//ä¸‹è½½ç¬¬ä¸‰æ®µè§†é¢‘
 														flag = VideoDownload.videoDownload(videoId,3);
 														if(flag==0)
 														{
@@ -1297,7 +1300,7 @@ public class Main extends Activity{
 															message3.what=3;  
 															mHandler.sendMessage(message3);  
 															
-															//ÏÂÔØµÚËÄ¶ÎÊÓÆµ
+															//ä¸‹è½½ç¬¬å››æ®µè§†é¢‘
 															flag = VideoDownload.videoDownload(videoId,4);
 															if(flag==0)
 															{
@@ -1320,7 +1323,7 @@ public class Main extends Activity{
 										
 									}
 								})
-								.setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener() {
+								.setNegativeButton("å–æ¶ˆ", new DialogInterface.OnClickListener() {
 									
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
@@ -1336,8 +1339,8 @@ public class Main extends Activity{
 							pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 							pd.setCanceledOnTouchOutside(false);
 							pd.setCancelable(true);
-							pd.setMessage("ÒÑÏÂÔØ5%¡­¡­");
-							pd.setTitle("ÏÂÔØÖĞ");
+							pd.setMessage("å·²ä¸‹è½½5%â€¦â€¦");
+							pd.setTitle("ä¸‹è½½ä¸­");
 					        pd.setOnCancelListener(new DialogInterface.OnCancelListener() {  
 					            @Override  
 					            public void onCancel(DialogInterface dialog) {  
@@ -1357,7 +1360,7 @@ public class Main extends Activity{
 					                Message message3=new Message();  
 					                Message message4=new Message();  
 									int flag=1;
-									//ÏÂÔØµÚÒ»¶ÎÊÓÆµ
+									//ä¸‹è½½ç¬¬ä¸€æ®µè§†é¢‘
 									
 									flag = VideoDownload.videoDownload(videoId,1);
 									if(flag==0) 
@@ -1372,7 +1375,7 @@ public class Main extends Activity{
 										message1.what=1;  
 										mHandler.sendMessage(message1);  
 										
-										//ÏÂÔØµÚ¶ş¶ÎÊÓÆµ
+										//ä¸‹è½½ç¬¬äºŒæ®µè§†é¢‘
 										flag = VideoDownload.videoDownload(videoId,2);
 										if(flag==0)
 										{
@@ -1386,7 +1389,7 @@ public class Main extends Activity{
 											message2.what=2;  
 											mHandler.sendMessage(message2);  
 											
-											//ÏÂÔØµÚÈı¶ÎÊÓÆµ
+											//ä¸‹è½½ç¬¬ä¸‰æ®µè§†é¢‘
 											flag = VideoDownload.videoDownload(videoId,3);
 											if(flag==0)
 											{
@@ -1400,7 +1403,7 @@ public class Main extends Activity{
 												message3.what=3;  
 												mHandler.sendMessage(message3);  
 												
-												//ÏÂÔØµÚËÄ¶ÎÊÓÆµ
+												//ä¸‹è½½ç¬¬å››æ®µè§†é¢‘
 												flag = VideoDownload.videoDownload(videoId,4);
 												if(flag==0)
 												{
@@ -1428,10 +1431,10 @@ public class Main extends Activity{
 							/*
 							if(flag == 0)
 							{
-								//ÌáÊ¾´íÎóĞÅÏ¢
+								//æç¤ºé”™è¯¯ä¿¡æ¯
 		    					Dialog alertDialog = new AlertDialog.Builder(Main.this)
-		    					.setMessage("ÊÓÆµÏÂÔØ³ö´í£¬ÇëÖØÊÔ¡£")
-		    					.setPositiveButton("È·¶¨",new DialogInterface.OnClickListener() {
+		    					.setMessage("è§†é¢‘ä¸‹è½½å‡ºé”™ï¼Œè¯·é‡è¯•ã€‚")
+		    					.setPositiveButton("ç¡®å®š",new DialogInterface.OnClickListener() {
 		    						
 		    						@Override
 		    						public void onClick(DialogInterface dialog, int which) {
@@ -1446,8 +1449,8 @@ public class Main extends Activity{
 							{
 
 		    					Dialog alertDialog = new AlertDialog.Builder(Main.this)
-		    					.setMessage("ÊÓÆµÏÂÔØÍê±Ï£¡")
-		    					.setPositiveButton("È·¶¨",new DialogInterface.OnClickListener() {
+		    					.setMessage("è§†é¢‘ä¸‹è½½å®Œæ¯•ï¼")
+		    					.setPositiveButton("ç¡®å®š",new DialogInterface.OnClickListener() {
 		    						
 		    						@Override
 		    						public void onClick(DialogInterface dialog, int which) {
@@ -1461,7 +1464,7 @@ public class Main extends Activity{
 							*/
 						}
 					})
-					.setNegativeButton("È¡Ïû",new DialogInterface.OnClickListener() {
+					.setNegativeButton("å–æ¶ˆ",new DialogInterface.OnClickListener() {
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -1474,7 +1477,7 @@ public class Main extends Activity{
 					
 		        }   
 				/*
-				//Èç¹ûÓÃ»§Î´Â¼¹ıÒô£¬ÄÇÃ´Ö±½Ó½øÈë¿´ÊÓÆµ½çÃæ
+				//å¦‚æœç”¨æˆ·æœªå½•è¿‡éŸ³ï¼Œé‚£ä¹ˆç›´æ¥è¿›å…¥çœ‹è§†é¢‘ç•Œé¢
 				if(states[position]=='0')
 				{
 					intent.putExtra("videoId",videoIdString);
@@ -1483,13 +1486,13 @@ public class Main extends Activity{
 					Main.this.startActivity(intent);
 				}
 				
-				//Èç¹ûÓÃ»§Â¼¹ıÒô£¬ÄÇÃ´´ò¿ªÑ¡Ïî²Ëµ¥
+				//å¦‚æœç”¨æˆ·å½•è¿‡éŸ³ï¼Œé‚£ä¹ˆæ‰“å¼€é€‰é¡¹èœå•
 				*/ 
 				else 
 				{
 
 			        AlertDialog.Builder builder = new AlertDialog.Builder(Main.this);
-			        final String[] works = {"¿´ÊÓÆµ", "¿´ÖĞËµÓ¢", "¶Ô´ğ°¸","É¾³ıÊÓÆµ"};
+			        final String[] works = {"çœ‹è§†é¢‘", "çœ‹ä¸­è¯´è‹±", "å¯¹ç­”æ¡ˆ","åˆ é™¤è§†é¢‘"};
 			        builder.setItems(works, new DialogInterface.OnClickListener()
 			        {
 			            @Override
@@ -1508,10 +1511,10 @@ public class Main extends Activity{
 			            	{
 			    				if(states[fposition]=='0')
 			    				{
-			    					//Ã»¿´¹ı²»ÄÜÂ¼Òô
+			    					//æ²¡çœ‹è¿‡ä¸èƒ½å½•éŸ³
 			    					Dialog alertDialog = new AlertDialog.Builder(Main.this)
-			    					.setMessage("»¹Ã»¿´¹ıÊÓÆµ£¬²»ÄÜÖ±½ÓÂ¼Òô£¡")
-			    					.setPositiveButton("È·¶¨",new DialogInterface.OnClickListener() {
+			    					.setMessage("è¿˜æ²¡çœ‹è¿‡è§†é¢‘ï¼Œä¸èƒ½ç›´æ¥å½•éŸ³ï¼")
+			    					.setPositiveButton("ç¡®å®š",new DialogInterface.OnClickListener() {
 			    						
 			    						@Override
 			    						public void onClick(DialogInterface dialog, int which) {
@@ -1533,10 +1536,10 @@ public class Main extends Activity{
 			            	{
 			    				if(states[fposition]=='0')
 			    				{
-			    					//Ã»¿´¹ı²»ÄÜ¶Ô´ğ°¸
+			    					//æ²¡çœ‹è¿‡ä¸èƒ½å¯¹ç­”æ¡ˆ
 			    					Dialog alertDialog = new AlertDialog.Builder(Main.this)
-			    					.setMessage("»¹Ã»¿´¹ıÊÓÆµ£¬²»ÄÜ¶Ô´ğ°¸£¡")
-			    					.setPositiveButton("È·¶¨",new DialogInterface.OnClickListener() {
+			    					.setMessage("è¿˜æ²¡çœ‹è¿‡è§†é¢‘ï¼Œä¸èƒ½å¯¹ç­”æ¡ˆï¼")
+			    					.setPositiveButton("ç¡®å®š",new DialogInterface.OnClickListener() {
 			    						
 			    						@Override
 			    						public void onClick(DialogInterface dialog, int which) {
@@ -1549,10 +1552,10 @@ public class Main extends Activity{
 			    				}
 			    				else if(states[fposition]=='3')
 			    				{
-			    					//Ã»Â¼Òô²»ÄÜ¶Ô´ğ°¸
+			    					//æ²¡å½•éŸ³ä¸èƒ½å¯¹ç­”æ¡ˆ
 			    					Dialog alertDialog = new AlertDialog.Builder(Main.this)
-			    					.setMessage("»¹Ã»Â¼Òô£¬²»ÄÜ¶Ô´ğ°¸£¡")
-			    					.setPositiveButton("È·¶¨",new DialogInterface.OnClickListener() {
+			    					.setMessage("è¿˜æ²¡å½•éŸ³ï¼Œä¸èƒ½å¯¹ç­”æ¡ˆï¼")
+			    					.setPositiveButton("ç¡®å®š",new DialogInterface.OnClickListener() {
 			    						
 			    						@Override
 			    						public void onClick(DialogInterface dialog, int which) {
@@ -1569,8 +1572,8 @@ public class Main extends Activity{
 				    				if(CheckIfWifi.checkIfWifi(context)== -1 )
 				    					{
 				    						Dialog alertDialog = new AlertDialog.Builder(Main.this)
-				    						.setMessage("ÎŞ¿ÉÓÃÍøÂçÁ¬½Ó")
-				    						.setPositiveButton("È·¶¨", null)
+				    						.setMessage("æ— å¯ç”¨ç½‘ç»œè¿æ¥")
+				    						.setPositiveButton("ç¡®å®š", null)
 				    						.create();
 				    						alertDialog.show();
 				    					}
@@ -1591,10 +1594,10 @@ public class Main extends Activity{
 			        });
 			        builder.show();
 				}
-		        //´´½¨Ñ¡Ïî²Ëµ¥
+		        //åˆ›å»ºé€‰é¡¹èœå•
 			}
 		});
-        //¶¨Î»Ò³Ãæ
+        //å®šä½é¡µé¢
         
 
         File file2 = new File("/data/data/com.example.windenglish/files/tempSC");

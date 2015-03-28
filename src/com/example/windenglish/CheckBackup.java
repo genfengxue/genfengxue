@@ -1,3 +1,7 @@
+ï»¿/**
+ * æ›¾ç»æµ‹è¯•ç”¨å¯¹ç­”æ¡ˆç±»ï¼Œå·²åºŸå¼ƒ@author vita
+ */
+
 package com.example.windenglish;
 
 import java.io.ByteArrayOutputStream;
@@ -71,12 +75,12 @@ public class CheckBackup extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
-		//³õÊ¼»¯²¥·Å½çÃæ
+		//åˆå§‹åŒ–æ’­æ”¾ç•Œé¢
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
-		//¸ù¾İ²¥·Å´ÎÊı×Ô¶¨Òå²¼¾Ö
+		//æ ¹æ®æ’­æ”¾æ¬¡æ•°è‡ªå®šä¹‰å¸ƒå±€
         Intent intent = getIntent();
         setContentView(R.layout.check);
         
@@ -85,7 +89,7 @@ public class CheckBackup extends Activity{
             StrictMode.setThreadPolicy(policy);
         }
         
-        //»ñÈ¡²¥·ÅµÄÊÓÆµÎÄ¼şÃû
+        //è·å–æ’­æ”¾çš„è§†é¢‘æ–‡ä»¶å
         final String videoId = intent.getStringExtra("videoId");
         String path = "video";
         path = path + videoId;
@@ -97,7 +101,7 @@ public class CheckBackup extends Activity{
 		mediaController = new MediaController(this,false);
         this.videoView.setMediaController(mediaController); 
         
-        //ÉèÖÃ²¥·ÅÂ·¾¶
+        //è®¾ç½®æ’­æ”¾è·¯å¾„
         Field field = null ;
         try {
         	 field = Class.forName("com.example.windenglish.R$raw").getField(path); 
@@ -121,7 +125,7 @@ public class CheckBackup extends Activity{
         
 
         answer = (TextView)findViewById(R.id.answer);
-        //¼ÓÔØ´ğ°¸
+        //åŠ è½½ç­”æ¡ˆ
         String answerName = "lesson";
         answerName += videoId;
         answerName += ".txt";
@@ -136,7 +140,7 @@ public class CheckBackup extends Activity{
             e.printStackTrace();
         }
 
-        //ÉèÖÃÒôÆµ²¥·Å²ÎÊı
+        //è®¾ç½®éŸ³é¢‘æ’­æ”¾å‚æ•°
         player  =   new MediaPlayer();
         String  playerPath = Environment.getExternalStorageDirectory().getAbsolutePath();  
         playerPath = playerPath + "/windenglish/";
@@ -153,16 +157,16 @@ public class CheckBackup extends Activity{
         
         player.start();
         /*
-        //µ¯³ö¶Ô»°¿ò
+        //å¼¹å‡ºå¯¹è¯æ¡†
         Dialog alertDialogOnPlay = new AlertDialog.Builder(Check.this)
-        							.setPositiveButton("¿ªÊ¼¶Ô´ğ°¸",new DialogInterface.OnClickListener() {
+        							.setPositiveButton("å¼€å§‹å¯¹ç­”æ¡ˆ",new DialogInterface.OnClickListener() {
         								
         								@Override
         								public void onClick(DialogInterface dialog, int which) {
         									// TODO Auto-generated method stub
 
         									
-        							        //³õÊ¼»¯½ø¶ÈÌõ
+        							        //åˆå§‹åŒ–è¿›åº¦æ¡
         							        seekBar = (SeekBar) findViewById(R.id.checkSeekBar);
         							        seekBar.setOnSeekBarChangeListener(change);
         							        seekBar.setMax(player.getDuration());
@@ -174,7 +178,7 @@ public class CheckBackup extends Activity{
         							                try {
         							                    isPlaying = true;
         							                    while (isPlaying) {
-        							                        // Èç¹ûÕıÔÚ²¥·Å£¬Ã¿0.5Ãë¸üĞÂÒ»´Î½ø¶ÈÌõ
+        							                        // å¦‚æœæ­£åœ¨æ’­æ”¾ï¼Œæ¯0.5ç§’æ›´æ–°ä¸€æ¬¡è¿›åº¦æ¡
         							                        int current = player.getCurrentPosition();
         							                        seekBar.setProgress(current);
         							                        sleep(500);
@@ -194,7 +198,7 @@ public class CheckBackup extends Activity{
         							.create();
         alertDialogOnPlay.show();
         */
-        //ÉèÖÃback°´Å¥
+        //è®¾ç½®backæŒ‰é’®
 
 		backButton = (Button)findViewById(R.id.checkBackButton);
 		backButton.setOnClickListener(new Button.OnClickListener(){
@@ -203,9 +207,9 @@ public class CheckBackup extends Activity{
 				//videoView.pause();
 				player.pause();
 				Dialog alertDialog = new AlertDialog.Builder(CheckBackup.this)
-				.setMessage("ÏÖÔÚÍË³ö£¬ÏÂ´ÎÒªÖØĞÂ¶Ô´ğ°¸")
+				.setMessage("ç°åœ¨é€€å‡ºï¼Œä¸‹æ¬¡è¦é‡æ–°å¯¹ç­”æ¡ˆ")
 				.setCancelable(false)
-				.setPositiveButton("¼ÌĞø¶Ô´ğ°¸",new DialogInterface.OnClickListener() {
+				.setPositiveButton("ç»§ç»­å¯¹ç­”æ¡ˆ",new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -216,7 +220,7 @@ public class CheckBackup extends Activity{
 						
 					}
 				})
-				.setNegativeButton("È·ÈÏÍË³ö",new DialogInterface.OnClickListener() {
+				.setNegativeButton("ç¡®è®¤é€€å‡º",new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -238,7 +242,7 @@ public class CheckBackup extends Activity{
          @Override
          public void onCompletion(MediaPlayer mp)
          {
-             //²¥·Å½áÊøºóµÄ¶¯×÷
+             //æ’­æ”¾ç»“æŸåçš„åŠ¨ä½œ
          }
         });
         */
@@ -248,21 +252,21 @@ public class CheckBackup extends Activity{
 			
 			@Override
 			public void onCompletion(MediaPlayer mp) {
-				//²¥·Å½áÊøºóµÄ¶¯×÷
+				//æ’­æ”¾ç»“æŸåçš„åŠ¨ä½œ
 				
 				if(notSub(videoID))
 				{
-				//µ¯³öÌá½»ÌáÊ¾¿ò
+				//å¼¹å‡ºæäº¤æç¤ºæ¡†
 				Dialog alertDialogOver = new AlertDialog.Builder(CheckBackup.this)
-				.setMessage("¶Ô´ğ°¸Íê³É£¡")
+				.setMessage("å¯¹ç­”æ¡ˆå®Œæˆï¼")
 				.setCancelable(false)
-				.setPositiveButton("Ìá½»",new DialogInterface.OnClickListener() {
+				.setPositiveButton("æäº¤",new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO Auto-generated method stub
 						
-						//»ñÈ¡ÓÃ»§ÃûĞÅÏ¢
+						//è·å–ç”¨æˆ·åä¿¡æ¯
 						datapath="userdata";
 						try{   
 					         FileInputStream fin = openFileInput(datapath);   
@@ -278,9 +282,9 @@ public class CheckBackup extends Activity{
 						names=userdata.split("\\?");
 						
 						
-						//·¢ËÍÓÊ¼ş
+						//å‘é€é‚®ä»¶
 					    String email = "819432228@qq.com";
-					    String title = "¡¾¸ú·çÑ§¡¿" + names[0] + " Lesson " + videoId;
+					    String title = "ã€è·Ÿé£å­¦ã€‘" + names[0] + " Lesson " + videoId;
 					    String affixName = names[0] + "_" + videoId + ".3gp";
 					    Address[] to = null;
 						try {
@@ -298,7 +302,7 @@ public class CheckBackup extends Activity{
 				        Session session = Session.getInstance(props, auth);
 				       
 				          
-				        // ÓÊ¼şÄÚÈİ¶ÔÏó×é×°  
+				        // é‚®ä»¶å†…å®¹å¯¹è±¡ç»„è£…  
 				        MimeMessage message = new MimeMessage(session);  
 				        try  
 				        {   		  
@@ -308,7 +312,7 @@ public class CheckBackup extends Activity{
 				        	Multipart multipart = new MimeMultipart();   
 				        	
 				        	MimeBodyPart contentPart = new MimeBodyPart();
-				        	contentPart.setText("WindEnglishÂ¼Òô");
+				        	contentPart.setText("WindEnglishå½•éŸ³");
 				        	multipart.addBodyPart(contentPart);
 
 				            MimeBodyPart messageBodyPart= new MimeBodyPart();
@@ -320,7 +324,7 @@ public class CheckBackup extends Activity{
 				            message.setContent(multipart);
 				            
 				              
-				            // »ñÈ¡SMTPĞ­Òé¿Í»§¶Ë¶ÔÏó£¬Á¬½Óµ½Ö¸¶¨SMPT·şÎñÆ÷  
+				            // è·å–SMTPåè®®å®¢æˆ·ç«¯å¯¹è±¡ï¼Œè¿æ¥åˆ°æŒ‡å®šSMPTæœåŠ¡å™¨  
 				            Transport transport = session.getTransport();  
 				            transport.connect("smtp.163.com",25,"sunruxiao35635","sunruxiao35635");  
 				            System.out.println("connet it success!!!!");  
@@ -333,16 +337,16 @@ public class CheckBackup extends Activity{
 				            mc.addMailcap("message/rfc822;; x-java-content-handler=com.sun.mail.handlers.message_rfc822");
 				            CommandMap.setDefaultCommandMap(mc);
 				            
-				            // ·¢ËÍÓÊ¼şµ½SMTP·şÎñÆ÷
+				            // å‘é€é‚®ä»¶åˆ°SMTPæœåŠ¡å™¨
 				            transport.sendMessage(message,to);
 				            System.out.println("send it success!!!!");    
-				            subButton.setText("ÒÑÌá½»");
+				            subButton.setText("å·²æäº¤");
 				            subButton.setTextColor(0xFFDDDDDD);
-				            // ¹Ø±ÕÁ¬½Ó  
+				            // å…³é—­è¿æ¥  
 				            transport.close();  
 				            
 
-							 //ĞŞ¸ÄÓÃ»§×´Ì¬
+							 //ä¿®æ”¹ç”¨æˆ·çŠ¶æ€
 							 int videoIdInt = Integer.parseInt( videoId ); 
 							 
 							 String userdata = "";
@@ -377,10 +381,10 @@ public class CheckBackup extends Activity{
 					            
 					        }  
 				            
-				            //·µ»Ø³É¹¦ĞÅÏ¢
+				            //è¿”å›æˆåŠŸä¿¡æ¯
 				            Dialog alertDialogAfterSub = new AlertDialog.Builder(CheckBackup.this)
-							.setMessage("×÷ÒµÌá½»³É¹¦£¡")
-							.setPositiveButton("·µ»ØÖ÷²Ëµ¥",new DialogInterface.OnClickListener() {
+							.setMessage("ä½œä¸šæäº¤æˆåŠŸï¼")
+							.setPositiveButton("è¿”å›ä¸»èœå•",new DialogInterface.OnClickListener() {
 								
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
@@ -391,7 +395,7 @@ public class CheckBackup extends Activity{
 									CheckBackup.this.finish();
 								}
 							})
-							.setNegativeButton("È¡Ïû",new DialogInterface.OnClickListener() {
+							.setNegativeButton("å–æ¶ˆ",new DialogInterface.OnClickListener() {
 								
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
@@ -408,7 +412,7 @@ public class CheckBackup extends Activity{
 				        }  
 					}
 				})
-				.setNegativeButton("ÍË³ö",new DialogInterface.OnClickListener() {
+				.setNegativeButton("é€€å‡º",new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -448,12 +452,12 @@ public class CheckBackup extends Activity{
 			}
 		});
 		
-		//ÉèÖÃÌá½»°´Å¥
+		//è®¾ç½®æäº¤æŒ‰é’®
 		subButton = (Button)findViewById(R.id.checkSubButton);
 		if(!notSub(videoID))
 		{
 			  
-            subButton.setText("ÒÑÌá½»");
+            subButton.setText("å·²æäº¤");
             subButton.setTextColor(0xFFBBBBBB);
 		}
 		subButton.setOnClickListener(new Button.OnClickListener(){
@@ -463,9 +467,9 @@ public class CheckBackup extends Activity{
 				final int videoID = Integer.parseInt(videoId);
 				if(notSub(videoID))
 				{
-					subButton.setText("Ìá½»ÖĞ");
+					subButton.setText("æäº¤ä¸­");
 				
-				//»ñÈ¡ÓÃ»§ÃûĞÅÏ¢
+				//è·å–ç”¨æˆ·åä¿¡æ¯
 				datapath="userdata";
 				try{   
 			         FileInputStream fin = openFileInput(datapath);   
@@ -481,9 +485,9 @@ public class CheckBackup extends Activity{
 				names=userdata.split("\\?");
 				
 				
-				//·¢ËÍÓÊ¼ş
+				//å‘é€é‚®ä»¶
 			    String email = "819432228@qq.com";
-			    String title = "¡¾¸ú·çÑ§¡¿" + names[0] + " Lesson " + videoId;
+			    String title = "ã€è·Ÿé£å­¦ã€‘" + names[0] + " Lesson " + videoId;
 			    String affixName = names[0] + "_" + videoId + ".3gp";
 			    Address[] to = null;
 				try {
@@ -501,7 +505,7 @@ public class CheckBackup extends Activity{
 		        Session session = Session.getInstance(props, auth);
 		       
 		          
-		        // ÓÊ¼şÄÚÈİ¶ÔÏó×é×°  
+		        // é‚®ä»¶å†…å®¹å¯¹è±¡ç»„è£…  
 		        MimeMessage message = new MimeMessage(session);  
 		        try  
 		        {   		  
@@ -511,7 +515,7 @@ public class CheckBackup extends Activity{
 		        	Multipart multipart = new MimeMultipart();   
 		        	
 		        	MimeBodyPart contentPart = new MimeBodyPart();
-		        	contentPart.setText("WindEnglishÂ¼Òô");
+		        	contentPart.setText("WindEnglishå½•éŸ³");
 		        	multipart.addBodyPart(contentPart);
 
 		            MimeBodyPart messageBodyPart= new MimeBodyPart();
@@ -523,7 +527,7 @@ public class CheckBackup extends Activity{
 		            message.setContent(multipart);
 		            
 		              
-		            // »ñÈ¡SMTPĞ­Òé¿Í»§¶Ë¶ÔÏó£¬Á¬½Óµ½Ö¸¶¨SMPT·şÎñÆ÷  
+		            // è·å–SMTPåè®®å®¢æˆ·ç«¯å¯¹è±¡ï¼Œè¿æ¥åˆ°æŒ‡å®šSMPTæœåŠ¡å™¨  
 		            Transport transport = session.getTransport();  
 		            transport.connect("smtp.163.com",25,"sunruxiao35635","sunruxiao35635");  
 		            System.out.println("connet it success!!!!");  
@@ -536,15 +540,15 @@ public class CheckBackup extends Activity{
 		            mc.addMailcap("message/rfc822;; x-java-content-handler=com.sun.mail.handlers.message_rfc822");
 		            CommandMap.setDefaultCommandMap(mc);
 		            
-		            // ·¢ËÍÓÊ¼şµ½SMTP·şÎñÆ÷
+		            // å‘é€é‚®ä»¶åˆ°SMTPæœåŠ¡å™¨
 		            transport.sendMessage(message,to);
 		            System.out.println("send it success!!!!");  
-		            subButton.setText("ÒÑÌá½»");
+		            subButton.setText("å·²æäº¤");
 		            subButton.setTextColor(0xFFBBBBBB);
 		            //demo
 		            
 
-					 //ĞŞ¸ÄÓÃ»§×´Ì¬
+					 //ä¿®æ”¹ç”¨æˆ·çŠ¶æ€
 					 int videoIdInt = Integer.parseInt( videoId ); 
 					 
 					 String userdata = "";
@@ -580,14 +584,14 @@ public class CheckBackup extends Activity{
 			        }  
 		            
 		              
-		            // ¹Ø±ÕÁ¬½Ó  
+		            // å…³é—­è¿æ¥  
 		            transport.close();  
 		            
-		            //·µ»Ø³É¹¦ĞÅÏ¢
+		            //è¿”å›æˆåŠŸä¿¡æ¯
 		            Dialog alertDialogAfterSub = new AlertDialog.Builder(CheckBackup.this)
-		            .setMessage("×÷ÒµÌá½»³É¹¦£¡")
+		            .setMessage("ä½œä¸šæäº¤æˆåŠŸï¼")
 		    		.setCancelable(false)
-					.setNegativeButton("·µ»ØÖ÷²Ëµ¥",new DialogInterface.OnClickListener() {
+					.setNegativeButton("è¿”å›ä¸»èœå•",new DialogInterface.OnClickListener() {
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -598,7 +602,7 @@ public class CheckBackup extends Activity{
 							CheckBackup.this.finish();
 						}
 					})
-					.setPositiveButton("È¡Ïû",new DialogInterface.OnClickListener() {
+					.setPositiveButton("å–æ¶ˆ",new DialogInterface.OnClickListener() {
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -639,7 +643,7 @@ public class CheckBackup extends Activity{
 			}
 		});
 
-		//ÉèÖÃÏòÇ°°´Å¥
+		//è®¾ç½®å‘å‰æŒ‰é’®
 		backVideoButton = (Button)findViewById(R.id.backVideoButton);
 		backVideoButton.setOnClickListener(new Button.OnClickListener(){
 			public void onClick(View v)
@@ -656,7 +660,7 @@ public class CheckBackup extends Activity{
 			}
 		});
 		
-		//ÉèÖÃÔİÍ£°´Å¥
+		//è®¾ç½®æš‚åœæŒ‰é’®
 		pauseVideoButton = (Button)findViewById(R.id.pauseVideoButton);
 		pauseVideoButton.setOnClickListener(new Button.OnClickListener(){
 			public void onClick(View v)
@@ -785,9 +789,9 @@ public class CheckBackup extends Activity{
 		//videoView.pause();
 		player.pause();
 		Dialog alertDialog = new AlertDialog.Builder(CheckBackup.this)
-		.setMessage("ÏÖÔÚÍË³ö£¬ÏÂ´ÎÒªÖØĞÂ¶Ô´ğ°¸")
+		.setMessage("ç°åœ¨é€€å‡ºï¼Œä¸‹æ¬¡è¦é‡æ–°å¯¹ç­”æ¡ˆ")
 		.setCancelable(false)
-		.setPositiveButton("¼ÌĞø¶Ô´ğ°¸",new DialogInterface.OnClickListener() {
+		.setPositiveButton("ç»§ç»­å¯¹ç­”æ¡ˆ",new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -798,7 +802,7 @@ public class CheckBackup extends Activity{
 				
 			}
 		})
-		.setNegativeButton("È·ÈÏÍË³ö",new DialogInterface.OnClickListener() {
+		.setNegativeButton("ç¡®è®¤é€€å‡º",new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -816,20 +820,20 @@ public class CheckBackup extends Activity{
     
     
     /*
-    //ÉèÖÃ½ø¶ÈÌõ
+    //è®¾ç½®è¿›åº¦æ¡
     private OnSeekBarChangeListener change = new OnSeekBarChangeListener() {
         
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            // µ±½ø¶ÈÌõÍ£Ö¹ĞŞ¸ÄµÄÊ±ºò´¥·¢
-            // È¡µÃµ±Ç°½ø¶ÈÌõµÄ¿Ì¶È
+            // å½“è¿›åº¦æ¡åœæ­¢ä¿®æ”¹çš„æ—¶å€™è§¦å‘
+            // å–å¾—å½“å‰è¿›åº¦æ¡çš„åˆ»åº¦
             int progress = seekBar.getProgress();
             if (videoView != null && videoView.isPlaying()) {
-                // ÉèÖÃµ±Ç°²¥·ÅµÄÎ»ÖÃ
+                // è®¾ç½®å½“å‰æ’­æ”¾çš„ä½ç½®
             	videoView.seekTo(progress);
             }
             if (player != null && player.isPlaying()) {
-                // ÉèÖÃµ±Ç°²¥·ÅµÄÎ»ÖÃ
+                // è®¾ç½®å½“å‰æ’­æ”¾çš„ä½ç½®
             	player.seekTo(progress);
             }
         }

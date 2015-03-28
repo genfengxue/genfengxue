@@ -1,3 +1,7 @@
+ï»¿/**
+ * ä¸‹è½½æ“ä½œ@author vita
+ */
+
 package com.example.windenglish;
 
 import java.io.File;
@@ -11,6 +15,7 @@ public class VideoDownload {
 	
 	public static int videoDownload(int videoId,int part)
 	{
+		//ç»„è£…åœ°å€
 		String fileName ;
 		String videoUrl = "http://7u2qm8.com1.z0.glb.clouddn.com/video";
 		String dirName = "/data/data/com.example.windenglish/files/videos/";
@@ -19,6 +24,7 @@ public class VideoDownload {
 	    videoUrl += Integer.toString(part);
 	    videoUrl += ".mp4";
 		
+	    //æ£€æµ‹æ–‡ä»¶æ˜¯å¦å­˜åœ¨
 	    File f = new File(dirName);
 	    if(!f.exists())
 	    {
@@ -45,26 +51,26 @@ public class VideoDownload {
 
 	        		   try{   
 
-	    	    	   //¹¹ÔìURL
+	    	    	   //æ„é€ URL
 	    	           URL url = new URL(fvideoUrl);
-	    	           //´ò¿ªÁ¬½Ó
+	    	           //æ‰“å¼€è¿æ¥
 	    	           final URLConnection con = url.openConnection();
-	    	           //»ñµÃÎÄ¼şµÄ³¤¶È
+	    	           //è·å¾—æ–‡ä»¶çš„é•¿åº¦
 	    	           //int contentLength = con.getContentLength();
-	    	           //System.out.println("³¤¶È :"+contentLength);
-	    	           //ÊäÈëÁ÷
+	    	           //System.out.println("é•¿åº¦ :"+contentLength);
+	    	           //è¾“å…¥æµ
 	    	           InputStream is = con.getInputStream();
-	    	           //1KµÄÊı¾İ»º³å
+	    	           //1Kçš„æ•°æ®ç¼“å†²
 	    	           byte[] bs = new byte[1024];
-	    	           //¶ÁÈ¡µ½µÄÊı¾İ³¤¶È
+	    	           //è¯»å–åˆ°çš„æ•°æ®é•¿åº¦
 	    	           int len;
-	    	           //Êä³öµÄÎÄ¼şÁ÷
+	    	           //è¾“å‡ºçš„æ–‡ä»¶æµ
 	    	           OutputStream os = new FileOutputStream(ffileName);
-	    	           //¿ªÊ¼¶ÁÈ¡
+	    	           //å¼€å§‹è¯»å–
 	    	           while ((len = is.read(bs)) != -1) {
 	    	               os.write(bs, 0, len);
 	    	           }
-	    	           //Íê±Ï£¬¹Ø±ÕËùÓĞÁ´½Ó
+	    	           //å®Œæ¯•ï¼Œå…³é—­æ‰€æœ‰é“¾æ¥
 	    	           os.close();
 	    	           is.close();
 

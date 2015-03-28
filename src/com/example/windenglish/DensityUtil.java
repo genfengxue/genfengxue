@@ -1,3 +1,7 @@
+ï»¿/**
+ * DP PXè½¬æ¢@author vita
+ */
+
 package com.example.windenglish;
 
 import android.content.Context;
@@ -5,7 +9,7 @@ import android.content.Context;
 public class DensityUtil {  
 	  
     /** 
-     * ¸ù¾İÊÖ»úµÄ·Ö±æÂÊ´Ó dp µÄµ¥Î» ×ª³ÉÎª px(ÏñËØ) 
+     * æ ¹æ®æ‰‹æœºçš„åˆ†è¾¨ç‡ä» dp çš„å•ä½ è½¬æˆä¸º px(åƒç´ ) 
      */  
     public static int dip2px(Context context, float dpValue) {  
         final float scale = context.getResources().getDisplayMetrics().density;  
@@ -13,7 +17,7 @@ public class DensityUtil {
     }  
   
     /** 
-     * ¸ù¾İÊÖ»úµÄ·Ö±æÂÊ´Ó px(ÏñËØ) µÄµ¥Î» ×ª³ÉÎª dp 
+     * æ ¹æ®æ‰‹æœºçš„åˆ†è¾¨ç‡ä» px(åƒç´ ) çš„å•ä½ è½¬æˆä¸º dp 
      */  
     public static int px2dip(Context context, float pxValue) {  
         final float scale = context.getResources().getDisplayMetrics().density;  

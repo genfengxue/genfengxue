@@ -1,3 +1,8 @@
+﻿/**
+ * 用户个人主页@author vita
+ * 暂未完善，目前用来修改邮箱
+ */
+
 package com.example.windenglish;
 
 import java.io.FileOutputStream;

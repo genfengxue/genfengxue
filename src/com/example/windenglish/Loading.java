@@ -1,3 +1,7 @@
+ï»¿/**
+ * ç¨‹åºåˆå§‹åŒ–@author vita
+ */
+
 package com.example.windenglish;
 
 import java.io.File;
@@ -15,7 +19,7 @@ public class Loading extends Activity{
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.loading);
-		//ÔÚloading½çÃæÍ£Áô2s
+		//åœ¨loadingç•Œé¢åœç•™2s
 		/*
 		 * try {
 			Thread.sleep(2000);
@@ -33,7 +37,7 @@ public class Loading extends Activity{
 		final Intent intent = new Intent(Loading.this, Login.class);
 		final Intent intentMain = new Intent(Loading.this, Main.class);
 		File f=new File("/data/data/com.example.windenglish/files/userdata");
-        //Èç¹ûuserdata²»´æÔÚ£¬ÔòÌø×ªµ½login½çÃæ
+        //å¦‚æœuserdataä¸å­˜åœ¨ï¼Œåˆ™è·³è½¬åˆ°loginç•Œé¢
 		if(!f.exists())
         {  
 			new Handler().postDelayed(new Runnable() {      

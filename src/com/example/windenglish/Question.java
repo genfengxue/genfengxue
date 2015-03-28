@@ -1,3 +1,7 @@
+ï»¿/**
+ * æé—®é¡µé¢@author vita
+ */
+
 package com.example.windenglish;
 
 import java.io.FileInputStream;
@@ -46,7 +50,7 @@ public class Question extends Activity{
 		setContentView(R.layout.question);
 		final Intent intent = getIntent();
 		
-		//ÅäÖÃÎÄ±¾¿ò
+		//é…ç½®æ–‡æœ¬æ¡†
 		final String hintString = intent.getStringExtra("Text");
 		
 		try{   
@@ -66,11 +70,11 @@ public class Question extends Activity{
 			editText.setText(tempQuestion);
 		}
 		editText.setFocusable(true);   
-		editText.setHint("Äã¶ÔÓÚ" + hintString + "ÓĞÊ²Ã´ÒÉÎÊÂğ£¿");
+		editText.setHint("ä½ å¯¹äº" + hintString + "æœ‰ä»€ä¹ˆç–‘é—®å—ï¼Ÿ");
 		editText.setFocusableInTouchMode(true);   
 		editText.requestFocus();  
 		
-		//ÅäÖÃback°´Å¥
+		//é…ç½®backæŒ‰é’®
 		Button backButton = (Button)findViewById(R.id.questionBackButton);
 		backButton.setOnClickListener(new Button.OnClickListener() {
 			
@@ -91,7 +95,7 @@ public class Question extends Activity{
 			}
 		});
 		
-		//ÅäÖÃÌá½»°´Å¥
+		//é…ç½®æäº¤æŒ‰é’®
 		Button subButton = (Button)findViewById(R.id.questionSubButton);
 		subButton.setOnClickListener(new Button.OnClickListener() {
 			
@@ -99,7 +103,7 @@ public class Question extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 
-				//»ñÈ¡ĞÅÏ¢
+				//è·å–ä¿¡æ¯
 			    String[] names;
 			    String userdata = null;
 				try{   
@@ -130,16 +134,16 @@ public class Question extends Activity{
 			         e.printStackTrace();   
 			     }   
 				
-				//×é×°ÓÊ¼ş
-				String mailTitle = "¡¾¸ú·çÑ§¡¿" + names[0] + "µÄÌáÎÊ";
-				String mailText = names[0]+ "ÔÚµÚ" + videoId + "¿ÎÎÊµ½£º\n";
+				//ç»„è£…é‚®ä»¶
+				String mailTitle = "ã€è·Ÿé£å­¦ã€‘" + names[0] + "çš„æé—®";
+				String mailText = names[0]+ "åœ¨ç¬¬" + videoId + "è¯¾é—®åˆ°ï¼š\n";
 				mailText+=editText.getText().toString();
 				mailText+="\n";
-				mailText+="Ô­ÎÄÊÇ£º"+hintString+ "\n";
-				mailText+="ÓÊÏäµØÖ·ÊÇ£º ";
+				mailText+="åŸæ–‡æ˜¯ï¼š"+hintString+ "\n";
+				mailText+="é‚®ç®±åœ°å€æ˜¯ï¼š ";
 				mailText+=email;
 				
-				//×¼±¸ÓÊ¼ş
+				//å‡†å¤‡é‚®ä»¶
 			    Address[] to = null;
 				try {
 					to = new Address[]{new InternetAddress("819432228@qq.com")};
@@ -169,7 +173,7 @@ public class Question extends Activity{
 		        Session session = Session.getInstance(props, auth);
 		       
 		          
-		        // ÓÊ¼şÄÚÈİ¶ÔÏó×é×°  
+		        // é‚®ä»¶å†…å®¹å¯¹è±¡ç»„è£…  
 		        MimeMessage message = new MimeMessage(session);  
 		        try  
 		        {   		  
@@ -185,7 +189,7 @@ public class Question extends Activity{
 		            message.setContent(multipart);
 		            
 		              
-		            // »ñÈ¡SMTPĞ­Òé¿Í»§¶Ë¶ÔÏó£¬Á¬½Óµ½Ö¸¶¨SMPT·şÎñÆ÷  
+		            // è·å–SMTPåè®®å®¢æˆ·ç«¯å¯¹è±¡ï¼Œè¿æ¥åˆ°æŒ‡å®šSMPTæœåŠ¡å™¨  
 		            Transport transport = session.getTransport();  
 		            transport.connect("smtp.exmail.qq.com",465,"service@genfengxue.com","gfx100");  
 		            System.out.println("connet it success!!!!");  
@@ -198,9 +202,9 @@ public class Question extends Activity{
 		            mc.addMailcap("message/rfc822;; x-java-content-handler=com.sun.mail.handlers.message_rfc822");
 		            CommandMap.setDefaultCommandMap(mc);
 		            
-		            // ·¢ËÍÓÊ¼şµ½SMTP·şÎñÆ÷
+		            // å‘é€é‚®ä»¶åˆ°SMTPæœåŠ¡å™¨
 		            transport.sendMessage(message,to);
-		            // ¹Ø±ÕÁ¬½Ó  
+		            // å…³é—­è¿æ¥  
 		            transport.close();  
 		        }
 		        catch(Exception e)  
@@ -209,9 +213,9 @@ public class Question extends Activity{
 		        }  
 
 	            Dialog alertDialogAfterSub = new AlertDialog.Builder(Question.this)
-	            .setMessage("ÌáÎÊ³É¹¦£¡")
+	            .setMessage("æé—®æˆåŠŸï¼")
 	    		.setCancelable(false)
-				.setPositiveButton("È·¶¨",new DialogInterface.OnClickListener() {
+				.setPositiveButton("ç¡®å®š",new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {

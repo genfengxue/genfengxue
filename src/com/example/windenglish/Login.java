@@ -1,3 +1,7 @@
+ï»¿/**
+ * æ³¨å†Œ/ç™»é™†ç•Œé¢@author vita
+ */
+
 package com.example.windenglish;
 
 import java.io.File;
@@ -19,7 +23,6 @@ import android.os.Environment;
 import android.widget.Button;
 import android.widget.EditText;
 
-//µÇÂ½activity
 public class Login extends Activity{
 	
 	private Button loginButton;
@@ -31,7 +34,7 @@ public class Login extends Activity{
 		
 		@Override
 		public void onClick(View v) {
-			//´ÓÊäÈë¿ò»ñµÃusername
+			//ä»è¾“å…¥æ¡†è·å¾—username
 			String username="";
 			String email="";
 			inputUsername =(EditText)findViewById(R.id.loginText);  
@@ -42,9 +45,9 @@ public class Login extends Activity{
 	        {
 				flag=0;
 	        	Dialog alertDialog = new AlertDialog.Builder(Login.this)
-	        	.setMessage("ÓÃ»§Ãû²»ÄÜÎª¿Õ£¡")
+	        	.setMessage("ç”¨æˆ·åä¸èƒ½ä¸ºç©ºï¼")
 	        	.setCancelable(false)
-	        	.setPositiveButton("È·¶¨",null)
+	        	.setPositiveButton("ç¡®å®š",null)
 	        	.create();
 	        	alertDialog.show();
 	        }
@@ -52,9 +55,9 @@ public class Login extends Activity{
 	        {
 				flag=0;
 	        	Dialog alertDialog = new AlertDialog.Builder(Login.this)
-	        	.setMessage("ÓÊÏä²»ÄÜÎª¿Õ£¡")
+	        	.setMessage("é‚®ç®±ä¸èƒ½ä¸ºç©ºï¼")
 	        	.setCancelable(false)
-	        	.setPositiveButton("È·¶¨",null)
+	        	.setPositiveButton("ç¡®å®š",null)
 	        	.create();
 	        	alertDialog.show();
 	        }
@@ -62,9 +65,9 @@ public class Login extends Activity{
 	        {
 	        	flag=0;
 	        	Dialog alertDialog = new AlertDialog.Builder(Login.this)
-	        	.setMessage("ÓÃ»§ÃûÖĞ²»ÄÜ³öÏÖÌØÊâ×Ö·û¡°£¿¡±")
+	        	.setMessage("ç”¨æˆ·åä¸­ä¸èƒ½å‡ºç°ç‰¹æ®Šå­—ç¬¦â€œï¼Ÿâ€")
 	        	.setCancelable(false)
-	        	.setPositiveButton("È·¶¨",null)
+	        	.setPositiveButton("ç¡®å®š",null)
 	        	.create();
 	        	alertDialog.show();
 	        }
@@ -74,11 +77,11 @@ public class Login extends Activity{
 	       
 	        
 	        if(flag!=0){
-	        //´´½¨SD¿¨Â¼ÒôÎÄ¼şÂ·¾¶
+	        //åˆ›å»ºSDå¡å½•éŸ³æ–‡ä»¶è·¯å¾„
 	        String route=Environment.getExternalStorageDirectory().getAbsolutePath();
 	        File file = new File(route + "/windenglish");
 	        file.mkdirs();
-	        //½«»ñµÃµÄusername´æ´¢µ½ÎÄ¼ş£¬²¢³õÊ¼»¯ÓÃ»§ĞÅÏ¢
+	        //å°†è·å¾—çš„usernameå­˜å‚¨åˆ°æ–‡ä»¶ï¼Œå¹¶åˆå§‹åŒ–ç”¨æˆ·ä¿¡æ¯
 			String fileName="userdata";
 			String suprise=username;
 	        username=username+"?0000000000000000000000000000000000000000000000000000000000000000";
@@ -101,15 +104,15 @@ public class Login extends Activity{
 				// TODO Auto-generated catch block
 	            e.printStackTrace();  
 	        }  
-	        //Ìø×ªµ½Ö÷½çÃæ
+	        //è·³è½¬åˆ°ä¸»ç•Œé¢
 
 	        //j4f
 	        if(suprise.equals("Joure19940531"))
 	        {
 	            Dialog alertDialogOnPlay = new AlertDialog.Builder(Login.this)
-	            							.setMessage("ÄãÏ²»¶ÎÒÂï£¿")
+	            							.setMessage("ä½ å–œæ¬¢æˆ‘å˜›ï¼Ÿ")
 	            							.setCancelable(false)
-	            							.setPositiveButton("Ï²»¶£¡",new DialogInterface.OnClickListener() {
+	            							.setPositiveButton("å–œæ¬¢ï¼",new DialogInterface.OnClickListener() {
 	            								
 	            								@Override
 	            								public void onClick(DialogInterface dialog, int which) {
@@ -119,15 +122,15 @@ public class Login extends Activity{
 	            									Login.this.finish();
 	            								}
 	            							})
-	            							.setNegativeButton("²»Ï²»¶",new DialogInterface.OnClickListener() {
+	            							.setNegativeButton("ä¸å–œæ¬¢",new DialogInterface.OnClickListener() {
 	            								@Override
 	            								public void onClick(DialogInterface dialog, int which) {
 	            									// TODO Auto-generated method stub
 	            									;
 	            									Dialog alertDialogExitDialog = new AlertDialog.Builder(Login.this)
-	            									.setMessage("ºß£¬ÔÙ¼û£¡")
+	            									.setMessage("å“¼ï¼Œå†è§ï¼")
 	            									.setCancelable(false)
-	    	            							.setPositiveButton("Ç¿ÖÆÍË³ö",new DialogInterface.OnClickListener() {
+	    	            							.setPositiveButton("å¼ºåˆ¶é€€å‡º",new DialogInterface.OnClickListener() {
 	    	            								
 	    	            								@Override
 	    	            								public void onClick(DialogInterface dialog, int which) {
@@ -162,7 +165,7 @@ public class Login extends Activity{
 		inputEmail = (EditText)this.findViewById(R.id.loginText2);
         loginButton.setOnClickListener(listener);  
         
-        //¼àÌıÊäÈë¿ò
+        //ç›‘å¬è¾“å…¥æ¡†
         TextWatcher textWatcher = new TextWatcher() {
 			
 			@Override

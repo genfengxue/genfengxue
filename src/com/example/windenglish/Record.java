@@ -1,3 +1,7 @@
+ï»¿/**
+ * å½•éŸ³ç•Œé¢@author vita
+ */
+
 package com.example.windenglish;
 
 import java.io.FileInputStream;
@@ -35,6 +39,7 @@ public class Record extends Activity{
 	private Context  context = this;  
 	private MediaRecorder mediaRecorder;
 	
+	//è®¡æ—¶å™¨
 	Thread timingthread = new Thread(new Runnable() {
 
 		@Override
@@ -58,17 +63,17 @@ public class Record extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
-		//³õÊ¼»¯²¥·Å½çÃæ
+		//åˆå§‹åŒ–æ’­æ”¾ç•Œé¢
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
-		//¸ù¾İ²¥·Å´ÎÊı×Ô¶¨Òå²¼¾Ö
+		//æ ¹æ®æ’­æ”¾æ¬¡æ•°è‡ªå®šä¹‰å¸ƒå±€
         Intent intent = getIntent();
         setContentView(R.layout.record);
         
-        //»ñÈ¡²¥·ÅµÄÊÓÆµÎÄ¼şÃû
+        //è·å–æ’­æ”¾çš„è§†é¢‘æ–‡ä»¶å
         final String videoId = intent.getStringExtra("videoId");
         String path = "video";
         path = path + videoId;
@@ -78,7 +83,7 @@ public class Record extends Activity{
 		mediaController = new MediaController(this,false);
         this.videoView.setMediaController(mediaController); 
         
-        //ÉèÖÃ²¥·ÅÂ·¾¶
+        //è®¾ç½®æ’­æ”¾è·¯å¾„
         /*
         Field field = null ;
         try {
@@ -97,7 +102,7 @@ public class Record extends Activity{
         videoView.setVideoURI(Uri.parse("/data/data/com.example.windenglish/files/videos/"+path+".mp4"));
         
         
-        //ÉèÖÃÂ¼Òô²ÎÊı
+        //è®¾ç½®å½•éŸ³å‚æ•°
         mediaRecorder = new MediaRecorder();  
         fileName = Environment.getExternalStorageDirectory().getAbsolutePath();  
         fileName = fileName + "/windenglish/";
@@ -112,11 +117,11 @@ public class Record extends Activity{
         mediaController.setVisibility(View.INVISIBLE);
         mediaController.setAnchorView(videoView);
         
-        //µ¯³ö¶Ô»°¿ò
+        //å¼¹å‡ºå¯¹è¯æ¡†
         Dialog alertDialogOnPlay = new AlertDialog.Builder(Record.this)
-        							.setMessage("ÏÖÔÚ¿ªÊ¼Â¼Òô")
+        							.setMessage("ç°åœ¨å¼€å§‹å½•éŸ³")
         							.setCancelable(false)
-        							.setPositiveButton("¿ªÊ¼",new DialogInterface.OnClickListener() {
+        							.setPositiveButton("å¼€å§‹",new DialogInterface.OnClickListener() {
         								
         								@Override
         								public void onClick(DialogInterface dialog, int which) {
@@ -134,7 +139,7 @@ public class Record extends Activity{
         									
         								}
         							})
-        							.setNegativeButton("ÍË³ö",new DialogInterface.OnClickListener() {
+        							.setNegativeButton("é€€å‡º",new DialogInterface.OnClickListener() {
         								
         								@Override
         								public void onClick(DialogInterface dialog, int which) {
@@ -149,7 +154,7 @@ public class Record extends Activity{
         							.create();
         alertDialogOnPlay.show();
         
-        //ÉèÖÃback°´Å¥
+        //è®¾ç½®backæŒ‰é’®
 
 		backButton = (Button)findViewById(R.id.backButton);
 		backButton.setOnClickListener(new Button.OnClickListener(){
@@ -157,9 +162,9 @@ public class Record extends Activity{
 			{
 				videoView.pause();
 				Dialog alertDialog = new AlertDialog.Builder(Record.this)
-				.setMessage("Â¼Òô»¹Î´½áÊø£¬ÏÖÔÚÍË³öÏÂ´ÎÒªÖØĞÂ¹Û¿´3±é")
+				.setMessage("å½•éŸ³è¿˜æœªç»“æŸï¼Œç°åœ¨é€€å‡ºä¸‹æ¬¡è¦é‡æ–°è§‚çœ‹3é")
 				.setCancelable(false)
-				.setPositiveButton("¼ÌĞøÂ¼Òô",new DialogInterface.OnClickListener() {
+				.setPositiveButton("ç»§ç»­å½•éŸ³",new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -167,7 +172,7 @@ public class Record extends Activity{
 						videoView.start();
 					}
 				})
-				.setNeutralButton("ÖØĞÂÂ¼Òô",new DialogInterface.OnClickListener() {
+				.setNeutralButton("é‡æ–°å½•éŸ³",new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -193,7 +198,7 @@ public class Record extends Activity{
 						videoView.start();
 					}
 				})
-				.setNegativeButton("È·ÈÏÍË³ö",new DialogInterface.OnClickListener() {
+				.setNegativeButton("ç¡®è®¤é€€å‡º",new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -219,12 +224,12 @@ public class Record extends Activity{
          @Override
          public void onCompletion(MediaPlayer mp)
          {
-             //²¥·Å½áÊøºóµÄ¶¯×÷            
+             //æ’­æ”¾ç»“æŸåçš„åŠ¨ä½œ            
         	 mediaRecorder.stop();  
         	 mediaRecorder.release();  
         	 mediaRecorder = null;  
         	 
-        	//ĞŞ¸ÄÓÃ»§×´Ì¬
+        	//ä¿®æ”¹ç”¨æˆ·çŠ¶æ€
 				 int videoIdInt = Integer.parseInt( videoId ); 
 				 
 				 String userdata = "";
@@ -260,9 +265,9 @@ public class Record extends Activity{
 		        }  
 
              Dialog alertDialogEndRecord = new AlertDialog.Builder(Record.this)
-             							.setMessage("¹§Ï²Äú£¬Â¼Òô½áÊø£¡")
+             							.setMessage("æ­å–œæ‚¨ï¼Œå½•éŸ³ç»“æŸï¼")
              							.setCancelable(false)
-             							.setPositiveButton("¶Ô´ğ°¸",new DialogInterface.OnClickListener() {
+             							.setPositiveButton("å¯¹ç­”æ¡ˆ",new DialogInterface.OnClickListener() {
              								
              								@Override
              								public void onClick(DialogInterface dialog, int which) {
@@ -276,7 +281,7 @@ public class Record extends Activity{
              									Record.this.finish();
              								}
              							})
-             							.setNegativeButton("ÍË³ö", new DialogInterface.OnClickListener() {
+             							.setNegativeButton("é€€å‡º", new DialogInterface.OnClickListener() {
 											
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
@@ -304,7 +309,7 @@ public class Record extends Activity{
         if(null != videoView) {
         	if(reFlag!=0)
         	{
-        		//ÕâÀïÃ»ÓĞ½øĞĞthreadµÄ¼ÌĞø²Ù×÷£¡ĞèÒªÎªÆäµ¥¶À´´½¨Ò»¸öÀà£¡Ä¿Ç°Ö»ÄÜÔİÍ£Ò»´Î
+        		//è¿™é‡Œæ²¡æœ‰è¿›è¡Œthreadçš„ç»§ç»­æ“ä½œï¼éœ€è¦ä¸ºå…¶å•ç‹¬åˆ›å»ºä¸€ä¸ªç±»ï¼ç›®å‰åªèƒ½æš‚åœä¸€æ¬¡
                 videoView.seekTo(nowtime);
                 videoView.start();
         	}
@@ -347,9 +352,9 @@ public class Record extends Activity{
 	public void onBackPressed(){
 		videoView.pause();
 		Dialog alertDialog = new AlertDialog.Builder(Record.this)
-		.setMessage("Â¼Òô»¹Î´½áÊø£¬ÏÖÔÚÍË³öÏÂ´ÎÒªÖØĞÂ¹Û¿´3±é")
+		.setMessage("å½•éŸ³è¿˜æœªç»“æŸï¼Œç°åœ¨é€€å‡ºä¸‹æ¬¡è¦é‡æ–°è§‚çœ‹3é")
 		.setCancelable(false)
-		.setPositiveButton("¼ÌĞøÂ¼Òô",new DialogInterface.OnClickListener() {
+		.setPositiveButton("ç»§ç»­å½•éŸ³",new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -357,7 +362,7 @@ public class Record extends Activity{
 				videoView.start();
 			}
 		})
-		.setNeutralButton("ÖØĞÂÂ¼Òô",new DialogInterface.OnClickListener() {
+		.setNeutralButton("é‡æ–°å½•éŸ³",new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -383,7 +388,7 @@ public class Record extends Activity{
 				videoView.start();
 			}
 		})
-		.setNegativeButton("È·ÈÏÍË³ö",new DialogInterface.OnClickListener() {
+		.setNegativeButton("ç¡®è®¤é€€å‡º",new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

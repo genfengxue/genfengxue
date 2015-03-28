@@ -1,3 +1,8 @@
+﻿/**
+ * 检测网络环境@author vita
+ * WIFI返回1，无网络连接返回-1，其他情况返回0
+ */
+
 package com.example.windenglish;
 
 import android.content.Context;

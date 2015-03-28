@@ -1,3 +1,7 @@
+﻿/**
+ * SSL方式发送邮件所需要的凭证@author vita
+ */
+
 package com.example.windenglish;
 
 import javax.mail.*;  
