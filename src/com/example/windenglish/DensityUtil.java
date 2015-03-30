@@ -1,4 +1,4 @@
-﻿/**
+/**
  * DP PX转换@author vita
  */
 

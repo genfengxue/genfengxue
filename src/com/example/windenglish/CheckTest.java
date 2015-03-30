@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 测试用对答案界面，已废弃@author vita
  */
 package com.example.windenglish;
