@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -125,7 +126,8 @@ public class Main extends Activity{
             StrictMode.setThreadPolicy(policy);
         }
 		
-        
+        Log.e("wind", Integer.toString(Constants.example));
+
 		//尝试从读取用户信息
 		try{   
 	         FileInputStream fin = openFileInput(fileName);   

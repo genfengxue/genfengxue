@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/launchscreen_logo2" />
+        android:src="@drawable/launchscreen_logo2"
+        android:contentDescription="@string/app_name" />
 
     <TextView
         android:id="@+id/textViewVer"
