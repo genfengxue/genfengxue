@@ -1172,7 +1172,23 @@ public class Main extends Activity{
         	map.put("ItemState", R.drawable.recorded);
         else
         	map.put("ItemState", R.drawable.waitingrecord);
-        listItem.add(map);  
+        listItem.add(map);    
+
+        map = new HashMap<String, Object>();  
+        map.put("ItemImage", R.drawable.lesson1);//加入图片          
+        map.put("ItemTitle", "999");  
+        map.put("ItemTextEnglish", "Test");  
+        map.put("ItemTextChinese", "test");   
+        file = new File(frontFile + "999_4.mp4");
+        if(!file.exists())
+        	map.put("ItemState", R.drawable.waitingdownload);
+        else if(states[999]=='2') 
+        	map.put("ItemState", R.drawable.submitted);
+        else if(states[999]=='1')
+        	map.put("ItemState", R.drawable.recorded);
+        else
+        	map.put("ItemState", R.drawable.waitingrecord);
+        listItem.add(map);
         
          		mSimpleAdapter = new SimpleAdapter(this, listItem, R.layout.videolistitem, 
         		new String[] {"ItemImage","ItemTitle", "ItemTextEnglish","ItemTextChinese","ItemState"} , 
@@ -1188,6 +1204,13 @@ public class Main extends Activity{
 				// TODO 
 				position++;
 				videoId=(int)id+1;
+				
+				//测试用
+				if(videoId==61)
+				{
+					videoId=999;
+				}
+				
 				final String videoIdString = Integer.toString(videoId);
 				final Intent intent = new Intent();
 				final int fposition = position;

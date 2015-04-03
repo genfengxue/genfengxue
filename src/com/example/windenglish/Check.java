@@ -1135,7 +1135,10 @@ public class Check extends Activity{
         }
         if(no-formerUnderline==1)
         {
-        	start--;
+        	if(start!=0)
+        	{
+        		start--;
+        	}
         }
 		formerUnderline=no;
         CharacterStyle span1 = new UnderlineSpan();

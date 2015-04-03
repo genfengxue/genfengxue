@@ -84,7 +84,11 @@ public class Login extends Activity{
 	        //将获得的username存储到文件，并初始化用户信息
 			String fileName="userdata";
 			String suprise=username;
-	        username=username+"?0000000000000000000000000000000000000000000000000000000000000000";
+	        username=username+"?";
+	        for(int i=1;i<=1000;i++)
+	        {
+	        	username=username+"0";
+	        }
 	        FileOutputStream out = null;  
 	        try {  
 	            out = context.openFileOutput(fileName, Context.MODE_PRIVATE);  
