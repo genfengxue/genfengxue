@@ -20,5 +20,7 @@
     <string name="versions">v0.3.8</string>
     <string name="login_emailHint">Please input your email:</string>
     <string name="inputEmail">确定</string>
+    
+    <string name="course_desc">课程预览</string>
 
 </resources>

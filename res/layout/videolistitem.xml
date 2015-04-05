@@ -1,63 +1,60 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-				 android:layout_height="100dp" 
-				 android:layout_width="fill_parent"> 
-				 
-<ImageView
-    android:layout_alignParentStart="true"
-    android:layout_alignParentLeft="true" 
-    android:layout_width="wrap_content"
- 	android:layout_height="wrap_content" 
- 	android:layout_centerVertical="true"
- 	android:paddingStart="16dp"
-    android:paddingLeft="16dp"
- 	android:id="@+id/ItemImage"/> 
-
-<LinearLayout
-    
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerVertical="true"
-	android:layout_toRightOf="@+id/ItemImage"
-	android:layout_toEndOf="@+id/ItemImage"
-    android:paddingLeft="11dp"
-    android:paddingStart="11dp"
-    android:orientation="vertical" >
-    
-    
-	<TextView
-    android:id="@+id/ItemTitle" 
-    android:layout_height="wrap_content" 
-	android:layout_width="fill_parent" 
-	android:textSize="20sp"
-	android:textColor="#691281"/>
-
-	<TextView
-    android:id="@+id/ItemTextEnglish" 
-    android:layout_height="wrap_content" 
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:textSize="14sp"
-    android:paddingTop="3dp"
-    android:textColor="#666666" />
+    android:layout_height="100dp" >
 
-	<TextView
-    android:id="@+id/ItemTextChinese" 
-    android:layout_height="wrap_content" 
-    android:layout_width="fill_parent" 
-    android:textSize="14sp"
-    android:textColor="#666666"/>
-    
-    
-</LinearLayout>
+    <ImageView
+        android:id="@+id/ItemImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="11dp"
+        android:paddingStart="11dp"
+        android:contentDescription="@string/course_desc" />
 
-<ImageView
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true" 
-    android:layout_width="wrap_content"
- 	android:layout_height="wrap_content" 
- 	android:layout_centerVertical="true"
- 	android:paddingRight="16dp"
- 	android:paddingEnd="16dp"
- 	android:id="@+id/ItemState"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/ItemImage"
+        android:layout_toRightOf="@+id/ItemImage"
+        android:orientation="vertical"
+        android:paddingLeft="11dp"
+        android:paddingStart="11dp" >
 
- 	
- </RelativeLayout>
+        <TextView
+            android:id="@+id/ItemTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#691281"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/ItemTextEnglish"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="3dp"
+            android:textColor="#666666"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/ItemTextChinese"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#666666"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ItemState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingEnd="16dp"
+        android:paddingRight="16dp" />
+
+</RelativeLayout>
