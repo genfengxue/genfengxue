@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.windenglish"
+    package="com.genfengxue.windenglish"
     android:versionCode="1"
     android:versionName="0.3.8" >
 
@@ -25,7 +25,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.windenglish.activities.LearnActivity"
+            android:name="com.genfengxue.windenglish.activities.LearnActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
@@ -33,24 +33,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login"
+        <activity android:name="com.genfengxue.windenglish.Login"
             android:screenOrientation="portrait"></activity> 
-        <activity android:name=".Main"
+        <activity android:name="com.genfengxue.windenglish.Main"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".Play"
+        <activity android:name="com.genfengxue.windenglish.Play"
             android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize"></activity>
-        <activity android:name=".Record"
+        <activity android:name="com.genfengxue.windenglish.Record"
             android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize"></activity>
-        <activity android:name=".Check"
+        <activity android:name="com.genfengxue.windenglish.Check"
             android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize"></activity>
-        <activity android:name=".CheckTest"
+        <activity android:name="com.genfengxue.windenglish.CheckTest"
             android:screenOrientation="landscape"></activity>
-        <activity android:name=".Question"
+        <activity android:name="com.genfengxue.windenglish.Question"
             android:screenOrientation="landscape"></activity>
-        <activity android:name=".Profile"
+        <activity android:name="com.genfengxue.windenglish.Profile"
             android:screenOrientation="portrait"></activity>
     </application>
 

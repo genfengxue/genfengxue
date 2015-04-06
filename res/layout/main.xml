@@ -7,7 +7,7 @@
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     android:background="#ffffff"
-    tools:context="com.example.windenglish.bat1" >
+    tools:context="com.genfengxue.windenglish.bat1" >
 
     <LinearLayout
         android:id="@+id/linearLayoutMain"

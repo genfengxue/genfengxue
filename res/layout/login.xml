@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#ffffff"
-    tools:context="com.example.windenglish.bat1" >
+    tools:context="com.genfengxue.windenglish.bat1" >
 
     <ImageView
         android:id="@+id/loginLogo"
