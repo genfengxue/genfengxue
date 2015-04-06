@@ -4,8 +4,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -57,14 +55,17 @@ public class LessonVideoDownloader implements Runnable {
 					if (200 == response.getStatusLine().getStatusCode()) {
 						FunctionUtils.pipeIo(response.getEntity().getContent(), 
 								new BufferedOutputStream(new FileOutputStream(tmpFile)));;
+						client.close();
+						Log.i(TAG, "downloaded " + path);
+						tmpFile.renameTo(file);
+					} else {
+						Log.e(TAG, "fail to request url");
+						client.close();
+						handler.sendEmptyMessage(DOWNLOAD_FAILED);
+						return;
 					}
-					client.close();
-					
-					tmpFile.renameTo(file);
 				} catch (IOException e) {
-					StringWriter sw = new StringWriter();
-					e.printStackTrace(new PrintWriter(sw));
-					Log.e(TAG, "download failed. " + sw.toString());
+					Log.e(TAG, "download failed for " + e.getMessage());
 					handler.sendEmptyMessage(DOWNLOAD_FAILED);
 					return;
 				}

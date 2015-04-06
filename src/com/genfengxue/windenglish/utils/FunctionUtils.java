@@ -39,7 +39,18 @@ public class FunctionUtils {
 		os.flush();
 		os.close();
 	}
+	
+	public static void mkdirs(String path) {
+		File dir = new File(path);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+	}
 
+	public static void deleteFiles(String path) {
+		deleteFiles(new File(path));
+	}
+	
 	public static void deleteFiles(File dir) {
 		if (dir.exists()) {
 			if (dir.isFile()) {

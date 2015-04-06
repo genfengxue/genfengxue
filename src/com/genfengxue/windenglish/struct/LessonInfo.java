@@ -7,7 +7,7 @@ import com.genfengxue.windenglish.utils.UriUtils;
 public class LessonInfo {
 
 	public static enum LessonState {
-		UNDOWNLOAD, DOWNLOADED_UNLEARNED, SUBMITTED
+		UNDOWNLOAD, DOWNLOADING, DOWNLOADED_UNLEARNED, SUBMITTED
 	}
 
 	private int lessonId;
@@ -61,7 +61,7 @@ public class LessonInfo {
 
 		return videoPath;
 	}
-
+	
 	public LessonState getState() {
 		return state;
 	}

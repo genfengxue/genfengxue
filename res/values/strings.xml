@@ -22,5 +22,10 @@
     <string name="inputEmail">确定</string>
     
     <string name="course_desc">课程预览</string>
-
+	
+    <string name="downloading_video">视频正在下载</string>
+    <string name="downloading_video_start">视频下载开始</string>
+    <string name="downloading_video_finish">视频下载完成</string>
+    <string name="downloading_video_failed">第%d课下载失败，请重试</string>
+    
 </resources>
