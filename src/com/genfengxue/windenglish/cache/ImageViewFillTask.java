@@ -25,6 +25,7 @@ import com.genfengxue.windenglish.utils.FunctionUtils;
  * @author Jack Sun(jacksunwei@gmail.com)
  *
  */
+@Deprecated
 public class ImageViewFillTask extends AsyncTask<String, Void, Bitmap> {
 
 	private ImageView image;

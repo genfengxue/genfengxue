@@ -65,9 +65,12 @@ public class ImageLoader {
 						FunctionUtils.pipeIo(response.getEntity().getContent(), 
 								new BufferedOutputStream(new FileOutputStream(tmpFile)));
 					}
+					
+					client.close();
 					tmpFile.renameTo(cacheFile);
 				} catch (IOException e) {
 					e.printStackTrace();
+					client.close();
 					return Constants.MAIN_CONTEXT.getResources().getDrawable(R.drawable.noimage);
 				}
 			}
