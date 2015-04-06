@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.WeakHashMap;
 
 import org.apache.http.HttpResponse;
@@ -19,6 +19,9 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.net.ConnectivityManager;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,15 +38,17 @@ import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.cache.LessonVideoDownloader;
 import com.genfengxue.windenglish.mgr.AccountMgr;
 import com.genfengxue.windenglish.struct.LessonInfo;
+import com.genfengxue.windenglish.struct.LessonInfo.LessonState;
 import com.genfengxue.windenglish.struct.UserProfile;
+import com.genfengxue.windenglish.ui.ConfirmationDialog;
 import com.genfengxue.windenglish.ui.LessonAdaptor;
 import com.genfengxue.windenglish.utils.Constants;
 import com.genfengxue.windenglish.utils.FunctionUtils;
 
 public class LearnActivity extends Activity {
 
-	private Map<LessonInfo, Integer> progress = 
-			new WeakHashMap<LessonInfo, Integer>();
+	private Set<LessonInfo> progress = 
+			Collections.newSetFromMap(new WeakHashMap<LessonInfo, Boolean>()); 
 	
 	private ListView lessonView;
 
@@ -78,24 +83,29 @@ public class LearnActivity extends Activity {
 			Context ctx = lv.getContext();
 			LessonInfo info = (LessonInfo) lv.getAdapter().getItem(position);
 
-			if (progress.containsKey(info)) {
+			if (info.getState() != LessonState.UNDOWNLOAD) {
+				Toast.makeText(ctx, "fuck you", Toast.LENGTH_SHORT).show();
+				return;
+			}
+			
+			if (progress.contains(info)) {
 				Toast.makeText(ctx, R.string.downloading_video,
 						Toast.LENGTH_SHORT).show();
 				return;
 			}
 
-			// TODO
-			// ensure download
-			// check wifi
-			// download
-			VideoDownloadHandler handler = new VideoDownloadHandler(info, lessonView, progress);
-			new Thread(new LessonVideoDownloader
-					(info.getCourseId(), info.getLessonId(), handler)).start();
-
-			Toast.makeText(lv.getContext(), info.toString(), Toast.LENGTH_SHORT)
-					.show();
+			new ConfirmationDialog(getResources().getString(R.string.comfirm_download), 
+					new DownloadListener(info), 
+					ConfirmationDialog.DEAF_LISTENER).show(getFragmentManager(), "Download");
 		}
 
+	}
+	
+	private void doDownloadLessonVideo(LessonInfo info) {
+		progress.add(info);
+		VideoDownloadHandler handler = new VideoDownloadHandler(info, lessonView, progress);
+		new Thread(new LessonVideoDownloader
+				(info.getCourseId(), info.getLessonId(), handler)).start();
 	}
 
 	private class GetLessonListTask extends
@@ -135,10 +145,10 @@ public class LearnActivity extends Activity {
 
 		private LessonInfo info;
 		private ListView lessonView;
-		private Map<LessonInfo, Integer> progress;
+		private Set<LessonInfo> progress;
 		
 		VideoDownloadHandler(LessonInfo info, ListView lessonView,
-				Map<LessonInfo, Integer> progress) {
+				Set<LessonInfo> progress) {
 			this.info = info;
 			this.lessonView = lessonView;
 			this.progress = progress;
@@ -149,29 +159,44 @@ public class LearnActivity extends Activity {
 			
 			switch (msg.what) {
 			case LessonVideoDownloader.DOWNLOAD_START:
+				info.setDownloadState();
 				Toast.makeText(lessonView.getContext(), R.string.downloading_video_start, 
-						Toast.LENGTH_SHORT).show();;
+						Toast.LENGTH_SHORT).show();
+				updateProgressBar();
 				break;
 			case LessonVideoDownloader.DOWNLOAD_PROGRESS:
-				if (progress.containsKey(info)) {
-					progress.put(info, (Integer) msg.obj);
-					// TODO find a method to update progress bar
+				if (progress.contains(info)) {
+					info.setDownloadProgress((Integer) msg.obj);
+					progress.add(info);
+					((LessonAdaptor) lessonView.getAdapter()).notifyDataSetChanged();
 				}
+				updateProgressBar();
 				break;
 			case LessonVideoDownloader.DOWNLOAD_FINISHED:
-				if (progress.containsKey(info)) {
+				if (progress.contains(info)) {
+					info.updateState();
 					Toast.makeText(lessonView.getContext(), R.string.downloading_video_finish, 
 							Toast.LENGTH_SHORT).show();
 					progress.remove(info);
 				}
+				updateProgressBar();
 				break;
 			default: // LessonVideoDownloader.DOWNLOAD_FAILED
 				String template = lessonView.getResources().getString(
 						R.string.downloading_video_failed);
-				Toast.makeText(lessonView.getContext(), String.format(template, info.getCourseId()),
-						Toast.LENGTH_SHORT).show();
+				info.updateState();
 				progress.remove(info);
+				updateProgressBar();
+				Toast.makeText(lessonView.getContext(), String.format(template, info.getLessonId()),
+						Toast.LENGTH_SHORT).show();
 				break;
+			}
+		}
+		
+		private void updateProgressBar() {
+			int id = info.getLessonId();
+			if (id >= lessonView.getFirstVisiblePosition() && id <= lessonView.getLastVisiblePosition()) {
+				((LessonAdaptor) lessonView.getAdapter()).notifyDataSetChanged();
 			}
 		}
 	}
@@ -213,10 +238,45 @@ public class LearnActivity extends Activity {
 		}
 	}
 
+	private class DownloadListener implements OnClickListener {
+
+		private LessonInfo info;
+		
+		public DownloadListener(LessonInfo info) {
+			this.info = info;
+		}
+		
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			ConnectivityManager cm = (ConnectivityManager) 
+					getSystemService(Context.CONNECTIVITY_SERVICE);
+			if (cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()) {
+				doDownloadLessonVideo(info);
+			} else {
+				new ConfirmationDialog(getResources().getString(R.string.no_wifi_download),
+						new DoDownloadListener(info),
+						ConfirmationDialog.DEAF_LISTENER).show(getFragmentManager(), "WIFI");
+			}
+		}
+	}
+	
+	private class DoDownloadListener implements OnClickListener {
+		private LessonInfo info;
+		
+		public DoDownloadListener(LessonInfo info) {
+			this.info = info;
+		}
+		
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			doDownloadLessonVideo(info);
+		}
+	}
+	
 	// TODO temp method, should be replaced later
 	private void setupApp() {
 		if (BuildConfig.DEBUG) {
-			FunctionUtils.deleteFiles(Constants.APP_DIR);
+//			FunctionUtils.deleteFiles(Constants.APP_DIR);
 		}
 		FunctionUtils.mkdirs(Constants.APP_DIR);
 		FunctionUtils.mkdirs(Constants.CACHE_DIR);

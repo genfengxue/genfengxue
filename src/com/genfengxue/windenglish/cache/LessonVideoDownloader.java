@@ -32,6 +32,7 @@ public class LessonVideoDownloader implements Runnable {
 
 	public LessonVideoDownloader(int courseId, int lessonId,
 			Handler progressHandler) {
+		this.courseId = courseId;
 		this.lessonId = lessonId;
 		this.handler = progressHandler;
 	}

@@ -19,6 +19,7 @@ public class LessonInfo {
 	private String videoUri;
 	private String videoPath;
 	private LessonState state;
+	private int downloadProgress;
 
 	public LessonInfo(int lessonId, int courseId, String chTitle,
 			String enTitle, String imageUri) {
@@ -27,6 +28,7 @@ public class LessonInfo {
 		this.chTitle = chTitle;
 		this.enTitle = enTitle;
 		this.imageUri = imageUri;
+		this.downloadProgress = 0;
 		updateState();
 	}
 
@@ -66,6 +68,18 @@ public class LessonInfo {
 		return state;
 	}
 	
+	public void setDownloadState() {
+		this.state = LessonState.DOWNLOADING;
+	}
+	
+	public int getDownloadProgress() {
+		return downloadProgress;
+	}
+
+	public void setDownloadProgress(int downloadPercent) {
+		this.downloadProgress = downloadPercent;
+	}
+
 	// TODO add state detection for unsubmitted
 	public void updateState() {
 		String part4 = getVideoPath(4);

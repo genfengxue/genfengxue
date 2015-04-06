@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -44,7 +45,6 @@ public class LessonAdaptor extends BaseAdapter {
 		
 		// download image
 		ImageView image = (ImageView) rl.findViewById(R.id.ItemImage);
-//		new ImageViewFillTask(image).execute(info.getImageUri());
 		LazyImageViewUriFiller.fill(image, info.getImageUri());
 
 		// put content
@@ -53,6 +53,14 @@ public class LessonAdaptor extends BaseAdapter {
 		((TextView) rl.findViewById(R.id.ItemTextEnglish)).setText(info.getEnTitle());
 		Drawable draw = rl.getResources().getDrawable(getIcon(info.getState()));
 		((ImageView) rl.findViewById(R.id.ItemState)).setImageDrawable(draw);
+		
+		ProgressBar bar = (ProgressBar) rl.findViewById(R.id.prograss_bar);
+		if (info.getState() == LessonState.DOWNLOADING) {
+			bar.setVisibility(View.VISIBLE);
+			bar.setProgress(info.getDownloadProgress());
+		} else {
+			bar.setVisibility(View.INVISIBLE);
+		}
 
 		return rl;
 	}
