@@ -1,6 +1,9 @@
 package com.example.windenglish.utils;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -22,6 +25,18 @@ public class FunctionUtils {
 		}
 
 		return "";
+	}
+
+	public static void pipeIo(InputStream is, OutputStream os)
+			throws IOException {
+		byte[] buffer = new byte[1024];
+		int length = 0;
+		while ((length = is.read(buffer)) != -1) {
+			os.write(buffer, 0, length);
+		}
+
+		is.close();
+		os.close();
 	}
 
 	public static void deleteFiles(File dir) {

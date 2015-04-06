@@ -95,13 +95,11 @@ public class LearnActivity extends Activity {
 		protected void onPostExecute(List<LessonInfo> result) {
 			if (result != null) {
 				ListView lv = (ListView) findViewById(R.id.videoList);
-				LessonAdaptor adaptor = new LessonAdaptor(lv.getContext(),
-						R.layout.videolistitem, R.id.ItemTitle, result);
+				LessonAdaptor adaptor = new LessonAdaptor(lv, result);
 				lv.setAdapter(adaptor);
 				lv.setOnItemClickListener(new LessonItemClickListener());
 			}
-			if (null != client)
-				client.close();
+			client.close();
 		}
 
 	}
@@ -145,7 +143,7 @@ public class LearnActivity extends Activity {
 	// TODO temp method, should be replaced later
 	private void setupApp() {
 		File dir = new File(Constants.APP_DIR);
-		FunctionUtils.deleteFiles(dir);
+//		FunctionUtils.deleteFiles(dir);
 		if (!dir.exists()) {
 			dir.mkdirs();
 		}
@@ -155,6 +153,7 @@ public class LearnActivity extends Activity {
 			cache.mkdirs();
 		}
 		
+		Constants.MAIN_CONTEXT = this;
 	}
 
 }
