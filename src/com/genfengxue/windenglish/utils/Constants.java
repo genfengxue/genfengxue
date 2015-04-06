@@ -10,6 +10,10 @@ public class Constants {
 
 	public static final String CACHE_DIR = APP_DIR + "/Cache";
 	
+	public static final String VIDEO_DIR = APP_DIR + "/Video";
+	
+	public static final String Record_DIR = APP_DIR + "/Record";
+	
 	public static final String LESSON_LIST_API_URI = 
 			"http://data.genfengxue.com/api/lessons";
 	

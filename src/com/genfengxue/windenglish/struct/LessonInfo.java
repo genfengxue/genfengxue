@@ -27,7 +27,7 @@ public class LessonInfo {
 		this.chTitle = chTitle;
 		this.enTitle = enTitle;
 		this.imageUri = imageUri;
-		init();
+		updateState();
 	}
 
 	public int getLessonId() {
@@ -65,6 +65,16 @@ public class LessonInfo {
 	public LessonState getState() {
 		return state;
 	}
+	
+	// TODO add state detection for unsubmitted
+	public void updateState() {
+		String part4 = getVideoPath(4);
+		if (!(new File(part4).exists())) {
+			state = LessonState.UNDOWNLOAD;
+		} else {
+			state = LessonState.DOWNLOADED_UNLEARNED;
+		}
+	}
 
 	public String getImageUri() {
 		return imageUri;
@@ -92,14 +102,5 @@ public class LessonInfo {
 
 	public String toString() {
 		return "Course " + courseId + ", Lesson " + lessonId;
-	}
-
-	private void init() {
-		String part1 = getVideoPath(1);
-		if (!(new File(part1).exists())) {
-			state = LessonState.UNDOWNLOAD;
-		} else {
-			state = LessonState.DOWNLOADED_UNLEARNED;
-		}
 	}
 }

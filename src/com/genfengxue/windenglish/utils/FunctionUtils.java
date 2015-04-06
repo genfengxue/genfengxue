@@ -36,6 +36,7 @@ public class FunctionUtils {
 		}
 
 		is.close();
+		os.flush();
 		os.close();
 	}
 
