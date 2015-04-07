@@ -27,10 +27,17 @@
     <string name="downloading_video_start">视频下载开始</string>
     <string name="downloading_video_finish">视频下载完成</string>
     <string name="downloading_video_failed">第%d课下载失败，请重试</string>
-    
+
     <string name="yes">是</string>
     <string name="no">否</string>
     
     <string name="comfirm_download">需要先下载视频，现在下载？</string>
     <string name="no_wifi_download">您当前未连接WIFI，仍然下载？</string>
+
+    <string-array name="learn_options">
+        <item>看视频</item>
+        <item>看中说英</item>
+        <item>对答案</item>
+        <item>删除视频</item>
+    </string-array>
 </resources>

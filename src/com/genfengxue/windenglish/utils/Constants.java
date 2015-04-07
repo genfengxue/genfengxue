@@ -15,7 +15,7 @@ public class Constants {
 	public static final String Record_DIR = APP_DIR + "/Record";
 	
 	public static final String LESSON_LIST_API_URI = 
-			"http://data.genfengxue.com/api/lessons";
+			"http://data.genfengxue.com/api/lessons?course";
 	
 	// should be initialized at the start of programming 
 	public static Context MAIN_CONTEXT;

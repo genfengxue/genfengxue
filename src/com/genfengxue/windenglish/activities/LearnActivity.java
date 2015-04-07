@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
@@ -34,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.genfengxue.windenglish.BuildConfig;
+import com.genfengxue.windenglish.Play;
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.cache.LessonVideoDownloader;
 import com.genfengxue.windenglish.mgr.AccountMgr;
@@ -41,6 +43,7 @@ import com.genfengxue.windenglish.struct.LessonInfo;
 import com.genfengxue.windenglish.struct.LessonInfo.LessonState;
 import com.genfengxue.windenglish.struct.UserProfile;
 import com.genfengxue.windenglish.ui.ConfirmationDialog;
+import com.genfengxue.windenglish.ui.ItemsDialog;
 import com.genfengxue.windenglish.ui.LessonAdaptor;
 import com.genfengxue.windenglish.utils.Constants;
 import com.genfengxue.windenglish.utils.FunctionUtils;
@@ -51,6 +54,8 @@ public class LearnActivity extends Activity {
 			Collections.newSetFromMap(new WeakHashMap<LessonInfo, Boolean>()); 
 	
 	private ListView lessonView;
+	
+	private String[] learnOptions; 
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -64,6 +69,7 @@ public class LearnActivity extends Activity {
 		((TextView) findViewById(R.id.mainUsername)).setText(user.getName());
 
 		lessonView = (ListView) findViewById(R.id.videoList);
+		learnOptions = getResources().getStringArray(R.array.learn_options);
 		
 		// set content of lesson list
 		new GetLessonListTask().execute(2);
@@ -84,7 +90,8 @@ public class LearnActivity extends Activity {
 			LessonInfo info = (LessonInfo) lv.getAdapter().getItem(position);
 
 			if (info.getState() != LessonState.UNDOWNLOAD) {
-				Toast.makeText(ctx, "fuck you", Toast.LENGTH_SHORT).show();
+				new ItemsDialog(learnOptions, new LearnOptionsClickListener(info))
+					.show(getFragmentManager(), "Learn");
 				return;
 			}
 			
@@ -99,6 +106,37 @@ public class LearnActivity extends Activity {
 					ConfirmationDialog.DEAF_LISTENER).show(getFragmentManager(), "Download");
 		}
 
+	}
+
+	private class LearnOptionsClickListener implements OnClickListener {
+
+		private LessonInfo info;
+		
+		public LearnOptionsClickListener(LessonInfo info) {
+			this.info = info;
+		}
+		
+		// this method is one-to-one matching R.array.learn_options
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			switch (which) {
+			case 0: // 看视频
+				Intent intent = new Intent(LearnActivity.this, Play.class);
+				intent.putExtra("videoId", String.valueOf(info.getLessonId()));
+				intent.putExtra("playStyle", String.valueOf(which + 1));
+				LearnActivity.this.startActivity(intent);
+				break;
+			case 1: // 看中说英
+				Toast.makeText(getApplicationContext(), "shit zhong ying", Toast.LENGTH_SHORT).show();;
+				break;
+			case 2: // 对答案
+				Toast.makeText(getApplicationContext(), "shit dui daan", Toast.LENGTH_SHORT).show();
+				break;
+			case 3:
+				// TODO  
+				break;
+			}
+		}
 	}
 	
 	private void doDownloadLessonVideo(LessonInfo info) {
