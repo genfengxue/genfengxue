@@ -122,8 +122,9 @@ public class LearnActivity extends Activity {
 			switch (which) {
 			case 0: // 看视频
 				Intent intent = new Intent(LearnActivity.this, Play.class);
-				intent.putExtra("videoId", String.valueOf(info.getLessonId()));
-				intent.putExtra("playStyle", String.valueOf(which + 1));
+				intent.putExtra("courseId", info.getCourseId());
+				intent.putExtra("lessonId", info.getLessonId());
+				intent.putExtra("part", which + 1);
 				LearnActivity.this.startActivity(intent);
 				break;
 			case 1: // 看中说英
