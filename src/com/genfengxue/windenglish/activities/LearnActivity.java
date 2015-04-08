@@ -121,7 +121,7 @@ public class LearnActivity extends Activity {
 		public void onClick(DialogInterface dialog, int which) {
 			switch (which) {
 			case 0: // 看视频
-				Intent intent = new Intent(LearnActivity.this, Play.class);
+				Intent intent = new Intent(LearnActivity.this, VideoPlayActivity.class);
 				intent.putExtra("courseId", info.getCourseId());
 				intent.putExtra("lessonId", info.getLessonId());
 				intent.putExtra("part", which + 1);
