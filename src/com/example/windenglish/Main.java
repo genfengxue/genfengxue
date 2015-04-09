@@ -2128,22 +2128,20 @@ public class Main extends Activity{
         videoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-					int position,final long id) {
+					int position, final long id) {
 				// TODO 
 				position++;
 				videoId=(int)id+1;
-				
+
 				//测试用
-				if(videoId==119)
+				if(videoId == 119)
 				{
 					videoId=999;
-				}
-
-				if(videoId>81){
+				} else if (videoId > 81){
+					//发自内心的说一句，vita，这里的算法有点神奇，为什么要乘以2，然后加上207
 					videoId *= 2;
 					videoId += 207;
 				}
-					
 				final String videoIdString = Integer.toString(videoId);
 				final Intent intent = new Intent();
 				final int fposition = position;
