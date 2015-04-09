@@ -13,17 +13,17 @@
         android:gravity="center_horizontal" >
     </VideoView>
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="76dp"
-        android:layout_height="45dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/backbutton" />
+<!--     <Button -->
+<!--         android:id="@+id/backButton" -->
+<!--         android:layout_width="76dp" -->
+<!--         android:layout_height="45dp" -->
+<!--         android:layout_alignParentLeft="true" -->
+<!--         android:layout_alignParentStart="true" -->
+<!--         android:layout_alignParentTop="true" -->
+<!--         android:layout_marginLeft="10dp" -->
+<!--         android:layout_marginStart="10dp" -->
+<!--         android:layout_marginTop="10dp" -->
+<!--         android:background="@drawable/backbutton" /> -->
 
     <LinearLayout
         android:layout_centerInParent="true"
