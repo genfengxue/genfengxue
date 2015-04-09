@@ -11,23 +11,53 @@ import com.genfengxue.windenglish.R;
 
 public class ConfirmationDialog extends DialogFragment {
 
-	private String text;
-	private DialogInterface.OnClickListener yesListener, noListener;
-	
-	public ConfirmationDialog(String text,
-			DialogInterface.OnClickListener yesListener,
-			DialogInterface.OnClickListener noListener) {
-		this.text = text;
+	private String message, yesText, nerualText, noText;
+	private OnClickListener yesListener;
+	private OnClickListener nerualListener;
+	private OnClickListener noListener;
+
+	public ConfirmationDialog(String message, String yesText,
+			OnClickListener yesListener, String nerualText,
+			OnClickListener nerualListener, String noText,
+			OnClickListener noListener) {
+		this.message = message;
+		this.yesText = yesText;
+		this.nerualText = nerualText;
+		this.noText = noText;
 		this.yesListener = yesListener;
+		this.nerualListener = nerualListener;
 		this.noListener = noListener;
+	}
+	
+	public ConfirmationDialog(String message,
+			OnClickListener yesListener,
+			OnClickListener noListener) {
+		this(message, null, yesListener, null, null, null, noListener);
 	}
 
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		Builder builder = new Builder(getActivity());
-		builder.setMessage(text);
+		if (message != null) {
+			builder.setMessage(message);
+		}
+		
 		builder.setCancelable(false);
-		builder.setPositiveButton(R.string.yes, yesListener);
-		builder.setNegativeButton(R.string.no, noListener);
+		if (yesText == null) {
+			builder.setPositiveButton(R.string.yes, yesListener);
+		} else {
+			builder.setPositiveButton(yesText, yesListener);
+		}
+		
+		if (noText == null) {
+			builder.setNegativeButton(R.string.no, noListener);
+		} else {
+			builder.setNegativeButton(noText, noListener);
+		}
+		
+		if (nerualText != null) {
+			builder.setNeutralButton(nerualText, nerualListener);
+		}
+		
 		return builder.create();
 	}
 	
