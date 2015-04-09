@@ -13,7 +13,7 @@
     <string name="popup_string_2">第二遍有英文字幕</string>
     <string name="popup_string_3">第三遍有中文字幕</string>
     <string name="check_back">退出</string>
-    <string name="check_title">对答案</string>
+    <string name="check_answer">对答案</string>
     <string name="check_sub">提交</string>
     <string name="check_video_back">向前3秒</string>
     <string name="check_video_pause">暂停</string>
@@ -47,4 +47,12 @@
         <item>对答案</item>
         <item>删除视频</item>
     </string-array>
+    
+    <string name="video_exit_alert">播放还未结束，现在退出下次仍需观看3遍</string>
+    <string name="confirm_exit">确认退出</string>
+    <string name="continue_watch">继续观看</string>
+    <string name="record_exit_alert">录音还未结束，现在退出下次需要重新录音</string>
+    <string name="continue_record">继续录音</string>
+    <string name="record_again">重新录音</string>
+    <string name="record_finish">录音结束</string>
 </resources>
