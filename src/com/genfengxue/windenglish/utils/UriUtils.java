@@ -11,11 +11,18 @@ public class UriUtils {
 	private static final String LESSON_PATH_TEMPLATE = Constants.VIDEO_DIR
 			+ "/%d_%d_%d.mp4";
 
+	private static final String RECORD_PATH_TEMPLATE = Constants.RECORD_DIR
+			+ "/%d_%d.3gp";
+	
 	public static String getLessonVideoUri(int courseId, int lessonId, int part) {
 		return String.format(LESSON_URI_TEMPLATE, lessonId, part);
 	}
 
 	public static String getLessonVideoPath(int courseId, int lessonId, int part) {
 		return String.format(LESSON_PATH_TEMPLATE, courseId, lessonId, part);
+	}
+	
+	public static String getRecordPath(int courseId, int lessonId) {
+		return String.format(RECORD_PATH_TEMPLATE, courseId, lessonId);
 	}
 }

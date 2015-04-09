@@ -35,7 +35,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.genfengxue.windenglish.BuildConfig;
-import com.genfengxue.windenglish.Play;
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.cache.LessonVideoDownloader;
 import com.genfengxue.windenglish.mgr.AccountMgr;
@@ -319,7 +318,7 @@ public class LearnActivity extends Activity {
 		}
 		FunctionUtils.mkdirs(Constants.APP_DIR);
 		FunctionUtils.mkdirs(Constants.CACHE_DIR);
-		FunctionUtils.mkdirs(Constants.Record_DIR);
+		FunctionUtils.mkdirs(Constants.RECORD_DIR);
 		FunctionUtils.mkdirs(Constants.VIDEO_DIR);
 		Constants.MAIN_CONTEXT = this;
 	}
