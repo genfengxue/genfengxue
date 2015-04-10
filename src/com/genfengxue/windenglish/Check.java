@@ -7,25 +7,25 @@ package com.genfengxue.windenglish;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.security.GeneralSecurityException;
+//import java.security.GeneralSecurityException;
 import java.util.List;
 //import java.lang.reflect.Field;
-import java.util.Properties;
+//import java.util.Properties;
 
-import javax.activation.CommandMap;
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
-import javax.activation.MailcapCommandMap;
-import javax.mail.Address;
-import javax.mail.Multipart;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.internet.MimeUtility;
+//import javax.activation.CommandMap;
+//import javax.activation.DataHandler;
+//import javax.activation.FileDataSource;
+//import javax.activation.MailcapCommandMap;
+//import javax.mail.Address;
+//import javax.mail.Multipart;
+//import javax.mail.Session;
+//import javax.mail.Transport;
+//import javax.mail.internet.AddressException;
+//import javax.mail.internet.InternetAddress;
+//import javax.mail.internet.MimeBodyPart;
+//import javax.mail.internet.MimeMessage;
+//import javax.mail.internet.MimeMultipart;
+//import javax.mail.internet.MimeUtility;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -46,7 +46,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
+//import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -55,8 +55,8 @@ import android.media.MediaPlayer;
 //import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
+//import android.os.Handler;
+//import android.os.Message;
 import android.os.StrictMode;
 import android.text.Spannable;
 import android.text.TextPaint;
@@ -89,9 +89,9 @@ public class Check extends Activity{
 	//private MediaController mediaController;
 	private Button backButton;
 	//private String fileName;
-	private String datapath; 
-	private Address[] to;
-	private Transport transport;
+	//private String datapath; 
+	//private Address[] to;
+	//private Transport transport;
 	//private SeekBar seekBar;
 	private static int formerUnderline=0,formerChange = 0,formerLine=0;
 	private static TextView answer;
@@ -102,16 +102,16 @@ public class Check extends Activity{
     private static Button likeButton,questionButton;
     private static String likedPath;
 
-	private Context context = this;  
-    private String userdata;
+	//private Context context = this;  
+    //private String userdata;
     private static String videoId;
     private static String jsonText;
     private static JSONArray jsonArray = new JSONArray();
     private static JSONArray jsonLikedArray = new JSONArray();
     private static int nowLine,nowNo;
-    private String[] names;
+    //private String[] names;
     //private boolean isPlaying;
-    private Button subButton;
+    //private Button subButton;
     private static Intent questionIntent;
     private Button backVideoButton;
     private static String[] keyNumbers;
@@ -124,10 +124,11 @@ public class Check extends Activity{
     static PopupWindow popupWindow;    
     private LayoutInflater inflater;
     private static View popLayout;
-    private MimeMessage message;
+//    private MimeMessage message;
     private static View checkLayout;
 	
-    //提交线程
+    /**
+     * 提交线程
     public Handler mHandler=new Handler()  
     {  
         public void handleMessage(Message msg)  
@@ -180,7 +181,7 @@ public class Check extends Activity{
             super.handleMessage(msg);  
         }  
     };  
-    
+     */
     
 	@SuppressLint("InflateParams")
 	@Override
@@ -374,7 +375,7 @@ public class Check extends Activity{
         playerPath = playerPath + "/windenglish/";
         playerPath = playerPath + videoId;
         playerPath = playerPath + ".3gp";
-	    final String affix = playerPath;
+//	    final String affix = playerPath;
         try {
 			player.setDataSource(playerPath);
 			player.prepare();
@@ -487,12 +488,12 @@ public class Check extends Activity{
         });
         */
         
-		final int videoID = Integer.parseInt(videoId);
+//		final int videoID = Integer.parseInt(videoId);
+		/*播放结束后的动作
 		player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 			
 			@Override
 			public void onCompletion(MediaPlayer mp) {
-				//播放结束后的动作
 				
 				if(notSub(videoID))
 				{
@@ -721,7 +722,8 @@ public class Check extends Activity{
 					 return true;
 			}
 		});
-		
+		*/
+		/*
 		//设置提交按钮
 		subButton = (Button)findViewById(R.id.checkSubButton);
 		if(!notSub(videoID))
@@ -882,8 +884,6 @@ public class Check extends Activity{
 		            //返回成功信息
 		            message2.what = 2;
 		            mHandler.sendMessage(message2);
-		            /*
-		            */
 		        }  
 		        catch(Exception e)  
 		        {  
@@ -920,6 +920,7 @@ public class Check extends Activity{
 					 return true;
 			}
 		});
+		*/
 
 		//设置向前按钮
 		backVideoButton = (Button)findViewById(R.id.backVideoButton);
@@ -1042,7 +1043,11 @@ public class Check extends Activity{
                     setUnderline(line,no);
         		}
         		
-	            ClickableSpan clickSpan = getClickableSpan(line,no);      
+	            ClickableSpan clickSpan = getClickableSpan(line,no);   
+	            if(start==0)
+	            {
+	            	start--;
+	            }      
 	            spans.setSpan(clickSpan, start+1, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); 
         		end+=2;
         		while(checkText[end]!='\n')
@@ -1408,6 +1413,7 @@ public class Check extends Activity{
 	}
 
 
+	/*
 	private boolean notSub(int videoID) {
 		// 
 		String userdata = "";
@@ -1430,6 +1436,7 @@ public class Check extends Activity{
 		 else
 			 return true;
 	}
+	*/
 
 /*
 	private String loadTextFile(InputStream inputStream) throws IOException {

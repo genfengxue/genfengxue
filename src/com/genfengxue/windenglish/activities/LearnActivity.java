@@ -47,6 +47,12 @@ import com.genfengxue.windenglish.ui.LessonAdaptor;
 import com.genfengxue.windenglish.utils.Constants;
 import com.genfengxue.windenglish.utils.FunctionUtils;
 
+/**
+ * Learn Activity
+ * 
+ * @author Jack Sun(jacksunwei@gmail.com)
+ *
+ */
 public class LearnActivity extends Activity {
 
 	private Set<LessonInfo> progress = 
@@ -127,9 +133,11 @@ public class LearnActivity extends Activity {
 				LearnActivity.this.startActivity(intent);
 				break;
 			case 1: // 看中说英
+				// TODO
 				Toast.makeText(getApplicationContext(), "shit zhong ying", Toast.LENGTH_SHORT).show();;
 				break;
 			case 2: // 对答案
+				// TODO 
 				Toast.makeText(getApplicationContext(), "shit dui daan", Toast.LENGTH_SHORT).show();
 				break;
 			case 3:

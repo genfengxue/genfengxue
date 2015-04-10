@@ -21,7 +21,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/back" />
-        
+    <!--    
         <Button
             android:id="@+id/checkSubButton"
             android:layout_width="60dp"
@@ -33,6 +33,7 @@
             android:background="#eeeeee"
             android:textColor="#691281"
             android:textSize="15sp" />
+ 	-->
         
     </RelativeLayout>
     

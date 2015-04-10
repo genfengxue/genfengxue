@@ -13,11 +13,12 @@
     <string name="popup_string_2">第二遍有英文字幕</string>
     <string name="popup_string_3">第三遍有中文字幕</string>
     <string name="check_back">退出</string>
+    <string name="check_title">对答案</string>
     <string name="check_answer">对答案</string>
     <string name="check_sub">提交</string>
     <string name="check_video_back">向前3秒</string>
     <string name="check_video_pause">暂停</string>
-    <string name="versions">v0.3.8</string>
+    <string name="versions">v0.3.9.1</string>
     <string name="login_emailHint">Please input your email:</string>
     <string name="inputEmail">确定</string>
     

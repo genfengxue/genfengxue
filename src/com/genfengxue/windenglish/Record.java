@@ -26,14 +26,17 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
 public class Record extends Activity{
 
+	private static int skips = 0;
 	private VideoView videoView;
 	private MediaController mediaController;
 	private Button backButton;
+	private ImageView skipButton;
 	private String fileName = "";	
 	private static int nowtime = 0;
 	private static int reFlag = 0;
@@ -156,6 +159,69 @@ public class Record extends Activity{
         							.create();
         alertDialogOnPlay.show();
         
+        //设置skip按钮
+        skipButton = (ImageView)findViewById(R.id.RECImage);
+        skipButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				skips++;
+				if(skips==5)
+				{
+					skips=0;
+		             //播放结束后的动作            
+				 	 reFlag=0;
+				 	 nowtime=0;
+		        	 mediaRecorder.stop();  
+		        	 mediaRecorder.release();  
+		        	 mediaRecorder = null;  
+		        	 
+		        	//修改用户状态
+						 int videoIdInt = Integer.parseInt( videoId ); 
+						 
+						 String userdata = "";
+						 String dataname = "userdata";
+						 try{   
+					          FileInputStream fin = openFileInput(dataname);   
+					          int length = fin.available();   
+					          byte [] buffer = new byte[length];   
+					          fin.read(buffer);       
+					          userdata = EncodingUtils.getString(buffer, "UTF-8");   
+					          fin.close();       
+					      }   
+					      catch(Exception e){   
+					          e.printStackTrace();   
+					      }   
+						 String names[]=userdata.split("\\?");
+						 char[] states=names[1].toCharArray();
+						 states[videoIdInt]='1';
+						 String doneUserdata = names[0];
+						 doneUserdata += "?";
+						 String doneUserdataPart2 = new String(states);
+						 doneUserdata += doneUserdataPart2;
+						 
+						FileOutputStream out = null;  
+				        try {  
+				            out = context.openFileOutput(dataname, Context.MODE_PRIVATE);  
+				            out.write(doneUserdata.getBytes("UTF-8"));  
+					        out.close();
+				        } catch (Exception e) {  
+							// TODO Auto-generated catch block
+				            e.printStackTrace();  
+				            
+				        }
+				        
+				        	Intent newIntent = new Intent();
+					        isTrue=false;
+			 		     	newIntent.putExtra("videoId",videoId);
+			 		     	newIntent.setClass(Record.this, Check.class);
+			 		     	Record.this.startActivity(newIntent);
+							Record.this.finish();
+				}
+			}
+		});
+        
         //设置back按钮
 
 		backButton = (Button)findViewById(R.id.backButton);
@@ -226,6 +292,8 @@ public class Record extends Activity{
          @Override
          public void onCompletion(MediaPlayer mp)
          {
+			 reFlag=0;
+			 nowtime=0;
              //播放结束后的动作            
         	 mediaRecorder.stop();  
         	 mediaRecorder.release();  
@@ -288,8 +356,6 @@ public class Record extends Activity{
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
 												// TODO Auto-generated method stub
-												reFlag=0;
-												nowtime=0;
 												Intent intent = new Intent(Record.this, Main.class);
 												isTrue=false;
 	        									startActivity(intent);

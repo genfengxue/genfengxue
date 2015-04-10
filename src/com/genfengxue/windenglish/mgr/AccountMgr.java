@@ -6,6 +6,7 @@ public class AccountMgr {
 
 	private static UserProfile user = null;
 
+	// TODO 
 	public static UserProfile getUserProfile() {
 		if (user == null) {
 			user = new UserProfile();
