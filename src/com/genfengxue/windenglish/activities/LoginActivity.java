@@ -4,211 +4,111 @@
 
 package com.genfengxue.windenglish.activities;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
-import com.genfengxue.windenglish.Main;
-import com.genfengxue.windenglish.R;
-import com.genfengxue.windenglish.R.id;
-import com.genfengxue.windenglish.R.layout;
-
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.view.View.OnClickListener; 
-import android.content.Context;
-import android.content.DialogInterface;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-public class LoginActivity extends Activity{
+import com.genfengxue.windenglish.R;
+import com.genfengxue.windenglish.mgr.AccountMgr;
+import com.genfengxue.windenglish.struct.UserProfile;
+
+public class LoginActivity extends Activity {
 	
-	private Button loginButton;
-	private int flag=1;
-	private EditText inputUsername;
-	private EditText inputEmail;
-	private Context  context = this;  
-	private OnClickListener listener = new OnClickListener() {
-		
-		@Override
-		public void onClick(View v) {
-			//从输入框获得username
-			String username="";
-			String email="";
-			inputUsername =(EditText)findViewById(R.id.loginText);  
-			inputEmail = (EditText)findViewById(R.id.loginText2);  
-	        username=inputUsername.getText().toString();  
-	        email=inputEmail.getText().toString();  
-	        if(username.length()==0)
-	        {
-				flag=0;
-	        	Dialog alertDialog = new AlertDialog.Builder(LoginActivity.this)
-	        	.setMessage("用户名不能为空！")
-	        	.setCancelable(false)
-	        	.setPositiveButton("确定",null)
-	        	.create();
-	        	alertDialog.show();
-	        }
-	        else if(email.length()==0)
-	        {
-				flag=0;
-	        	Dialog alertDialog = new AlertDialog.Builder(LoginActivity.this)
-	        	.setMessage("邮箱不能为空！")
-	        	.setCancelable(false)
-	        	.setPositiveButton("确定",null)
-	        	.create();
-	        	alertDialog.show();
-	        }
-	        else if(username.indexOf("?")>=0)
-	        {
-	        	flag=0;
-	        	Dialog alertDialog = new AlertDialog.Builder(LoginActivity.this)
-	        	.setMessage("用户名中不能出现特殊字符“？”")
-	        	.setCancelable(false)
-	        	.setPositiveButton("确定",null)
-	        	.create();
-	        	alertDialog.show();
-	        }
-	        else 
-	        	flag=1;
-	        
-	       
-	        
-	        if(flag!=0){
-	        //创建SD卡录音文件路径
-	        String route=Environment.getExternalStorageDirectory().getAbsolutePath();
-	        File file = new File(route + "/windenglish");
-	        file.mkdirs();
-	        //将获得的username存储到文件，并初始化用户信息
-			String fileName="userdata";
-			String suprise=username;
-	        username=username+"?";
-	        for(int i=1;i<=1000;i++)
-	        {
-	        	username=username+"0";
-	        }
-	        FileOutputStream out = null;  
-	        try {  
-	            out = context.openFileOutput(fileName, Context.MODE_PRIVATE);  
-	            out.write(username.getBytes("UTF-8"));  
-		        out.close();
-	        } catch (Exception e) {  
-				// TODO Auto-generated catch block
-	            e.printStackTrace();  
-	        }  
-	        
-	        fileName = "email";
-	        try {  
-	            out = context.openFileOutput(fileName, Context.MODE_PRIVATE);  
-	            out.write(email.getBytes("UTF-8"));  
-		        out.close();
-	        } catch (Exception e) {  
-				// TODO Auto-generated catch block
-	            e.printStackTrace();  
-	        }  
-	        //跳转到主界面
-
-	        //j4f
-	        if(suprise.equals("Joure19940531"))
-	        {
-	            Dialog alertDialogOnPlay = new AlertDialog.Builder(LoginActivity.this)
-	            							.setMessage("你喜欢我嘛？")
-	            							.setCancelable(false)
-	            							.setPositiveButton("喜欢！",new DialogInterface.OnClickListener() {
-	            								
-	            								@Override
-	            								public void onClick(DialogInterface dialog, int which) {
-	            									// TODO Auto-generated method stub
-	            									Intent intent = new Intent(LoginActivity.this, Main.class);
-	            									startActivity(intent);
-	            									LoginActivity.this.finish();
-	            								}
-	            							})
-	            							.setNegativeButton("不喜欢",new DialogInterface.OnClickListener() {
-	            								@Override
-	            								public void onClick(DialogInterface dialog, int which) {
-	            									// TODO Auto-generated method stub
-	            									;
-	            									Dialog alertDialogExitDialog = new AlertDialog.Builder(LoginActivity.this)
-	            									.setMessage("哼，再见！")
-	            									.setCancelable(false)
-	    	            							.setPositiveButton("强制退出",new DialogInterface.OnClickListener() {
-	    	            								
-	    	            								@Override
-	    	            								public void onClick(DialogInterface dialog, int which) {
-	    	            									// TODO Auto-generated method stub
-	    	            									LoginActivity.this.finish();
-	    	            								}
-	    	            							})
-	            									.create();
-	            									alertDialogExitDialog.show();
-	            								}
-	            							})
-	            							.create();
-	            alertDialogOnPlay.show();
-	        }
-	        else {
-				Intent intent = new Intent(LoginActivity.this, LearnActivity.class);
-				startActivity(intent);
-				LoginActivity.this.finish();
-			}
-		}
-		}
-	};
+	private Button tLoginButton;
+	private EditText tUserNo;
+	private EditText tPassword;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-		loginButton = (Button)this.findViewById(R.id.loginButton);
-		inputUsername = (EditText)this.findViewById(R.id.loginText);
-		inputEmail = (EditText)this.findViewById(R.id.loginText2);
-        loginButton.setOnClickListener(listener);  
-        
-        //监听输入框
-        TextWatcher textWatcher = new TextWatcher() {
+		
+		tLoginButton = (Button)  findViewById(R.id.loginButton);
+		tUserNo 	 = (EditText)findViewById(R.id.loginText);
+		tPassword    = (EditText)findViewById(R.id.loginText2);
+		
+		initListener();
+	}
+	
+	private void initListener() {
+		tLoginButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				String userNo   = tUserNo.getText().toString();
+				String password = tPassword.getText().toString();
+				if (userNo.length() == 0 || password.length() == 0) {
+					Toast.makeText(LoginActivity.this, "用户编码和密码都不得为空", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				Log.i("wind", "I click loginButton");
+				new LoginTask(userNo, password).execute();
+			}
+		});  
+		
+		//监听输入框
+		TextWatcher textWatcher = new TextWatcher() {
 			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
-		        int length= inputUsername.getText().toString().length();  
-		        int length2 = inputEmail.getText().toString().length();  
-		        if(length>0 && length2>0)
-		        {
-		        	loginButton.setBackgroundColor(Color.parseColor("#691281"));
-		        }
-		        else {
-		        	loginButton.setBackgroundColor(Color.parseColor("#aaaaaa"));
+				int userNoLength   = tUserNo.getText().toString().length();  
+				int passwordLength = tPassword.getText().toString().length();  
+				if (userNoLength > 0 && passwordLength > 0) {
+					tLoginButton.setBackgroundColor(Color.parseColor("#691281"));
+				} else {
+					tLoginButton.setBackgroundColor(Color.parseColor("#aaaaaa"));
 				}
 			}
 		};
-        
-        inputUsername.addTextChangedListener(textWatcher);
-        inputEmail.addTextChangedListener(textWatcher);
 		
+		tUserNo.addTextChangedListener(textWatcher);
+		tPassword.addTextChangedListener(textWatcher);
 	}
-	
-	
+
+	private class LoginTask extends AsyncTask<Void, Void, UserProfile> {
+		private String userNo;
+		private String password;
+		private ProgressDialog progressDialog;
+		
+		public LoginTask(String userNo, String password) {
+			this.userNo = userNo;
+			this.password = password;
+			this.progressDialog = new ProgressDialog(LoginActivity.this);
+		}
+		
+		protected void onPreExecute() {
+			progressDialog.show();
+		}
+		
+		@Override
+		protected UserProfile doInBackground(Void... params) {
+			//这里应该是登录的过程
+			return AccountMgr.getUserProfile();
+		}
+		
+		protected void onPostExecute(UserProfile up) {
+			progressDialog.dismiss();
+			Intent intent = new Intent(LoginActivity.this, LearnActivity.class);
+			LoginActivity.this.startActivity(intent);
+			LoginActivity.this.finish();
+		}
+	}
 }
