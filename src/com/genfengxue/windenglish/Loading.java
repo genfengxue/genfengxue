@@ -8,6 +8,7 @@ import java.io.File;
 
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.activities.LearnActivity;
+import com.genfengxue.windenglish.activities.LoginActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -37,7 +38,7 @@ public class Loading extends Activity{
 	        	file2.delete();
 	        }
 		
-		final Intent intent = new Intent(Loading.this, Login.class);
+		final Intent intent = new Intent(Loading.this, LoginActivity.class);
 		final Intent intentMain = new Intent(Loading.this, LearnActivity.class);
 		File f=new File("/data/data/com.example.windenglish/files/userdata");
         //如果userdata不存在，则跳转到login界面

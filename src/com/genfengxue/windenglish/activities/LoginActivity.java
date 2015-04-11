@@ -2,13 +2,15 @@
  * 注册/登陆界面@author vita
  */
 
-package com.genfengxue.windenglish;
+package com.genfengxue.windenglish.activities;
 
 import java.io.File;
 import java.io.FileOutputStream;
 
+import com.genfengxue.windenglish.Main;
 import com.genfengxue.windenglish.R;
-import com.genfengxue.windenglish.activities.LearnActivity;
+import com.genfengxue.windenglish.R.id;
+import com.genfengxue.windenglish.R.layout;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,7 +28,7 @@ import android.os.Environment;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class Login extends Activity{
+public class LoginActivity extends Activity{
 	
 	private Button loginButton;
 	private int flag=1;
@@ -47,7 +49,7 @@ public class Login extends Activity{
 	        if(username.length()==0)
 	        {
 				flag=0;
-	        	Dialog alertDialog = new AlertDialog.Builder(Login.this)
+	        	Dialog alertDialog = new AlertDialog.Builder(LoginActivity.this)
 	        	.setMessage("用户名不能为空！")
 	        	.setCancelable(false)
 	        	.setPositiveButton("确定",null)
@@ -57,7 +59,7 @@ public class Login extends Activity{
 	        else if(email.length()==0)
 	        {
 				flag=0;
-	        	Dialog alertDialog = new AlertDialog.Builder(Login.this)
+	        	Dialog alertDialog = new AlertDialog.Builder(LoginActivity.this)
 	        	.setMessage("邮箱不能为空！")
 	        	.setCancelable(false)
 	        	.setPositiveButton("确定",null)
@@ -67,7 +69,7 @@ public class Login extends Activity{
 	        else if(username.indexOf("?")>=0)
 	        {
 	        	flag=0;
-	        	Dialog alertDialog = new AlertDialog.Builder(Login.this)
+	        	Dialog alertDialog = new AlertDialog.Builder(LoginActivity.this)
 	        	.setMessage("用户名中不能出现特殊字符“？”")
 	        	.setCancelable(false)
 	        	.setPositiveButton("确定",null)
@@ -116,7 +118,7 @@ public class Login extends Activity{
 	        //j4f
 	        if(suprise.equals("Joure19940531"))
 	        {
-	            Dialog alertDialogOnPlay = new AlertDialog.Builder(Login.this)
+	            Dialog alertDialogOnPlay = new AlertDialog.Builder(LoginActivity.this)
 	            							.setMessage("你喜欢我嘛？")
 	            							.setCancelable(false)
 	            							.setPositiveButton("喜欢！",new DialogInterface.OnClickListener() {
@@ -124,9 +126,9 @@ public class Login extends Activity{
 	            								@Override
 	            								public void onClick(DialogInterface dialog, int which) {
 	            									// TODO Auto-generated method stub
-	            									Intent intent = new Intent(Login.this, Main.class);
+	            									Intent intent = new Intent(LoginActivity.this, Main.class);
 	            									startActivity(intent);
-	            									Login.this.finish();
+	            									LoginActivity.this.finish();
 	            								}
 	            							})
 	            							.setNegativeButton("不喜欢",new DialogInterface.OnClickListener() {
@@ -134,7 +136,7 @@ public class Login extends Activity{
 	            								public void onClick(DialogInterface dialog, int which) {
 	            									// TODO Auto-generated method stub
 	            									;
-	            									Dialog alertDialogExitDialog = new AlertDialog.Builder(Login.this)
+	            									Dialog alertDialogExitDialog = new AlertDialog.Builder(LoginActivity.this)
 	            									.setMessage("哼，再见！")
 	            									.setCancelable(false)
 	    	            							.setPositiveButton("强制退出",new DialogInterface.OnClickListener() {
@@ -142,7 +144,7 @@ public class Login extends Activity{
 	    	            								@Override
 	    	            								public void onClick(DialogInterface dialog, int which) {
 	    	            									// TODO Auto-generated method stub
-	    	            									Login.this.finish();
+	    	            									LoginActivity.this.finish();
 	    	            								}
 	    	            							})
 	            									.create();
@@ -153,9 +155,9 @@ public class Login extends Activity{
 	            alertDialogOnPlay.show();
 	        }
 	        else {
-				Intent intent = new Intent(Login.this, LearnActivity.class);
+				Intent intent = new Intent(LoginActivity.this, LearnActivity.class);
 				startActivity(intent);
-				Login.this.finish();
+				LoginActivity.this.finish();
 			}
 		}
 		}

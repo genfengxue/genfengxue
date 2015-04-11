@@ -13,6 +13,7 @@ import java.util.HashMap;
 import org.apache.http.util.EncodingUtils;
 
 import com.genfengxue.windenglish.R;
+import com.genfengxue.windenglish.activities.LoginActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -167,7 +168,7 @@ public class Main extends Activity {
                                 File userFile = new File(
                                         "/data/data/com.example.windenglish/files/userdata");
                                 userFile.delete();
-                                Intent intent = new Intent(Main.this, Login.class);
+                                Intent intent = new Intent(Main.this, LoginActivity.class);
                                 startActivity(intent);
                                 Main.this.finish();
                             }
