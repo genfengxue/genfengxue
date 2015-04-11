@@ -44,11 +44,10 @@ public class LessonVideoDownloader implements Runnable {
 		for (int part = 1; part <= VIDEO_PART_NUM; ++part) {
 			String path = UriUtils.getLessonVideoPath(courseId, lessonId, part);
 			File file = new File(path);
+			AndroidHttpClient client = AndroidHttpClient.newInstance("Mozilla/5.0");
 			if (!file.exists()) {
 				try {
 					File tmpFile = new File(path + "_tmp");
-
-					AndroidHttpClient client = AndroidHttpClient.newInstance("Mozilla/5.0");
 					HttpGet get = new HttpGet(
 							UriUtils.getLessonVideoUri(courseId, lessonId, part));
 					HttpResponse response = client.execute(get);
@@ -56,12 +55,10 @@ public class LessonVideoDownloader implements Runnable {
 					if (200 == response.getStatusLine().getStatusCode()) {
 						FunctionUtils.pipeIo(response.getEntity().getContent(), 
 								new BufferedOutputStream(new FileOutputStream(tmpFile)));;
-						client.close();
 						Log.i(TAG, "downloaded " + path);
 						tmpFile.renameTo(file);
 					} else {
 						Log.e(TAG, "fail to request url");
-						client.close();
 						handler.sendEmptyMessage(DOWNLOAD_FAILED);
 						return;
 					}
@@ -72,6 +69,7 @@ public class LessonVideoDownloader implements Runnable {
 				}
 				
 			}
+			client.close();
 
 			Message msg = handler.obtainMessage(DOWNLOAD_PROGRESS, 
 					part * 100 / VIDEO_PART_NUM);
