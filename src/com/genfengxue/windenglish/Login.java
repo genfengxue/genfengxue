@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import com.genfengxue.windenglish.R;
+import com.genfengxue.windenglish.activities.LearnActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -152,7 +153,7 @@ public class Login extends Activity{
 	            alertDialogOnPlay.show();
 	        }
 	        else {
-				Intent intent = new Intent(Login.this, Main.class);
+				Intent intent = new Intent(Login.this, LearnActivity.class);
 				startActivity(intent);
 				Login.this.finish();
 			}

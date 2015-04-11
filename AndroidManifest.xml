@@ -35,6 +35,8 @@
         </activity>
         <activity android:name="com.genfengxue.windenglish.Login"
             android:screenOrientation="portrait"></activity> 
+        <activity android:name=".activities.LearnActivity"
+            android:screenOrientation="portrait"></activity>
         <activity android:name="com.genfengxue.windenglish.Main"
             android:screenOrientation="portrait"></activity>
         <activity android:name="com.genfengxue.windenglish.Play"
