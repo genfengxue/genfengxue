@@ -33,7 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.genfengxue.windenglish.Login"
+        <activity android:name="com.genfengxue.windenglish.activities.LoginActivity"
             android:screenOrientation="portrait"></activity> 
         <activity android:name=".activities.LearnActivity"
             android:screenOrientation="portrait"></activity>
