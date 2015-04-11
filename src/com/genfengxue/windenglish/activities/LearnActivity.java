@@ -1,6 +1,5 @@
 package com.genfengxue.windenglish.activities;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,11 +7,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +32,8 @@ import com.genfengxue.windenglish.BuildConfig;
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.cache.LessonVideoDownloader;
 import com.genfengxue.windenglish.mgr.AccountMgr;
+import com.genfengxue.windenglish.network.JsonApiCaller;
+import com.genfengxue.windenglish.network.JsonStringHandler;
 import com.genfengxue.windenglish.struct.LessonInfo;
 import com.genfengxue.windenglish.struct.LessonInfo.LessonState;
 import com.genfengxue.windenglish.struct.UserProfile;
@@ -164,13 +160,10 @@ public class LearnActivity extends Activity {
 
 		@Override
 		protected List<LessonInfo> doInBackground(Integer... params) {
-			HttpGet get = new HttpGet(Constants.LESSON_LIST_API_URI);
-			try {
-				return client.execute(get, new LessonJsonHandler());
-			} catch (ClientProtocolException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+			// TODO hard code courseNo, should be replaced later
+			String jsonStr = JsonApiCaller.getLessonListApi(2);
+			if (jsonStr != null) {
+				return new LessonJsonHandler().handleJsonString(jsonStr);
 			}
 
 			return new ArrayList<LessonInfo>();
@@ -247,16 +240,11 @@ public class LearnActivity extends Activity {
 		}
 	}
 
-	private class LessonJsonHandler implements
-			ResponseHandler<List<LessonInfo>> {
+	private class LessonJsonHandler implements JsonStringHandler<List<LessonInfo>> {
 
 		@Override
-		public List<LessonInfo> handleResponse(HttpResponse response)
-				throws ClientProtocolException, IOException {
+		public List<LessonInfo> handleJsonString(String jsonStr) {
 			List<LessonInfo> res = new ArrayList<LessonInfo>();
-			String jsonStr = new BasicResponseHandler()
-					.handleResponse(response);
-
 			try {
 				JSONArray arr = new JSONArray(jsonStr);
 
