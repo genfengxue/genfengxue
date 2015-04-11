@@ -22,10 +22,10 @@ public class JsonApiCaller {
 	 *            url of api
 	 * @return content of response, null if url is not available
 	 */
-	public static String getApiContent(String urlStr, boolean refresh)  {
+	public static String getApiContent(String urlStr, boolean forceRefresh)  {
 		try {
 			File cacheFile = FileCache.getCacheFile(urlStr);
-			if (!refresh && cacheFile.exists()) {
+			if (!forceRefresh && cacheFile.exists()) {
 				StringBuilder sb = new StringBuilder();
 				BufferedReader br = new BufferedReader(new FileReader(cacheFile));
 				String str = null;
@@ -66,15 +66,15 @@ public class JsonApiCaller {
 		return null;
 	}
 	
-	public static String getLessonListApi(int courseNo, boolean refresh) {
+	public static String getLessonListApi(int courseNo, boolean forceRefresh) {
 		QueryBuilder qb = new QueryBuilder();
 		qb.addIntQuery("courseNo", courseNo);
 		StringBuilder sb = new StringBuilder();
 		sb.append(Constants.LESSON_LIST_API_URI).append("?").append(qb.getQuery());
-		return getApiContent(sb.toString(), refresh);
+		return getApiContent(sb.toString(), forceRefresh);
 	}
 	
 	public static String getLessonListApi(int courseNo) {
-		return getLessonListApi(courseNo, true);
+		return getLessonListApi(courseNo, false);
 	}
 }
