@@ -23,7 +23,6 @@ import com.genfengxue.windenglish.utils.Constants;
 import com.genfengxue.windenglish.utils.FunctionUtils;
 
 public class ImageLoader {
-
 	
 	// make ImageView as weak reference
 	private Map<ImageView, String> record = new WeakHashMap<ImageView, String>();
@@ -53,10 +52,10 @@ public class ImageLoader {
 		
 		@Override
 		protected Drawable doInBackground(Void... params) {
-			String filename = FunctionUtils.sha1(uri);
-			File cacheFile = new File(Constants.CACHE_DIR, filename);
+			String path = FileCache.getCacheFilePath(uri);
+			File cacheFile = new File(path);
 			if (!cacheFile.exists()) {
-				File tmpFile = new File(Constants.CACHE_DIR, filename + "_tmp");
+				File tmpFile = new File(Constants.CACHE_DIR, path + "_tmp");
 				AndroidHttpClient client = AndroidHttpClient.newInstance("Mozilla/5.0");
 				HttpGet get = new HttpGet(uri);
 				try {
