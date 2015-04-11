@@ -40,7 +40,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.genfengxue.windenglish.R;
-import com.sun.mail.util.MailSSLSocketFactory;
+//import com.sun.mail.util.MailSSLSocketFactory;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
