@@ -15,7 +15,21 @@ public class Constants {
 	
 	public static final String USER_DATA_DIR = APP_DIR + "/User";
 	
-	public static final String LESSON_LIST_API_URI = 
-			"http://data.genfengxue.com/api/lessons";
+	public static final String API_BASE_URI = "http://data.genfengxue.com/api";
+	
+	public static final String LESSON_LIST_API_URI = API_BASE_URI + 
+			"/lessons";
+	
+	/**
+	 *  use http post to get the token
+	 */
+	public static final String GET_TOKEN_URI = API_BASE_URI + "/auth/local";
+	
+	public static final String TOKEN_VALIDATE_URI = API_BASE_URI + "/auth";
+	
+	public static final String USER_PROFILE_URI = API_BASE_URI + "/users/me";
+	
+	public static final String CHANGE_PASSWORD_URI = API_BASE_URI + 
+			"/users/change_password";
 	
 }
