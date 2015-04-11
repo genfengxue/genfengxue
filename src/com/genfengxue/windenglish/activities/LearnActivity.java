@@ -316,6 +316,5 @@ public class LearnActivity extends Activity {
 		FunctionUtils.mkdirs(Constants.CACHE_DIR);
 		FunctionUtils.mkdirs(Constants.RECORD_DIR);
 		FunctionUtils.mkdirs(Constants.VIDEO_DIR);
-		Constants.MAIN_CONTEXT = this;
 	}
 }

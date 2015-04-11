@@ -1,9 +1,10 @@
 package com.genfengxue.windenglish.cache;
 
-import com.genfengxue.windenglish.R;
-
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
+
+import com.genfengxue.windenglish.R;
 
 public class LazyImageViewUriFiller {
 
@@ -16,12 +17,12 @@ public class LazyImageViewUriFiller {
 		loader = new ImageLoader(cache);
 	}
 	
-	public static void fill(ImageView view, String uri) {
+	public static void fill(Context ctx, ImageView view, String uri) {
 		if (cache.contains(uri)) {
 			view.setImageDrawable(cache.get(uri));
 			return;
 		}
 		view.setImageResource(R.drawable.ic_launcher);
-		loader.load(view, uri);
+		loader.load(ctx, view, uri);
 	}
 }

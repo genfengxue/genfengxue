@@ -13,6 +13,7 @@ import java.util.WeakHashMap;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
@@ -33,20 +34,22 @@ public class ImageLoader {
 		this.cache = cache;
 	}
 
-	public void load(ImageView view, String uri) {
+	public void load(Context ctx, ImageView view, String uri) {
 		record.put(view, uri);
 		if (!uriQueue.containsKey(uri)) {
 			uriQueue.put(uri, new ArrayList<ImageView>());
-			new ImageDownloadTask(uri).execute();
+			new ImageDownloadTask(ctx, uri).execute();
 		}
 		uriQueue.get(uri).add(view);
 	}
 
 	private class ImageDownloadTask extends AsyncTask<Void, Void, Drawable> {
 
+		private Context ctx;
 		private String uri;
 		
-		ImageDownloadTask(String uri) {
+		ImageDownloadTask(Context ctx, String uri) {
+			this.ctx = ctx;
 			this.uri = uri;
 		}
 		
@@ -70,7 +73,7 @@ public class ImageLoader {
 				} catch (IOException e) {
 					e.printStackTrace();
 					client.close();
-					return Constants.MAIN_CONTEXT.getResources().getDrawable(R.drawable.noimage);
+					return ctx.getResources().getDrawable(R.drawable.noimage);
 				}
 			}
 			
