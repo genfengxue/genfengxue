@@ -9,10 +9,7 @@ public class AccountMgr {
 	// TODO 
 	public static UserProfile getUserProfile() {
 		if (user == null) {
-			user = new UserProfile();
-			user.setUserName("Jack");
-			user.setName("SJ");
-			user.setEmail("sss@sss");
+			// TODO add logic
 		}
 		return user;
 	}
