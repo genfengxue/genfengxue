@@ -7,14 +7,16 @@ public class UserProfile {
 
 	private int userNo;
 	private int role;
+	private String accessToken;
 	private String nickName;
 	private String avatar;
 	private String email;
 
-	public UserProfile(int userNo, int role, String nickName, String avatar,
+	public UserProfile(int userNo, int role, String accessToken, String nickName, String avatar,
 			String email) {
 		this.userNo = userNo;
 		this.role = role;
+		this.accessToken = accessToken;
 		this.nickName = nickName;
 		this.avatar = avatar;
 		this.email = email;
@@ -42,5 +44,13 @@ public class UserProfile {
 
 	public String getAvatar() {
 		return avatar;
+	}
+
+	public String getAccessToken() {
+		return accessToken;
+	}
+
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
 	}
 }

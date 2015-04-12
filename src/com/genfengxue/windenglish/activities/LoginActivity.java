@@ -4,11 +4,15 @@
 
 package com.genfengxue.windenglish.activities;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,6 +27,7 @@ import android.widget.Toast;
 
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.network.JsonApiCaller;
+import com.genfengxue.windenglish.utils.UriUtils;
 
 public class LoginActivity extends Activity {
 	
@@ -102,8 +107,10 @@ public class LoginActivity extends Activity {
 		
 		@Override
 		protected String doInBackground(Void... params) {
-			//这里应该是登录的过程
+			//获取token
 			String tokenObjString = JsonApiCaller.postTokenApi(userNo, password);
+			if (tokenObjString == null) return null;
+			
 			String token = "";
 			try {
 				JSONObject tokenObj = new JSONObject(tokenObjString);
@@ -112,15 +119,41 @@ public class LoginActivity extends Activity {
 				e.printStackTrace();
 				return null;
 			}
+			
+			//根据token获取user profile，并存入本地文件
+			String userProfileString = JsonApiCaller.getUserProfileApi(token);
+			if (userProfileString == null) return null;
+			
+			try {
+				JSONObject userProfileJson = new JSONObject(userProfileString);
+				userProfileJson.put("accessToken", token);
+				userProfileJson.put("password", password);
+				
+				FileWriter userFile = new FileWriter(UriUtils.getUserDataPath());
+				try {
+					userFile.write(userProfileJson.toString());
+				} finally {
+					userFile.close();
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 			return token;
 		}
 		
 		protected void onPostExecute(String token) {
 			progressDialog.dismiss();
-			Toast.makeText(LoginActivity.this, token, Toast.LENGTH_SHORT).show();;
-//			Intent intent = new Intent(LoginActivity.this, LearnActivity.class);
-//			LoginActivity.this.startActivity(intent);
-//			LoginActivity.this.finish();
+			if (token == null) {
+				Toast.makeText(LoginActivity.this, "登录失败，请重试……", Toast.LENGTH_SHORT).show();
+				return;
+			}
+			//登录成功之后，进入LearnActivity
+			Intent intent = new Intent(LoginActivity.this, LearnActivity.class);
+			LoginActivity.this.startActivity(intent);
+			LoginActivity.this.finish();
 		}
 	}
 }
