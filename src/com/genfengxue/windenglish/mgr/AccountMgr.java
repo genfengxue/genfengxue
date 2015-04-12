@@ -56,6 +56,7 @@ public class AccountMgr {
 					props.setProperty("nickname", obj.optString("nickname", "no nick name"));
 					props.setProperty("avatar", obj.optString("avatar", ""));
 					props.setProperty("email", obj.optString("email", "no email"));
+					props.setProperty("withprofile", "yes");
 					user = UserProfile.load(props);
 					
 					File tmpFile = new File(userdata.getAbsoluteFile() + "_tmp");
