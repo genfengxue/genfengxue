@@ -1,10 +1,16 @@
 package com.genfengxue.windenglish.mgr;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.util.Log;
+
 import com.genfengxue.windenglish.struct.UserProfile;
+import com.genfengxue.windenglish.utils.FileUtils;
 
 public class AccountMgr {
 
-	private static UserProfile user = null;
+	private static UserProfile userProfile = null;
 
 	/**
 	 * Get the user profile <br>
@@ -13,10 +19,29 @@ public class AccountMgr {
 	 *         of date
 	 */
 	public static UserProfile getUserProfile() {
-		if (user == null) {
-			// TODO add logic
+		if (userProfile == null) {
+			String userDataString = FileUtils.readUserData();
+			if (userDataString == null) return null;
+			
+			JSONObject userData = null;
+			try {
+				userData = new JSONObject(userDataString);
+			} catch (JSONException e) {
+				Log.e("wind", "user data json parse error");
+				e.printStackTrace();
+				return null;
+			}
+			
+			userProfile = new UserProfile(
+				userData.optInt("userNo"),
+				userData.optInt("role"),
+				userData.optString("accessToken"),
+				userData.optString("nickname"),
+				userData.optString("avatar"),
+				userData.optString("email")
+			);
 		}
-		return user;
+		return userProfile;
 	}
 
 	/**

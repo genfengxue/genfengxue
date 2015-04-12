@@ -17,7 +17,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -153,8 +152,6 @@ public class LearnActivity extends Activity {
 	private class GetLessonListTask extends
 			AsyncTask<Integer, Void, List<LessonInfo>> {
 
-		private AndroidHttpClient client = AndroidHttpClient.newInstance("");
-
 		protected void onPreExecute() {
 		}
 
@@ -175,7 +172,6 @@ public class LearnActivity extends Activity {
 				lessonView.setAdapter(adaptor);
 				lessonView.setOnItemClickListener(new LessonItemClickListener());
 			}
-			client.close();
 		}
 
 	}

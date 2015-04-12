@@ -130,11 +130,8 @@ public class LoginActivity extends Activity {
 				userProfileJson.put("password", password);
 				
 				FileWriter userFile = new FileWriter(UriUtils.getUserDataPath());
-				try {
-					userFile.write(userProfileJson.toString());
-				} finally {
-					userFile.close();
-				}
+				userFile.write(userProfileJson.toString());
+				userFile.close();
 			} catch (JSONException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
