@@ -45,7 +45,7 @@ public class LessonAdaptor extends BaseAdapter {
 		
 		// download image
 		ImageView image = (ImageView) rl.findViewById(R.id.ItemImage);
-		LazyImageViewUriFiller.fill(convertView.getContext(), image, info.getImageUri());
+		LazyImageViewUriFiller.fill(rl.getContext(), image, info.getImageUri());
 
 		// put content
 		((TextView) rl.findViewById(R.id.ItemTitle)).setText(String.valueOf(info.getLessonId()));

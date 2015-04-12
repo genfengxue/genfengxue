@@ -53,9 +53,9 @@ public class AccountMgr {
 					JSONObject obj = new JSONObject(jsonStr);
 					props.setProperty("userNo", obj.getString("userNo"));
 					props.setProperty("role", obj.getString("role"));
-					props.setProperty("nickname", obj.getString("nickname"));
-					props.setProperty("avatar", obj.getString("avatar"));
-					props.setProperty("email", obj.getString("email"));
+					props.setProperty("nickname", obj.optString("nickname", "no nick name"));
+					props.setProperty("avatar", obj.optString("avatar", ""));
+					props.setProperty("email", obj.optString("email", "no email"));
 					user = UserProfile.load(props);
 					
 					File tmpFile = new File(userdata.getAbsoluteFile() + "_tmp");

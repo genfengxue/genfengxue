@@ -20,7 +20,6 @@ import android.os.AsyncTask;
 import android.widget.ImageView;
 
 import com.genfengxue.windenglish.R;
-import com.genfengxue.windenglish.utils.Constants;
 import com.genfengxue.windenglish.utils.FunctionUtils;
 
 public class ImageLoader {
@@ -58,7 +57,7 @@ public class ImageLoader {
 			String path = FileCache.getCacheFilePath(uri);
 			File cacheFile = new File(path);
 			if (!cacheFile.exists()) {
-				File tmpFile = new File(Constants.CACHE_DIR, path + "_tmp");
+				File tmpFile = new File(path + "_tmp");
 				AndroidHttpClient client = AndroidHttpClient.newInstance("Mozilla/5.0");
 				HttpGet get = new HttpGet(uri);
 				try {
