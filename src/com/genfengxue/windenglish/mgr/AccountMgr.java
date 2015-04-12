@@ -1,11 +1,30 @@
 package com.genfengxue.windenglish.mgr;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Properties;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.util.Log;
+
+import com.genfengxue.windenglish.network.JsonApiCaller;
 import com.genfengxue.windenglish.struct.UserProfile;
+import com.genfengxue.windenglish.utils.Constants;
 
 public class AccountMgr {
+	
+	private static final String TAG = "AccountMgr";
+	private static final String USER_DATA_FILE_PATH = Constants.USER_DATA_DIR
+			+ "/userdata";
+	private static final String MARK_FILED = "withprofile";
 
 	private static UserProfile user = null;
-
+	
 	/**
 	 * Get the user profile <br>
 	 * 
@@ -14,7 +33,30 @@ public class AccountMgr {
 	 */
 	public static UserProfile getUserProfile() {
 		if (user == null) {
-			// TODO add logic
+			File userdata = new File(USER_DATA_FILE_PATH);
+			if (!userdata.exists()) {
+				return null;
+			}
+			
+			Properties props = new Properties();
+			try {
+				props.load(new FileInputStream(userdata));
+				if ("yes".equals(props.getProperty(MARK_FILED, ""))) {
+					int userNo = Integer.valueOf(props.getProperty("userNo", ""));
+					int role = Integer.valueOf(props.getProperty("role"));
+					String nickName = props.getProperty("nickName", "User: " + userNo);
+					String avatar = props.getProperty("avatar", "");
+					String email = props.getProperty("email", "");
+					user = new UserProfile(userNo, role, nickName, avatar, email);
+				} else {
+					String jsonStr = JsonApiCaller.
+				}
+			
+			} catch (FileNotFoundException e) {
+				Log.w(TAG, "user data file load failed: " + e.getMessage());
+			} catch (IOException e) {
+				Log.w(TAG, "user data file load failed: " + e.getMessage());
+			}
 		}
 		return user;
 	}
@@ -26,9 +68,36 @@ public class AccountMgr {
 	 *            user number
 	 * @param password
 	 *            password
+	 * @return true if successfully require token, false otherwise
 	 */
-	public static void updateToken(int userNo, String password) {
-		// update token 
-		// delete the existing profile
+	public static boolean updateToken(int userNo, String password) {
+		String jsonStr = JsonApiCaller.postTokenApi(userNo, password);
+		try {
+			JSONObject obj = new JSONObject(jsonStr);
+			
+			String token = obj.getString("token");
+			if (token == null) {
+				Log.e(TAG, "access denied, no token response by server");
+				return false;
+			}
+			
+			File userdata = new File(USER_DATA_FILE_PATH);
+			userdata.delete();
+			File tmpfile = new File(USER_DATA_FILE_PATH + "_tmp");
+			Properties props = new Properties();
+			props.put("token", token);
+			props.put("userNo", String.valueOf(userNo));
+			props.put("password", password);
+			props.put(MARK_FILED, "no");
+			props.store(new FileWriter(tmpfile), "user data");
+			tmpfile.renameTo(userdata);
+			return true;
+		} catch (JSONException e) {
+			Log.e(TAG, "token update failed: " + e.getMessage());
+		} catch (IOException e) {
+			Log.e(TAG, "token update failed: " + e.getMessage());
+		}
+		
+		return false;
 	}
 }
