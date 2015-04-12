@@ -132,6 +132,17 @@ public class JsonApiCaller {
 	public static String getLessonListApi(int courseNo) {
 		return getLessonListApi(courseNo, false);
 	}
+	
+	public static String buildGetUrl(String baseUrl, QueryBuilder qb) {
+		return baseUrl + "?" + qb.getQuery();
+	}
+	
+	public static String getUserProfileApi(String token) {
+		QueryBuilder qb = new QueryBuilder();
+		qb.addStringQuery("access_token", token);
+		String urlStr = buildGetUrl(Constants.USER_PROFILE_URI, qb);
+		return getApiContent(urlStr, true);
+	}
 
 	/**
 	 * Get user token with post api
