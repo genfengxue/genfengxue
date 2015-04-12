@@ -13,7 +13,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.genfengxue.windenglish.utils.FunctionUtils;
+import com.genfengxue.windenglish.utils.FileUtils;
 import com.genfengxue.windenglish.utils.UriUtils;
 
 public class LessonVideoDownloader implements Runnable {
@@ -53,8 +53,10 @@ public class LessonVideoDownloader implements Runnable {
 					HttpResponse response = client.execute(get);
 					
 					if (200 == response.getStatusLine().getStatusCode()) {
-						FunctionUtils.pipeIo(response.getEntity().getContent(), 
-								new BufferedOutputStream(new FileOutputStream(tmpFile)));;
+						long byteNum = response.getEntity().getContentLength();
+						FileUtils.pipeIo(response.getEntity().getContent(), 
+								new BufferedOutputStream(new FileOutputStream(tmpFile)), 
+								new ProgressUpdater(Long.valueOf(part), byteNum));;
 						Log.i(TAG, "downloaded " + path);
 						tmpFile.renameTo(file);
 					} else {
@@ -77,6 +79,25 @@ public class LessonVideoDownloader implements Runnable {
 		}
 
 		handler.sendEmptyMessage(DOWNLOAD_FINISHED);
+	}
+	
+	private class ProgressUpdater implements FileUtils.ProgressUpdater {
+
+		private long part;
+		private long partByteNum;
+		
+		public ProgressUpdater(long part, long partByteNum) {
+			this.part = part;
+			this.partByteNum = partByteNum;
+		}
+		
+		@Override
+		public void update(long byteNum) {
+			int prog = (int) ((byteNum * 100 / partByteNum + (part - 1) * 100) / VIDEO_PART_NUM);
+			Message msg = handler.obtainMessage(DOWNLOAD_PROGRESS, prog);
+			handler.sendMessage(msg);
+		}
+		
 	}
 
 }

@@ -20,7 +20,7 @@ import android.os.AsyncTask;
 import android.widget.ImageView;
 
 import com.genfengxue.windenglish.R;
-import com.genfengxue.windenglish.utils.FunctionUtils;
+import com.genfengxue.windenglish.utils.FileUtils;
 
 public class ImageLoader {
 	
@@ -63,7 +63,7 @@ public class ImageLoader {
 				try {
 					HttpResponse response = client.execute(get);
 					if (200 == response.getStatusLine().getStatusCode()) {
-						FunctionUtils.pipeIo(response.getEntity().getContent(), 
+						FileUtils.pipeIo(response.getEntity().getContent(), 
 								new BufferedOutputStream(new FileOutputStream(tmpFile)));
 					}
 					
