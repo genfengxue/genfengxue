@@ -53,10 +53,10 @@ public class LessonVideoDownloader implements Runnable {
 					HttpResponse response = client.execute(get);
 					
 					if (200 == response.getStatusLine().getStatusCode()) {
-						long byteNum = response.getEntity().getContentLength();
+						int byteNum = (int) response.getEntity().getContentLength();
 						FileUtils.pipeIo(response.getEntity().getContent(), 
-								new BufferedOutputStream(new FileOutputStream(tmpFile)), 
-								new ProgressUpdater(Long.valueOf(part), byteNum));;
+								new BufferedOutputStream(new FileOutputStream(tmpFile)),
+								new ProgressUpdater(part, byteNum));
 						Log.i(TAG, "downloaded " + path);
 						tmpFile.renameTo(file);
 					} else {
@@ -68,8 +68,9 @@ public class LessonVideoDownloader implements Runnable {
 					Log.e(TAG, "download failed for " + e.getMessage());
 					handler.sendEmptyMessage(DOWNLOAD_FAILED);
 					return;
+				} finally {
+					client.close();
 				}
-				
 			}
 			client.close();
 
@@ -83,21 +84,19 @@ public class LessonVideoDownloader implements Runnable {
 	
 	private class ProgressUpdater implements FileUtils.ProgressUpdater {
 
-		private long part;
-		private long partByteNum;
+		private int part;
+		private int partByteNum;
 		
-		public ProgressUpdater(long part, long partByteNum) {
+		public ProgressUpdater(int part, int partByteNum) {
 			this.part = part;
 			this.partByteNum = partByteNum;
 		}
 		
 		@Override
-		public void update(long byteNum) {
+		public void update(int byteNum) {
 			int prog = (int) ((byteNum * 100 / partByteNum + (part - 1) * 100) / VIDEO_PART_NUM);
 			Message msg = handler.obtainMessage(DOWNLOAD_PROGRESS, prog);
 			handler.sendMessage(msg);
 		}
-		
 	}
-
 }

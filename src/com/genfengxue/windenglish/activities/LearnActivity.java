@@ -201,7 +201,6 @@ public class LearnActivity extends Activity {
 				if (progress.contains(info)) {
 					info.setDownloadProgress((Integer) msg.obj);
 					progress.add(info);
-					((LessonAdaptor) lessonView.getAdapter()).notifyDataSetChanged();
 				}
 				updateProgressBar();
 				break;

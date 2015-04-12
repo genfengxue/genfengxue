@@ -88,6 +88,7 @@ public class JsonApiCaller {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			conn.setRequestProperty("Accept", "application/json");
 			
 			conn.setDoOutput(true);
 			conn.getOutputStream().write(params.getBytes());

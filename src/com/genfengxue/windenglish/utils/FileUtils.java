@@ -19,7 +19,7 @@ public class FileUtils {
 			throws IOException {
 		byte[] buffer = new byte[1024];
 		int length = 0;
-		long count = 0;
+		int count = 0;
 		if (updater != null) {
 			while ((length = is.read(buffer)) != -1) {
 				os.write(buffer, 0, length);
@@ -37,7 +37,7 @@ public class FileUtils {
 	}
 
 	public interface ProgressUpdater {
-		void update(long byteNum);
+		void update(int byteNum);
 	}
 	
 	public static String readFile(String path) {
