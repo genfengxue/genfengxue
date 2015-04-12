@@ -67,7 +67,7 @@ public class LearnActivity extends Activity {
 
 		// init user name bar
 		UserProfile userProfile = AccountMgr.getUserProfile();
-		((TextView) findViewById(R.id.mainUsername)).setText(userProfile.getName());
+		((TextView) findViewById(R.id.mainUsername)).setText(userProfile.getNickname());
 
 		lessonView = (ListView) findViewById(R.id.videoList);
 		learnOptions = getResources().getStringArray(R.array.learn_options);

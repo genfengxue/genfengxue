@@ -42,22 +42,35 @@ public class AccountMgr {
 			try {
 				props.load(new FileInputStream(userdata));
 				if ("yes".equals(props.getProperty(MARK_FILED, ""))) {
-					int userNo = Integer.valueOf(props.getProperty("userNo", ""));
-					int role = Integer.valueOf(props.getProperty("role"));
-					String nickName = props.getProperty("nickName", "User: " + userNo);
-					String avatar = props.getProperty("avatar", "");
-					String email = props.getProperty("email", "");
-					user = new UserProfile(userNo, role, nickName, avatar, email);
+					user = UserProfile.load(props);
 				} else {
-					String jsonStr = JsonApiCaller.
+					String token = null;
+					String jsonStr = null;
+					if ((token = props.getProperty("token")) == null || 
+							(jsonStr = JsonApiCaller.getUserProfileApi(token)) == null) {
+						return null;
+					}
+					JSONObject obj = new JSONObject(jsonStr);
+					props.setProperty("userNo", obj.getString("userNo"));
+					props.setProperty("role", obj.getString("role"));
+					props.setProperty("nickname", obj.getString("nickname"));
+					props.setProperty("avatar", obj.getString("avatar"));
+					props.setProperty("email", obj.getString("email"));
+					user = UserProfile.load(props);
+					
+					File tmpFile = new File(userdata.getAbsoluteFile() + "_tmp");
+					props.store(new FileWriter(tmpFile), "user data");
+					tmpFile.renameTo(userdata);
 				}
-			
 			} catch (FileNotFoundException e) {
 				Log.w(TAG, "user data file load failed: " + e.getMessage());
 			} catch (IOException e) {
 				Log.w(TAG, "user data file load failed: " + e.getMessage());
+			} catch (JSONException e) {
+				Log.e(TAG, "user data file load failed: " + e.getMessage());
 			}
 		}
+		
 		return user;
 	}
 

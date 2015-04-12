@@ -1,5 +1,7 @@
 package com.genfengxue.windenglish.struct;
 
+import java.util.Properties;
+
 public class UserProfile {
 	public static final int USER_ROLE_STUDENT = 1;
 	public static final int USER_ROLE_TEACHER = 2;
@@ -7,7 +9,7 @@ public class UserProfile {
 
 	private int userNo;
 	private int role;
-	private String nickName;
+	private String nickname;
 	private String avatar;
 	private String email;
 
@@ -15,13 +17,22 @@ public class UserProfile {
 			String email) {
 		this.userNo = userNo;
 		this.role = role;
-		this.nickName = nickName;
+		this.nickname = nickName;
 		this.avatar = avatar;
 		this.email = email;
 	}
+	
+	public static UserProfile load(Properties props) {
+		int userNo = Integer.valueOf(props.getProperty("userNo", ""));
+		int role = Integer.valueOf(props.getProperty("role"));
+		String nickName = props.getProperty("nickname", "User: " + userNo);
+		String avatar = props.getProperty("avatar", "");
+		String email = props.getProperty("email", "");
+		return new UserProfile(userNo, role, nickName, avatar, email);
+	}
 
-	public String getName() {
-		return nickName;
+	public String getNickname() {
+		return nickname;
 	}
 
 	public int getUserNo() {
@@ -34,10 +45,6 @@ public class UserProfile {
 
 	public int getRole() {
 		return role;
-	}
-
-	public String getNickName() {
-		return nickName;
 	}
 
 	public String getAvatar() {
