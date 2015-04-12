@@ -4,9 +4,11 @@
 
 package com.genfengxue.windenglish.activities;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,8 +22,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.genfengxue.windenglish.R;
-import com.genfengxue.windenglish.mgr.AccountMgr;
-import com.genfengxue.windenglish.struct.UserProfile;
+import com.genfengxue.windenglish.network.JsonApiCaller;
 
 public class LoginActivity extends Activity {
 	
@@ -44,9 +45,9 @@ public class LoginActivity extends Activity {
 	private void initListener() {
 		tLoginButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				String userNo   = tUserNo.getText().toString();
+				int    userNo   = Integer.parseInt(tUserNo.getText().toString());
 				String password = tPassword.getText().toString();
-				if (userNo.length() == 0 || password.length() == 0) {
+				if (userNo <= 0 || password.length() == 0) {
 					Toast.makeText(LoginActivity.this, "用户编码和密码都不得为空", Toast.LENGTH_SHORT).show();
 					return;
 				}
@@ -83,15 +84,16 @@ public class LoginActivity extends Activity {
 		tPassword.addTextChangedListener(textWatcher);
 	}
 
-	private class LoginTask extends AsyncTask<Void, Void, UserProfile> {
-		private String userNo;
+	private class LoginTask extends AsyncTask<Void, Void, String> {
+		private int userNo;
 		private String password;
 		private ProgressDialog progressDialog;
 		
-		public LoginTask(String userNo, String password) {
+		public LoginTask(int userNo, String password) {
 			this.userNo = userNo;
 			this.password = password;
 			this.progressDialog = new ProgressDialog(LoginActivity.this);
+			progressDialog.setTitle("正在登录……");
 		}
 		
 		protected void onPreExecute() {
@@ -99,16 +101,26 @@ public class LoginActivity extends Activity {
 		}
 		
 		@Override
-		protected UserProfile doInBackground(Void... params) {
+		protected String doInBackground(Void... params) {
 			//这里应该是登录的过程
-			return AccountMgr.getUserProfile();
+			String tokenObjString = JsonApiCaller.postTokenApi(userNo, password);
+			String token = "";
+			try {
+				JSONObject tokenObj = new JSONObject(tokenObjString);
+				token = tokenObj.getString("token");
+			} catch (JSONException e) {
+				e.printStackTrace();
+				return null;
+			}
+			return token;
 		}
 		
-		protected void onPostExecute(UserProfile up) {
+		protected void onPostExecute(String token) {
 			progressDialog.dismiss();
-			Intent intent = new Intent(LoginActivity.this, LearnActivity.class);
-			LoginActivity.this.startActivity(intent);
-			LoginActivity.this.finish();
+			Toast.makeText(LoginActivity.this, token, Toast.LENGTH_SHORT).show();;
+//			Intent intent = new Intent(LoginActivity.this, LearnActivity.class);
+//			LoginActivity.this.startActivity(intent);
+//			LoginActivity.this.finish();
 		}
 	}
 }
