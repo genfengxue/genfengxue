@@ -7,6 +7,8 @@ import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.genfengxue.windenglish.BuildConfig;
+
 public class FunctionUtils {
 	public static String sha1(String input) {
 		try {
@@ -62,5 +64,16 @@ public class FunctionUtils {
 			}
 		}
 
+	}
+	
+	public static void setupApp() {
+		if (BuildConfig.DEBUG) {
+//			FunctionUtils.deleteFiles(Constants.APP_DIR);
+		}
+		FunctionUtils.mkdirs(Constants.APP_DIR);
+		FunctionUtils.mkdirs(Constants.CACHE_DIR);
+		FunctionUtils.mkdirs(Constants.RECORD_DIR);
+		FunctionUtils.mkdirs(Constants.VIDEO_DIR);
+		FunctionUtils.mkdirs(Constants.USER_DATA_DIR);
 	}
 }

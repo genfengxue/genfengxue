@@ -28,7 +28,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.genfengxue.windenglish.BuildConfig;
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.cache.LessonVideoDownloader;
 import com.genfengxue.windenglish.mgr.AccountMgr;
@@ -40,8 +39,6 @@ import com.genfengxue.windenglish.struct.UserProfile;
 import com.genfengxue.windenglish.ui.ConfirmationDialog;
 import com.genfengxue.windenglish.ui.ItemsDialog;
 import com.genfengxue.windenglish.ui.LessonAdaptor;
-import com.genfengxue.windenglish.utils.Constants;
-import com.genfengxue.windenglish.utils.FunctionUtils;
 
 /**
  * Learn Activity
@@ -61,9 +58,6 @@ public class LearnActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
-		// TODO should be removed later
-		setupApp();
 
 		// init user name bar
 		UserProfile userProfile = AccountMgr.getUserProfile();
@@ -305,17 +299,5 @@ public class LearnActivity extends Activity {
 		public void onClick(DialogInterface dialog, int which) {
 			doDownloadLessonVideo(info);
 		}
-	}
-	
-	// TODO temp method, should be replaced later
-	private void setupApp() {
-		if (BuildConfig.DEBUG) {
-//			FunctionUtils.deleteFiles(Constants.APP_DIR);
-		}
-		FunctionUtils.mkdirs(Constants.APP_DIR);
-		FunctionUtils.mkdirs(Constants.CACHE_DIR);
-		FunctionUtils.mkdirs(Constants.RECORD_DIR);
-		FunctionUtils.mkdirs(Constants.VIDEO_DIR);
-		FunctionUtils.mkdirs(Constants.USER_DATA_DIR);
 	}
 }
