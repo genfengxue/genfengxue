@@ -105,7 +105,7 @@ public class LearnActivity extends Activity {
 			Context ctx = lv.getContext();
 			LessonInfo info = (LessonInfo) lv.getAdapter().getItem(position);
 
-			if (info.getDownloadState() != LessonState.UNDOWNLOAD) {
+			if (info.getDownloadState() == LessonState.DOWNLOADED) {
 				new ItemsDialog(learnOptions, new LearnOptionsClickListener(info))
 					.show(getFragmentManager(), "Learn");
 				return;
