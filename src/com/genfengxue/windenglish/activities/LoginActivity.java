@@ -4,7 +4,7 @@
 
 package com.genfengxue.windenglish.activities;
 
-import android.app.Activity;
+import android.accounts.AccountAuthenticatorActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.mgr.AccountMgr;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends AccountAuthenticatorActivity {
 	
 	private Button loginButton;
 	private EditText userNoText;
@@ -42,13 +42,19 @@ public class LoginActivity extends Activity {
 	private void initListener() {
 		loginButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				int    userNo   = Integer.parseInt(userNoText.getText().toString());
-				String password = passwordText.getText().toString();
-				if (userNo <= 0 || password.length() == 0) {
-					Toast.makeText(LoginActivity.this, R.string.login_tip, Toast.LENGTH_SHORT).show();
-					return;
+				try {
+					int userNo = Integer.valueOf(userNoText.getText().toString().trim());
+					String password = passwordText.getText().toString();
+					if (userNo <= 0 || password.length() == 0) {
+						Toast.makeText(LoginActivity.this, R.string.login_tip, Toast.LENGTH_SHORT).show();
+						return;
+					}
+					new LoginTask(userNo, password).execute();
+				} catch (NumberFormatException e) {
+					Toast.makeText(LoginActivity.this,
+							R.string.login_userno_number, Toast.LENGTH_SHORT)
+							.show();
 				}
-				new LoginTask(userNo, password).execute();
 			}
 		});  
 		

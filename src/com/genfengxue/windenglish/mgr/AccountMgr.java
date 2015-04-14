@@ -86,6 +86,9 @@ public class AccountMgr {
 	 */
 	public static boolean updateToken(int userNo, String password) {
 		String jsonStr = JsonApiCaller.postTokenApi(userNo, password);
+		if (jsonStr == null) {
+			return false;
+		}
 		try {
 			JSONObject obj = new JSONObject(jsonStr);
 			
