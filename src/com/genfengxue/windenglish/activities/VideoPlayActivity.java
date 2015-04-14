@@ -5,6 +5,7 @@ import java.io.IOException;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
@@ -21,7 +22,9 @@ import android.widget.VideoView;
 
 import com.genfengxue.windenglish.BuildConfig;
 import com.genfengxue.windenglish.R;
+import com.genfengxue.windenglish.struct.LessonInfo;
 import com.genfengxue.windenglish.ui.ConfirmationDialog;
+import com.genfengxue.windenglish.utils.Constants;
 import com.genfengxue.windenglish.utils.UriUtils;
 
 public class VideoPlayActivity extends Activity {
@@ -86,11 +89,13 @@ public class VideoPlayActivity extends Activity {
 					intent.putExtra("courseId", courseId);
 					intent.putExtra("lessonId", lessonId);
 					intent.putExtra("part", part + 1);
+					updateLearnState(part);
 					VideoPlayActivity.this.startActivity(intent);
 					VideoPlayActivity.this.finish();
 				} else {
 					recordFinished = true;
 					stopRecording();
+					updateLearnState(part);
 					infoTextView.setText(R.string.record_finish);
 					infoTextView.setVisibility(View.VISIBLE);
 					startVideoBtn.setText(R.string.check_answer);
@@ -180,5 +185,27 @@ public class VideoPlayActivity extends Activity {
 			recorder.release();
 			recorder = null;
 		}
+	}
+	
+	private void updateLearnState(int part) {
+		Editor editor = getSharedPreferences(
+				Constants.LESSON_STATE_PREF, MODE_PRIVATE).edit();
+		String key = LessonInfo.preferenceKey(courseId, lessonId);
+		switch (part) {
+		case 1:
+			editor.putInt(key, LessonInfo.WATCH_1_VIDEO);
+			break;
+		case 2:
+			editor.putInt(key, LessonInfo.WATCH_2_VIDEO);
+			break;
+		case 3:
+			editor.putInt(key, LessonInfo.WATCH_3_VIDEO);
+			break;
+		case 4:
+			editor.putInt(key, LessonInfo.RECORDED);
+		default:
+			break;
+		}
+		editor.commit();
 	}
 }

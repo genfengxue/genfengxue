@@ -81,7 +81,9 @@ public class LessonAdaptor extends BaseAdapter {
 	}
 
 	private static int getIcon(LessonInfo info) {
-		if (info.getLearnState() == LessonInfo.SUBMITTED) {
+		if (info.getLearnState() == LessonInfo.RECORDED) {
+			return R.drawable.recorded;
+		} else if (info.getLearnState() == LessonInfo.SUBMITTED) {
 			return R.drawable.submitted;
 		}
 		switch (info.getDownloadState()) {

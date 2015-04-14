@@ -11,9 +11,11 @@ public class LessonInfo {
 	}
 	
 	public static final int NOT_LEARNED = 0;
-	public static final int WATCHED_VIDEO = 1;
-	public static final int RECORDED = 2;
-	public static final int SUBMITTED = 3;
+	public static final int WATCH_1_VIDEO = 1;
+	public static final int WATCH_2_VIDEO = 2;
+	public static final int WATCH_3_VIDEO = 3;
+	public static final int RECORDED = 4;
+	public static final int SUBMITTED = 5;
 	
 	private int lessonId;
 	private int courseId;
@@ -39,6 +41,10 @@ public class LessonInfo {
 		updateState();
 	}
 
+	public static String preferenceKey(int courseId, int lessonId) {
+		return courseId + "-" + lessonId;
+	}
+	
 	public int getLessonId() {
 		return lessonId;
 	}

@@ -67,7 +67,10 @@ public class LearnActivity extends Activity {
 
 		lessonView = (ListView) findViewById(R.id.videoList);
 		learnOptions = getResources().getStringArray(R.array.learn_options);
-		
+	}
+	
+	public void onStart() {
+		super.onStart();
 		// set content of lesson list
 		new GetLessonListTask().execute(2);
 	}
@@ -249,7 +252,7 @@ public class LearnActivity extends Activity {
 					int lessonNo = obj.optInt("lessonNo");
 					int courseNo = obj.optInt("courseNo");
 					res.add(new LessonInfo(lessonNo, courseNo, 
-							pref.getInt(courseNo + "-" + lessonNo, LessonInfo.NOT_LEARNED),
+							pref.getInt(LessonInfo.preferenceKey(courseNo, lessonNo), LessonInfo.NOT_LEARNED),
 							obj.optString("chineseTitle"),
 							obj.optString("englishTitle"), 
 							obj.optString("imageUrl")));

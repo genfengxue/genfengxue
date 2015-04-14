@@ -14,9 +14,6 @@ public class UriUtils {
 	private static final String RECORD_PATH_TEMPLATE = Constants.RECORD_DIR
 			+ "/%d_%d.3gp";
 
-	private static final String USER_DATA_PATH = Constants.USER_DATA_DIR
-			+ "/userdata";
-	
 	public static String getLessonVideoUri(int courseId, int lessonId, int part) {
 		return String.format(LESSON_URI_TEMPLATE, lessonId, part);
 	}
@@ -27,9 +24,5 @@ public class UriUtils {
 	
 	public static String getRecordPath(int courseId, int lessonId) {
 		return String.format(RECORD_PATH_TEMPLATE, courseId, lessonId);
-	}
-	
-	public static String getUserDataPath() {
-		return USER_DATA_PATH;
 	}
 }
