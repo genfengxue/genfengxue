@@ -9,7 +9,7 @@
     android:background="#ffffff"
     tools:context="com.genfengxue.windenglish.bat1" >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/linearLayoutMain"
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -26,14 +26,29 @@
             android:id="@+id/mainUsername"
             android:clickable="true"  
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:text="@string/username"
             android:textColor="#ffffff"
             android:textSize="22sp" />
-    </LinearLayout>
+        
+         <ImageView
+            android:id="@+id/refreshBtn"
+            android:clickable="true"
+            android:contentDescription="@string/hello_world"
+            android:src="@drawable/refesh"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"

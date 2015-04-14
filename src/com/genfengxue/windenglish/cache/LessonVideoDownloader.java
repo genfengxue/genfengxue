@@ -48,11 +48,12 @@ public class LessonVideoDownloader implements Runnable {
 			if (!file.exists()) {
 				try {
 					File tmpFile = new File(path + "_tmp");
+					int code = 0;
 					HttpGet get = new HttpGet(
 							UriUtils.getLessonVideoUri(courseId, lessonId, part));
 					HttpResponse response = client.execute(get);
 					
-					if (200 == response.getStatusLine().getStatusCode()) {
+					if (200 == (code = response.getStatusLine().getStatusCode())) {
 						int byteNum = (int) response.getEntity().getContentLength();
 						FileUtils.pipeIo(response.getEntity().getContent(), 
 								new BufferedOutputStream(new FileOutputStream(tmpFile)),
@@ -60,7 +61,7 @@ public class LessonVideoDownloader implements Runnable {
 						Log.i(TAG, "downloaded " + path);
 						tmpFile.renameTo(file);
 					} else {
-						Log.e(TAG, "fail to request url");
+						Log.e(TAG, "fail to request url, status code: " + code);
 						handler.sendEmptyMessage(DOWNLOAD_FAILED);
 						return;
 					}

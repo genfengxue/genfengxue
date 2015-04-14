@@ -25,6 +25,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,16 +68,31 @@ public class LearnActivity extends Activity {
 
 		lessonView = (ListView) findViewById(R.id.videoList);
 		learnOptions = getResources().getStringArray(R.array.learn_options);
+		
+		ImageView refresh = (ImageView) findViewById(R.id.refreshBtn);
+		refresh.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				refreshLessionList(true);
+				Toast.makeText(LearnActivity.this, 
+						R.string.update_lesson, Toast.LENGTH_SHORT).show();
+			}
+		});
 	}
 	
 	public void onStart() {
 		super.onStart();
 		// set content of lesson list
-		new GetLessonListTask().execute(2);
+		refreshLessionList(false);
 	}
 
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
+	}
+	
+	private void refreshLessionList(boolean forceRefresh) {
+		new GetLessonListTask(forceRefresh).execute(2);
 	}
 	
 	private class LessonItemClickListener implements
@@ -152,15 +168,20 @@ public class LearnActivity extends Activity {
 	private class GetLessonListTask extends
 			AsyncTask<Integer, Void, List<LessonInfo>> {
 
+		private boolean forceRefresh;
 		private AndroidHttpClient client = AndroidHttpClient.newInstance("");
 
+		GetLessonListTask(boolean forceRefresh) {
+			this.forceRefresh = forceRefresh;
+		}
+		
 		protected void onPreExecute() {
 		}
 
 		@Override
 		protected List<LessonInfo> doInBackground(Integer... params) {
 			// TODO hard code courseNo, should be replaced later
-			String jsonStr = JsonApiCaller.getLessonListApi(2);
+			String jsonStr = JsonApiCaller.getLessonListApi(2, forceRefresh);
 			if (jsonStr != null) {
 				return new LessonJsonHandler().handleJsonString(jsonStr);
 			}
@@ -173,6 +194,10 @@ public class LearnActivity extends Activity {
 				LessonAdaptor adaptor = new LessonAdaptor(lessonView, result);
 				lessonView.setAdapter(adaptor);
 				lessonView.setOnItemClickListener(new LessonItemClickListener());
+			}
+			if (forceRefresh) {
+				Toast.makeText(LearnActivity.this, 
+						R.string.update_lesson_finish, Toast.LENGTH_SHORT).show();
 			}
 			client.close();
 		}
