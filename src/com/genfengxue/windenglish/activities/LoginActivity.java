@@ -12,10 +12,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.genfengxue.windenglish.R;
@@ -39,22 +43,26 @@ public class LoginActivity extends AccountAuthenticatorActivity {
 		initListener();
 	}
 	
+	private void doLogin() {
+		try {
+			int userNo = Integer.valueOf(userNoText.getText().toString().trim());
+			String password = passwordText.getText().toString();
+			if (userNo <= 0 || password.length() == 0) {
+				Toast.makeText(LoginActivity.this, R.string.login_tip,
+						Toast.LENGTH_SHORT).show();
+				return;
+			}
+			new LoginTask(userNo, password).execute();
+		} catch (NumberFormatException e) {
+			Toast.makeText(LoginActivity.this, R.string.login_userno_number,
+					Toast.LENGTH_SHORT).show();
+		}
+	}
+	
 	private void initListener() {
 		loginButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				try {
-					int userNo = Integer.valueOf(userNoText.getText().toString().trim());
-					String password = passwordText.getText().toString();
-					if (userNo <= 0 || password.length() == 0) {
-						Toast.makeText(LoginActivity.this, R.string.login_tip, Toast.LENGTH_SHORT).show();
-						return;
-					}
-					new LoginTask(userNo, password).execute();
-				} catch (NumberFormatException e) {
-					Toast.makeText(LoginActivity.this,
-							R.string.login_userno_number, Toast.LENGTH_SHORT)
-							.show();
-				}
+					doLogin();
 			}
 		});  
 		
@@ -84,6 +92,17 @@ public class LoginActivity extends AccountAuthenticatorActivity {
 		
 		userNoText.addTextChangedListener(textWatcher);
 		passwordText.addTextChangedListener(textWatcher);
+		
+		passwordText.setOnEditorActionListener(new OnEditorActionListener() {
+			
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_DONE) {
+					doLogin();
+				}
+				return false;
+			}
+		});
 	}
 
 	private class LoginTask extends AsyncTask<Void, Void, Boolean> {
@@ -104,8 +123,8 @@ public class LoginActivity extends AccountAuthenticatorActivity {
 		
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			if (AccountMgr.updateToken(userNo, password) 
-					&& AccountMgr.getUserProfile() != null) {
+			if (AccountMgr.updateToken(LoginActivity.this, userNo, password) 
+					&& AccountMgr.getUserProfile(LoginActivity.this) != null) {
 				return true;
 			}
 			

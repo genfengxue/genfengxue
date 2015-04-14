@@ -7,24 +7,31 @@ import com.genfengxue.windenglish.utils.UriUtils;
 public class LessonInfo {
 
 	public static enum LessonState {
-		UNDOWNLOAD, DOWNLOADING, DOWNLOADED_UNLEARNED, SUBMITTED
+		UNDOWNLOAD, DOWNLOADING, DOWNLOADED
 	}
-
+	
+	public static final int NOT_LEARNED = 0;
+	public static final int WATCHED_VIDEO = 1;
+	public static final int RECORDED = 2;
+	public static final int SUBMITTED = 3;
+	
 	private int lessonId;
 	private int courseId;
+	private int learnState;
 	private String chTitle;
 	private String enTitle;
 	private String imageUri;
 
 	private String videoUri;
 	private String videoPath;
-	private LessonState state;
+	private LessonState downloadState;
 	private int downloadProgress;
 
-	public LessonInfo(int lessonId, int courseId, String chTitle,
+	public LessonInfo(int lessonId, int courseId, int learnState, String chTitle,
 			String enTitle, String imageUri) {
 		this.lessonId = lessonId;
 		this.courseId = courseId;
+		this.learnState = learnState;
 		this.chTitle = chTitle;
 		this.enTitle = enTitle;
 		this.imageUri = imageUri;
@@ -36,16 +43,8 @@ public class LessonInfo {
 		return lessonId;
 	}
 
-	public void setLessonId(int id) {
-		this.lessonId = id;
-	}
-
 	public int getCourseId() {
 		return courseId;
-	}
-
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
 	}
 
 	public String getVideoUri(int part) {
@@ -64,12 +63,16 @@ public class LessonInfo {
 		return videoPath;
 	}
 	
-	public LessonState getState() {
-		return state;
+	public int getLearnState() {
+		return learnState;
+	}
+
+	public LessonState getDownloadState() {
+		return downloadState;
 	}
 	
 	public void setDownloadState() {
-		this.state = LessonState.DOWNLOADING;
+		this.downloadState = LessonState.DOWNLOADING;
 	}
 	
 	public int getDownloadProgress() {
@@ -84,9 +87,9 @@ public class LessonInfo {
 	public void updateState() {
 		String part4 = getVideoPath(4);
 		if (!(new File(part4).exists())) {
-			state = LessonState.UNDOWNLOAD;
+			downloadState = LessonState.UNDOWNLOAD;
 		} else {
-			state = LessonState.DOWNLOADED_UNLEARNED;
+			downloadState = LessonState.DOWNLOADED;
 		}
 	}
 
@@ -94,24 +97,12 @@ public class LessonInfo {
 		return imageUri;
 	}
 
-	public void setImageUri(String imageUri) {
-		this.imageUri = imageUri;
-	}
-
 	public String getChTitle() {
 		return chTitle;
 	}
 
-	public void setChTitle(String chDescription) {
-		this.chTitle = chDescription;
-	}
-
 	public String getEnTitle() {
 		return enTitle;
-	}
-
-	public void setEnTitle(String enDescription) {
-		this.enTitle = enDescription;
 	}
 
 	public String toString() {

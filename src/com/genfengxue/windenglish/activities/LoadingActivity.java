@@ -50,7 +50,7 @@ public class LoadingActivity extends Activity {
 
 		@Override
 		protected UserProfile doInBackground(Void... params) {
-			return AccountMgr.getUserProfile();
+			return AccountMgr.getUserProfile(LoadingActivity.this);
 		}
 		
 		protected void onPostExecute(UserProfile user) {

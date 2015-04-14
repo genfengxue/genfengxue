@@ -30,7 +30,8 @@
         android:background="@android:drawable/editbox_background"
         android:textSize="16sp"
         android:hint="@string/login_hint"
-        android:textColorHint="#333333">
+        android:textColorHint="#333333"
+        android:inputType="number">
         <requestFocus />
     </EditText>
 

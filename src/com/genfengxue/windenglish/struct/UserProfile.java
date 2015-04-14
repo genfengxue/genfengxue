@@ -1,6 +1,6 @@
 package com.genfengxue.windenglish.struct;
 
-import java.util.Properties;
+import android.content.SharedPreferences;
 
 public class UserProfile {
 	public static final int USER_ROLE_STUDENT = 1;
@@ -22,13 +22,13 @@ public class UserProfile {
 		this.email = email;
 	}
 	
-	public static UserProfile load(Properties props) {
-		int userNo = Integer.valueOf(props.getProperty("userNo", ""));
-		int role = Integer.valueOf(props.getProperty("role"));
-		String nickName = props.getProperty("nickname", "User: " + userNo);
-		String avatar = props.getProperty("avatar", "");
-		String email = props.getProperty("email", "");
-		return new UserProfile(userNo, role, nickName, avatar, email);
+	public static UserProfile load(SharedPreferences pref) {
+		int userNo = pref.getInt("userNo", 0);
+		int role = pref.getInt("role", USER_ROLE_STUDENT);
+		String nickname = pref.getString("nickname", "User: " + userNo);
+		String avatar = pref.getString("avatar", "");
+		String email = pref.getString("email", "");
+		return new UserProfile(userNo, role, nickname, avatar, email);
 	}
 
 	public String getNickname() {

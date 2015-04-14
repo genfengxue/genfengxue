@@ -51,11 +51,11 @@ public class LessonAdaptor extends BaseAdapter {
 		((TextView) rl.findViewById(R.id.ItemTitle)).setText(String.valueOf(info.getLessonId()));
 		((TextView) rl.findViewById(R.id.ItemTextChinese)).setText(info.getChTitle());
 		((TextView) rl.findViewById(R.id.ItemTextEnglish)).setText(info.getEnTitle());
-		Drawable draw = rl.getResources().getDrawable(getIcon(info.getState()));
+		Drawable draw = rl.getResources().getDrawable(getIcon(info));
 		((ImageView) rl.findViewById(R.id.ItemState)).setImageDrawable(draw);
 		
 		ProgressBar bar = (ProgressBar) rl.findViewById(R.id.prograss_bar);
-		if (info.getState() == LessonState.DOWNLOADING) {
+		if (info.getDownloadState() == LessonState.DOWNLOADING) {
 			bar.setVisibility(View.VISIBLE);
 			bar.setProgress(info.getDownloadProgress());
 		} else {
@@ -80,14 +80,15 @@ public class LessonAdaptor extends BaseAdapter {
 		return position;
 	}
 
-	private static int getIcon(LessonState state) {
-		switch (state) {
+	private static int getIcon(LessonInfo info) {
+		if (info.getLearnState() == LessonInfo.SUBMITTED) {
+			return R.drawable.submitted;
+		}
+		switch (info.getDownloadState()) {
 		case UNDOWNLOAD:
 			return R.drawable.waitingdownload;
-		case DOWNLOADED_UNLEARNED:
+		case DOWNLOADED:
 			return R.drawable.waitingrecord;
-		case SUBMITTED:
-			return R.drawable.submitted;
 		default:
 			return R.drawable.waitingdownload;
 		}

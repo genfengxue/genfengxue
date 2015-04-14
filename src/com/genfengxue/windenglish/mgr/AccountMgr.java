@@ -1,15 +1,11 @@
 package com.genfengxue.windenglish.mgr;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Properties;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
 import com.genfengxue.windenglish.network.JsonApiCaller;
@@ -19,8 +15,6 @@ import com.genfengxue.windenglish.utils.Constants;
 public class AccountMgr {
 	
 	private static final String TAG = "AccountMgr";
-	private static final String USER_DATA_FILE_PATH = Constants.USER_DATA_DIR
-			+ "/userdata";
 	private static final String MARK_FILED = "withprofile";
 
 	private static UserProfile user = null;
@@ -31,44 +25,38 @@ public class AccountMgr {
 	 * @return current user profile, null if there is not token or token is out
 	 *         of date
 	 */
-	public static UserProfile getUserProfile() {
+	public static UserProfile getUserProfile(Context ctx) {
 		if (user == null) {
-			File userdata = new File(USER_DATA_FILE_PATH);
-			if (!userdata.exists()) {
+			SharedPreferences userdata = ctx.getSharedPreferences(
+					Constants.USER_PROFILE_PREF, Context.MODE_PRIVATE);
+			if (!userdata.contains("token")) {
 				return null;
 			}
-			
-			Properties props = new Properties();
-			try {
-				props.load(new FileInputStream(userdata));
-				if ("yes".equals(props.getProperty(MARK_FILED, ""))) {
-					user = UserProfile.load(props);
-				} else {
-					String token = null;
-					String jsonStr = null;
-					if ((token = props.getProperty("token")) == null || 
-							(jsonStr = JsonApiCaller.getUserProfileApi(token)) == null) {
-						return null;
-					}
-					JSONObject obj = new JSONObject(jsonStr);
-					props.setProperty("userNo", obj.getString("userNo"));
-					props.setProperty("role", obj.getString("role"));
-					props.setProperty("nickname", obj.optString("nickname", "no nick name"));
-					props.setProperty("avatar", obj.optString("avatar", ""));
-					props.setProperty("email", obj.optString("email", "no email"));
-					props.setProperty("withprofile", "yes");
-					user = UserProfile.load(props);
-					
-					File tmpFile = new File(userdata.getAbsoluteFile() + "_tmp");
-					props.store(new FileWriter(tmpFile), "user data");
-					tmpFile.renameTo(userdata);
+
+			if (userdata.contains(MARK_FILED)) {
+				return UserProfile.load(userdata);
+			} else {
+				String token = userdata.getString("token", "");
+				String jsonStr = null;
+				if ((jsonStr = JsonApiCaller.getUserProfileApi(token)) == null) {
+					return null;
 				}
-			} catch (FileNotFoundException e) {
-				Log.w(TAG, "user data file load failed: " + e.getMessage());
-			} catch (IOException e) {
-				Log.w(TAG, "user data file load failed: " + e.getMessage());
-			} catch (JSONException e) {
-				Log.e(TAG, "user data file load failed: " + e.getMessage());
+				
+				try {
+					JSONObject obj = new JSONObject(jsonStr);
+					Editor editor = userdata.edit();
+					editor.putInt("userNo", obj.optInt("userNo"));
+					editor.putInt("role", obj.optInt("role"));
+					editor.putString("nickname", obj.optString("nickname", "Student"));
+					editor.putString("avatar", obj.optString("avatar", ""));
+					editor.putString("email", obj.optString("email"));
+					editor.putString(MARK_FILED, "");
+					editor.commit();
+					user = UserProfile.load(userdata);
+				} catch (JSONException e) {
+					Log.e(TAG, "json format corrupted: " + e.getMessage());
+					return null;
+				}
 			}
 		}
 		
@@ -84,7 +72,7 @@ public class AccountMgr {
 	 *            password
 	 * @return true if successfully require token, false otherwise
 	 */
-	public static boolean updateToken(int userNo, String password) {
+	public static boolean updateToken(Context ctx, int userNo, String password) {
 		String jsonStr = JsonApiCaller.postTokenApi(userNo, password);
 		if (jsonStr == null) {
 			return false;
@@ -92,29 +80,25 @@ public class AccountMgr {
 		try {
 			JSONObject obj = new JSONObject(jsonStr);
 			
-			String token = obj.getString("token");
-			if (token == null) {
+			String token = obj.optString("token");
+			if ("".equals(token)) {
 				Log.e(TAG, "access denied, no token response by server");
 				return false;
 			}
+
+			SharedPreferences.Editor editor = ctx.getSharedPreferences(
+					Constants.USER_PROFILE_PREF, Context.MODE_PRIVATE).edit();
 			
-			File userdata = new File(USER_DATA_FILE_PATH);
-			userdata.delete();
-			File tmpfile = new File(USER_DATA_FILE_PATH + "_tmp");
-			Properties props = new Properties();
-			props.put("token", token);
-			props.put("userNo", String.valueOf(userNo));
-			props.put("password", password);
-			props.put(MARK_FILED, "no");
-			props.store(new FileWriter(tmpfile), "user data");
-			tmpfile.renameTo(userdata);
+			editor.clear();
+			editor.putString("token", token);
+			editor.putString("userNo", String.valueOf(userNo));
+			editor.putString("password", password);
+			editor.commit();
+
 			return true;
 		} catch (JSONException e) {
 			Log.e(TAG, "token update failed: " + e.getMessage());
-		} catch (IOException e) {
-			Log.e(TAG, "token update failed: " + e.getMessage());
 		}
-		
 		return false;
 	}
 }

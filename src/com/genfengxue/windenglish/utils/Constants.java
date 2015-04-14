@@ -31,5 +31,11 @@ public class Constants {
 	
 	public static final String CHANGE_PASSWORD_URI = API_BASE_URI + 
 			"/users/change_password";
+
 	
+	public static final String APP_NAME = "com.genfengxue.windenglish";
+	
+	public static final String USER_PROFILE_PREF = APP_NAME + ".userprofile";
+	
+	public static final String LESSON_STATE_PREF = APP_NAME + ".lessonstate";
 }

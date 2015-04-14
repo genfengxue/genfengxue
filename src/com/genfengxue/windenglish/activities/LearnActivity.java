@@ -16,6 +16,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
@@ -39,6 +40,7 @@ import com.genfengxue.windenglish.struct.UserProfile;
 import com.genfengxue.windenglish.ui.ConfirmationDialog;
 import com.genfengxue.windenglish.ui.ItemsDialog;
 import com.genfengxue.windenglish.ui.LessonAdaptor;
+import com.genfengxue.windenglish.utils.Constants;
 
 /**
  * Learn Activity
@@ -60,7 +62,7 @@ public class LearnActivity extends Activity {
 		setContentView(R.layout.main);
 
 		// init user name bar
-		UserProfile userProfile = AccountMgr.getUserProfile();
+		UserProfile userProfile = AccountMgr.getUserProfile(this);
 		((TextView) findViewById(R.id.mainUsername)).setText(userProfile.getNickname());
 
 		lessonView = (ListView) findViewById(R.id.videoList);
@@ -84,7 +86,7 @@ public class LearnActivity extends Activity {
 			Context ctx = lv.getContext();
 			LessonInfo info = (LessonInfo) lv.getAdapter().getItem(position);
 
-			if (info.getState() != LessonState.UNDOWNLOAD) {
+			if (info.getDownloadState() != LessonState.UNDOWNLOAD) {
 				new ItemsDialog(learnOptions, new LearnOptionsClickListener(info))
 					.show(getFragmentManager(), "Learn");
 				return;
@@ -238,16 +240,19 @@ public class LearnActivity extends Activity {
 		@Override
 		public List<LessonInfo> handleJsonString(String jsonStr) {
 			List<LessonInfo> res = new ArrayList<LessonInfo>();
+			SharedPreferences pref = getSharedPreferences(Constants.LESSON_STATE_PREF, MODE_PRIVATE);
 			try {
 				JSONArray arr = new JSONArray(jsonStr);
 
 				for (int i = 0; i < arr.length(); ++i) {
 					JSONObject obj = (JSONObject) arr.get(i);
-
-					res.add(new LessonInfo(obj.getInt("lessonNo"), obj
-							.getInt("courseNo"), obj.getString("chineseTitle"),
-							obj.getString("englishTitle"), obj
-									.getString("imageUrl")));
+					int lessonNo = obj.optInt("lessonNo");
+					int courseNo = obj.optInt("courseNo");
+					res.add(new LessonInfo(lessonNo, courseNo, 
+							pref.getInt(courseNo + "-" + lessonNo, LessonInfo.NOT_LEARNED),
+							obj.optString("chineseTitle"),
+							obj.optString("englishTitle"), 
+							obj.optString("imageUrl")));
 				}
 
 				Collections.sort(res, new Comparator<LessonInfo>() {
