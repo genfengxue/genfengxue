@@ -62,6 +62,7 @@
     <string name="continue_record">继续录音</string>
     <string name="record_again">重新录音</string>
     <string name="record_finish">录音结束</string>
+    <string name="recording">录音中</string>
     
     <string name="update_lesson">正在刷新课程</string>
     <string name="update_lesson_finish">课程刷新完毕</string>

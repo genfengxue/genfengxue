@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -177,6 +178,8 @@ public class VideoPlayActivity extends Activity {
 		}
 		
 		recorder.start();
+		ImageView iv = (ImageView) findViewById(R.id.record_icon);
+		iv.setVisibility(View.VISIBLE);
 	}
 	
 	private void stopRecording() {
