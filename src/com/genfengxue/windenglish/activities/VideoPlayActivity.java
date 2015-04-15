@@ -2,7 +2,7 @@ package com.genfengxue.windenglish.activities;
 
 import java.io.IOException;
 
-import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -50,15 +50,8 @@ public class VideoPlayActivity extends Activity {
 	
 	private String[] infoArr;
 	
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-			getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
-					WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		} else {
-			getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
-		}
 		setContentView(R.layout.play);
 		
 		infoArr = getResources().getStringArray(R.array.video_info_arr);
@@ -134,6 +127,19 @@ public class VideoPlayActivity extends Activity {
 				Toast.makeText(VideoPlayActivity.this, "Go Check Answer", Toast.LENGTH_SHORT).show();
 			}
 		} 
+	}
+	
+	@SuppressLint("InlinedApi")
+	protected void onResume() {
+		super.onResume();
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+			getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+					WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		} else {
+			getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+		}
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, 
+				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
 	
 	public void onBackPressed() {
