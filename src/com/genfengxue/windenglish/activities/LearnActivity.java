@@ -135,23 +135,32 @@ public class LearnActivity extends Activity {
 		// this method is one-to-one matching R.array.learn_options
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
+			Intent intent = null;
 			switch (which) {
 			case 0: // 看视频
-				Intent intent = new Intent(LearnActivity.this, VideoPlayActivity.class);
+				intent = new Intent(LearnActivity.this, VideoPlayActivity.class);
 				intent.putExtra("courseId", info.getCourseId());
 				intent.putExtra("lessonId", info.getLessonId());
-				intent.putExtra("part", which + 1);
+				intent.putExtra("part", 1);
 				LearnActivity.this.startActivity(intent);
 				break;
 			case 1: // 看中说英
-				// TODO
-				Toast.makeText(getApplicationContext(), "shit zhong ying", Toast.LENGTH_SHORT).show();;
+				int learnState = info.getLearnState();
+				if (learnState < LessonInfo.WATCH_3_VIDEO) {
+					Toast.makeText(LearnActivity.this, R.string.watch_video_hint, Toast.LENGTH_SHORT).show();
+				} else {
+					intent = new Intent(LearnActivity.this, VideoPlayActivity.class);
+					intent.putExtra("courseId", info.getCourseId());
+					intent.putExtra("lessonId", info.getLessonId());
+					intent.putExtra("part", 4);
+					startActivity(intent);
+				}
 				break;
 			case 2: // 对答案
 				// TODO 
 				Toast.makeText(getApplicationContext(), "shit dui daan", Toast.LENGTH_SHORT).show();
 				break;
-			case 3:
+			case 3: // 删除视频
 				// TODO  
 				break;
 			}

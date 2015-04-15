@@ -65,5 +65,7 @@
     
     <string name="update_lesson">正在刷新课程</string>
     <string name="update_lesson_finish">课程刷新完毕</string>
+    
+    <string name="watch_video_hint">请先观看视频，再录音</string>
 </resources>
 
