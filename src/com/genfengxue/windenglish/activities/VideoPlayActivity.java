@@ -24,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.genfengxue.windenglish.BuildConfig;
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.struct.LessonInfo;
 import com.genfengxue.windenglish.ui.ConfirmationDialog;
@@ -71,8 +70,7 @@ public class VideoPlayActivity extends Activity {
 		
 		// TODO controller will be removed in later development
 		// we can have our own controller style
-		if (BuildConfig.DEBUG)
-			videoView.setMediaController(controller);
+		videoView.setMediaController(controller);
 		videoView.setVideoPath(
 				UriUtils.getLessonVideoPath(courseId, lessonId, part));
 		

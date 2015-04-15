@@ -1,5 +1,6 @@
 package com.genfengxue.windenglish.activities;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -42,6 +43,7 @@ import com.genfengxue.windenglish.ui.ConfirmationDialog;
 import com.genfengxue.windenglish.ui.ItemsDialog;
 import com.genfengxue.windenglish.ui.LessonAdaptor;
 import com.genfengxue.windenglish.utils.Constants;
+import com.genfengxue.windenglish.utils.UriUtils;
 
 /**
  * Learn Activity
@@ -136,11 +138,13 @@ public class LearnActivity extends Activity {
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
 			Intent intent = null;
+			int courseId = info.getCourseId();
+			int lessonId = info.getLessonId();
 			switch (which) {
 			case 0: // 看视频
 				intent = new Intent(LearnActivity.this, VideoPlayActivity.class);
-				intent.putExtra("courseId", info.getCourseId());
-				intent.putExtra("lessonId", info.getLessonId());
+				intent.putExtra("courseId", courseId);
+				intent.putExtra("lessonId", lessonId);
 				intent.putExtra("part", 1);
 				LearnActivity.this.startActivity(intent);
 				break;
@@ -150,8 +154,8 @@ public class LearnActivity extends Activity {
 					Toast.makeText(LearnActivity.this, R.string.watch_video_hint, Toast.LENGTH_SHORT).show();
 				} else {
 					intent = new Intent(LearnActivity.this, VideoPlayActivity.class);
-					intent.putExtra("courseId", info.getCourseId());
-					intent.putExtra("lessonId", info.getLessonId());
+					intent.putExtra("courseId", courseId);
+					intent.putExtra("lessonId", lessonId);
 					intent.putExtra("part", 4);
 					startActivity(intent);
 				}
@@ -161,7 +165,14 @@ public class LearnActivity extends Activity {
 				Toast.makeText(getApplicationContext(), "shit dui daan", Toast.LENGTH_SHORT).show();
 				break;
 			case 3: // 删除视频
-				// TODO  
+				for (int i = 1; i <= 4; ++i) {
+					String path = UriUtils.getLessonVideoPath(courseId, lessonId, i);
+					new File(path).delete();
+				}
+				info.updateState();
+				((LessonAdaptor) lessonView.getAdapter()).notifyDataSetChanged();
+				Toast.makeText(LearnActivity.this, 
+						R.string.delete_video_hint, Toast.LENGTH_SHORT).show();
 				break;
 			}
 		}

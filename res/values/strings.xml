@@ -54,6 +54,7 @@
         <item>对答案</item>
         <item>删除视频</item>
     </string-array>
+    <string name="delete_video_hint">视频删除完成</string>
     
     <string name="video_exit_alert">播放还未结束，现在退出下次仍需观看3遍</string>
     <string name="confirm_exit">确认退出</string>
