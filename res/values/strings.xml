@@ -22,7 +22,7 @@
     <string name="login_emailHint">Please input your email:</string>
     <string name="login_password">请输入密码</string>
     <string name="login_userno_number">用户编号需要为数字</string>
-    <string name="inputEmail">确定</string>
+    <string name="submit">提交</string>
     
     <string-array name="video_info_arr">
         <item>视频共播放三遍，第一遍无字幕</item>
@@ -69,5 +69,11 @@
     <string name="update_lesson_finish">课程刷新完毕</string>
     
     <string name="watch_video_hint">请先观看视频，再录音</string>
+    
+    <string name="profile_hint">提示：您还没有个人信息，请如实填写，谢谢！</string>
+    <string name="email_label">电子邮件：</string>
+    <string name="email_hint">请输入电子邮件</string>
+    <string name="nickname_hint">请输入您的昵称</string>
+    <string name="nickname_label">昵称：</string>
 </resources>
 
