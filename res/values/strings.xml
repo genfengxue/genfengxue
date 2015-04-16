@@ -75,5 +75,11 @@
     <string name="email_hint">请输入电子邮件</string>
     <string name="nickname_hint">请输入您的昵称</string>
     <string name="nickname_label">昵称：</string>
+    <string name="submit_profile">填写个人信息</string>
+    <string name="update_profile_success">个人信息更新成功</string>
+    
+    <string name="err_email_dup">当前Email已被注册</string>
+    <string name="err_nickname_dup">当前昵称已被注册</string>
+    <string name="same_hint">您填写的信息与原信息相同，请重新输入</string>
 </resources>
 

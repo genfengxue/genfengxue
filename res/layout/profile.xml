@@ -66,7 +66,7 @@
         android:textSize="16sp" />
 
     <Button
-        android:id="@+id/profileButton1"
+        android:id="@+id/submit_profile"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_gravity="center_horizontal"
@@ -75,7 +75,8 @@
         android:layout_marginRight="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="20dp"
-        android:background="#aaaaaa"
+        android:enabled="true"
+        android:background="#691281"
         android:text="@string/submit"
         android:textColor="#ffffff"
         android:textSize="16sp" />
