@@ -223,6 +223,6 @@ public class VideoPlayActivity extends Activity {
 		default:
 			break;
 		}
-		editor.commit();
+		editor.apply();
 	}
 }

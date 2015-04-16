@@ -25,21 +25,24 @@ public class LoadingActivity extends Activity {
 	}
 	
 	private void goLogin() {
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				Intent intent = new Intent(LoadingActivity.this, LoginActivity.class);
-				startActivity(intent);
-				LoadingActivity.this.finish();
-			}
-		}, 1000);
+		Intent intent = new Intent(LoadingActivity.this, LoginActivity.class);
+		goActivity(intent);
 	}
 
+	private void goUpdateProfile() {
+		Intent intent = new Intent(LoadingActivity.this, ProfileActivity.class);
+		goActivity(intent);
+	}
+	
 	private void goLearn() {
+		Intent intent = new Intent(LoadingActivity.this, LearnActivity.class);
+		goActivity(intent);
+	}
+	
+	private void goActivity(final Intent intent) {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				Intent intent = new Intent(LoadingActivity.this, LearnActivity.class);
 				startActivity(intent);
 				LoadingActivity.this.finish();
 			}
@@ -57,7 +60,11 @@ public class LoadingActivity extends Activity {
 			if (user == null) {
 				goLogin();
 			} else {
-				goLearn();
+				if (user.isNeedUpdate()) {
+					goUpdateProfile();
+				} else {
+					goLearn();
+				}
 			}
 	    }
 	}

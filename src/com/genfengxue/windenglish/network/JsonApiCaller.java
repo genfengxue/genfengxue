@@ -159,4 +159,16 @@ public class JsonApiCaller {
 		String uri = Constants.GET_TOKEN_URI;
 		return postApiContent(uri, builder.getQuery());
 	}
+	
+	public static String postUpdateProfile(String token, String email, String nickname) {
+		QueryBuilder qbParam = new QueryBuilder();
+		qbParam.addStringQuery("access_token", token);
+		String urlStr = Constants.UPDATE_PROFILE_URI + "?" + qbParam.getQuery();
+		QueryBuilder body = new QueryBuilder();
+		if (email != null)
+			body.addStringQuery("email", email);
+		if (nickname != null)
+			body.addStringQuery("nickname", nickname);
+		return postApiContent(urlStr, body.getQuery());
+	}
 }
