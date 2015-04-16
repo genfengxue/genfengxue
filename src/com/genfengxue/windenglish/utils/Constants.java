@@ -30,6 +30,8 @@ public class Constants {
 	public static final String CHANGE_PASSWORD_URI = API_BASE_URI + 
 			"/users/change_password";
 
+	public static final String UPDATE_PROFILE_URI = API_BASE_URI + 
+			"/users/update_profile";
 	
 	public static final String APP_NAME = "com.genfengxue.windenglish";
 	

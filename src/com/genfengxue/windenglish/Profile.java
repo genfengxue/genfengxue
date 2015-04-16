@@ -33,7 +33,7 @@ public class Profile extends Activity{
 		setContentView(R.layout.profile);
 	
 		final EditText editText = (EditText) findViewById(R.id.email_txt);
-		final Button button = (Button)findViewById(R.id.profileButton1);
+		final Button button = (Button)findViewById(R.id.submit_profile);
 		
         
         TextWatcher textWatcher = new TextWatcher() {

@@ -25,15 +25,15 @@ public class AccountMgr {
 	 * @return current user profile, null if there is not token or token is out
 	 *         of date
 	 */
-	public static UserProfile getUserProfile(Context ctx) {
-		if (user == null) {
+	public static UserProfile getUserProfile(Context ctx, boolean forceRefresh) {
+		if (forceRefresh || user == null) {
 			SharedPreferences userdata = ctx.getSharedPreferences(
 					Constants.USER_PROFILE_PREF, Context.MODE_PRIVATE);
 			if (!userdata.contains("token")) {
 				return null;
 			}
 
-			if (userdata.contains(MARK_FILED)) {
+			if (!forceRefresh && userdata.contains(MARK_FILED)) {
 				return UserProfile.load(userdata);
 			} else {
 				String token = userdata.getString("token", "");
@@ -47,11 +47,11 @@ public class AccountMgr {
 					Editor editor = userdata.edit();
 					editor.putInt("userNo", obj.optInt("userNo"));
 					editor.putInt("role", obj.optInt("role"));
-					editor.putString("nickname", obj.optString("nickname", "Student"));
-					editor.putString("avatar", obj.optString("avatar", ""));
+					editor.putString("nickname", obj.optString("nickname"));
+					editor.putString("avatar", obj.optString("avatar"));
 					editor.putString("email", obj.optString("email"));
 					editor.putString(MARK_FILED, "");
-					editor.commit();
+					editor.apply();;
 					user = UserProfile.load(userdata);
 				} catch (JSONException e) {
 					Log.e(TAG, "json format corrupted: " + e.getMessage());
@@ -61,6 +61,10 @@ public class AccountMgr {
 		}
 		
 		return user;
+	}
+	
+	public static UserProfile getUserProfile(Context ctx) {
+		return getUserProfile(ctx, false);
 	}
 
 	/**
@@ -93,7 +97,7 @@ public class AccountMgr {
 			editor.putString("token", token);
 			editor.putString("userNo", String.valueOf(userNo));
 			editor.putString("password", password);
-			editor.commit();
+			editor.apply();
 
 			return true;
 		} catch (JSONException e) {
