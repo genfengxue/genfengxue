@@ -27,6 +27,7 @@ import java.util.List;
 //import javax.mail.internet.MimeMultipart;
 //import javax.mail.internet.MimeUtility;
 
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -41,6 +42,7 @@ import org.json.JSONObject;
 
 import com.genfengxue.windenglish.R;
 //import com.sun.mail.util.MailSSLSocketFactory;
+
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -59,6 +61,7 @@ import android.os.Environment;
 //import android.os.Message;
 import android.os.StrictMode;
 import android.text.Spannable;
+import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.BackgroundColorSpan;
@@ -431,7 +434,7 @@ public class Check extends Activity{
 	            {
 	            	start--;
 	            }
-	            spans.setSpan(clickSpan, start+1, end+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);    
+	            spans.setSpan(clickSpan, start+1, end+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 	            no++;
 	        	end++;
 	        	start=end;
@@ -506,7 +509,6 @@ public class Check extends Activity{
 
 	//设置下划线
 	protected static void setUnderline(int line, int no) {
-		// TODO Auto-generated method stub
         Spannable spans = (Spannable)answer.getText();
         int start = 0,end = 0;
         String texts = (String) answer.getText().toString();
@@ -785,18 +787,6 @@ public class Check extends Activity{
 					}
 				}
 			}
-			/*
-			JSONArray jsonKnowledge = jsonArray.getJSONArray(i-1);
-			for(int j=1;j<=jsonKnowledge.length();j++)
-			{
-				JSONObject perKnowledge = jsonKnowledge.getJSONObject(j-1);
-				String keys = perKnowledge.getString("key");
-			}
-			englishText += jsonObject.getString("english");
-			englishText += "\n";
-			englishText += jsonObject.getString("chinese");
-			englishText += "\n";
-			*/
 		}
 		return result;
 	}
@@ -869,7 +859,6 @@ public class Check extends Activity{
     //
     @Override
     protected void onPause() {
-    	// TODO Auto-generated method stub
     	super.onPause();
     	player.pause();
     }
