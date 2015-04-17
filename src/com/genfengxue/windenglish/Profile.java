@@ -32,8 +32,8 @@ public class Profile extends Activity{
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.profile);
 	
-		final EditText editText = (EditText) findViewById(R.id.profileText1);
-		final Button button = (Button)findViewById(R.id.profileButton1);
+		final EditText editText = (EditText) findViewById(R.id.email_txt);
+		final Button button = (Button)findViewById(R.id.submit_profile);
 		
         
         TextWatcher textWatcher = new TextWatcher() {

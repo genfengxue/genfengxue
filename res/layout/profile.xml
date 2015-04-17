@@ -1,38 +1,40 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.genfengxue.windenglish.bat1" >
+    android:orientation="vertical" >
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="45dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/launchscreen_logo2" />
 
-    
-    <Button
-        android:id="@+id/profileButton1"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="6dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="150dp"
-        android:background="#aaaaaa"
-        android:text="@string/inputEmail"
-        android:textColor="#ffffff"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:text="@string/email_label"
         android:textSize="16sp" />
 
     <EditText
-        android:id="@+id/profileText1"
+        android:id="@+id/email_txt"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="68dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
         android:background="@android:drawable/editbox_background"
         android:ems="10"
-        android:hint="@string/login_emailHint"
+        android:hint="@string/email_hint"
+        android:inputType="textEmailAddress"
         android:textColorHint="#333333"
         android:textSize="16sp" >
 
@@ -40,12 +42,51 @@
     </EditText>
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/profileButton1"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="6dp"
-        android:text="目前我们使用邮箱提交录音作业, 所以需要大家输入自己的邮箱." />
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:text="@string/nickname_label"
+        android:textSize="16sp" />
 
-</RelativeLayout>
+    <EditText
+        android:id="@+id/nickname_txt"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:background="@android:drawable/editbox_background"
+        android:hint="@string/nickname_hint"
+        android:inputType="textPersonName"
+        android:textColorHint="#333333"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/submit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="20dp"
+        android:enabled="true"
+        android:background="#691281"
+        android:text="@string/submit"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="20dp"
+        android:gravity="bottom|center_horizontal"
+        android:text="@string/profile_hint"
+        android:textSize="16sp" />
+
+</LinearLayout>

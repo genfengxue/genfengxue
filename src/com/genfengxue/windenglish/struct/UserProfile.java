@@ -50,4 +50,8 @@ public class UserProfile {
 	public String getAvatar() {
 		return avatar;
 	}
+	
+	public boolean isNeedUpdate() {
+		return "".equals(email) || "".equals(nickname);
+	}
 }

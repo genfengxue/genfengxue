@@ -10,6 +10,10 @@ public class LessonInfo {
 		UNDOWNLOAD, DOWNLOADING, DOWNLOADED
 	}
 	
+	/**
+	 * Learn State <br>
+	 * the number should increase along with the learn progress
+	 */
 	public static final int NOT_LEARNED = 0;
 	public static final int WATCH_1_VIDEO = 1;
 	public static final int WATCH_2_VIDEO = 2;

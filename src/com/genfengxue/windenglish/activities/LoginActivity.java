@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.mgr.AccountMgr;
+import com.genfengxue.windenglish.struct.UserProfile;
 
 public class LoginActivity extends AccountAuthenticatorActivity {
 	
@@ -124,7 +125,7 @@ public class LoginActivity extends AccountAuthenticatorActivity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			if (AccountMgr.updateToken(LoginActivity.this, userNo, password) 
-					&& AccountMgr.getUserProfile(LoginActivity.this) != null) {
+					&& AccountMgr.getUserProfile(LoginActivity.this, true) != null) {
 				return true;
 			}
 			
@@ -139,8 +140,14 @@ public class LoginActivity extends AccountAuthenticatorActivity {
 				return;
 			}
 			
-			Intent intent = new Intent(LoginActivity.this, LearnActivity.class);
-			startActivity(intent);
+			UserProfile user = AccountMgr.getUserProfile(LoginActivity.this);
+			if (user.isNeedUpdate()) {
+				Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+				startActivity(intent);
+			} else {
+				Intent intent = new Intent(LoginActivity.this, LearnActivity.class);
+				startActivity(intent);
+			}
 			finish();
 		}
 	}

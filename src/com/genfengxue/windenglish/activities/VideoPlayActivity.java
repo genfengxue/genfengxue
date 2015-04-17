@@ -2,6 +2,7 @@ package com.genfengxue.windenglish.activities;
 
 import java.io.IOException;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,17 +11,19 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.media.MediaRecorder;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.genfengxue.windenglish.BuildConfig;
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.struct.LessonInfo;
 import com.genfengxue.windenglish.ui.ConfirmationDialog;
@@ -67,8 +70,7 @@ public class VideoPlayActivity extends Activity {
 		
 		// TODO controller will be removed in later development
 		// we can have our own controller style
-		if (BuildConfig.DEBUG)
-			videoView.setMediaController(controller);
+		videoView.setMediaController(controller);
 		videoView.setVideoPath(
 				UriUtils.getLessonVideoPath(courseId, lessonId, part));
 		
@@ -125,6 +127,19 @@ public class VideoPlayActivity extends Activity {
 		} 
 	}
 	
+	@SuppressLint("InlinedApi")
+	protected void onResume() {
+		super.onResume();
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+			getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+					WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		} else {
+			getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+		}
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, 
+				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+	}
+	
 	public void onBackPressed() {
 		if (part < infoArr.length) {
 			new ConfirmationDialog(
@@ -177,6 +192,8 @@ public class VideoPlayActivity extends Activity {
 		}
 		
 		recorder.start();
+		ImageView iv = (ImageView) findViewById(R.id.record_icon);
+		iv.setVisibility(View.VISIBLE);
 	}
 	
 	private void stopRecording() {
@@ -206,6 +223,6 @@ public class VideoPlayActivity extends Activity {
 		default:
 			break;
 		}
-		editor.commit();
+		editor.apply();
 	}
 }

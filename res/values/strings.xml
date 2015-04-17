@@ -22,7 +22,7 @@
     <string name="login_emailHint">Please input your email:</string>
     <string name="login_password">请输入密码</string>
     <string name="login_userno_number">用户编号需要为数字</string>
-    <string name="inputEmail">确定</string>
+    <string name="submit">提交</string>
     
     <string-array name="video_info_arr">
         <item>视频共播放三遍，第一遍无字幕</item>
@@ -54,6 +54,7 @@
         <item>对答案</item>
         <item>删除视频</item>
     </string-array>
+    <string name="delete_video_hint">视频删除完成</string>
     
     <string name="video_exit_alert">播放还未结束，现在退出下次仍需观看3遍</string>
     <string name="confirm_exit">确认退出</string>
@@ -62,8 +63,23 @@
     <string name="continue_record">继续录音</string>
     <string name="record_again">重新录音</string>
     <string name="record_finish">录音结束</string>
+    <string name="recording">录音中</string>
     
     <string name="update_lesson">正在刷新课程</string>
     <string name="update_lesson_finish">课程刷新完毕</string>
+    
+    <string name="watch_video_hint">请先观看视频，再录音</string>
+    
+    <string name="profile_hint">提示：您还没有个人信息，请如实填写，谢谢！</string>
+    <string name="email_label">电子邮件：</string>
+    <string name="email_hint">请输入电子邮件</string>
+    <string name="nickname_hint">请输入您的昵称</string>
+    <string name="nickname_label">昵称：</string>
+    <string name="submit_profile">填写个人信息</string>
+    <string name="update_profile_success">个人信息更新成功</string>
+    
+    <string name="err_email_dup">当前Email已被注册</string>
+    <string name="err_nickname_dup">当前昵称已被注册</string>
+    <string name="same_hint">您填写的信息与原信息相同，请重新输入</string>
 </resources>
 
