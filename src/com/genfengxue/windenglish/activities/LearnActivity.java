@@ -218,7 +218,7 @@ public class LearnActivity extends Activity {
 
 		protected void onPostExecute(List<LessonInfo> result) {
 			if (result != null) {
-				LessonAdaptor adaptor = new LessonAdaptor(lessonView, result);
+				LessonAdaptor adaptor = new LessonAdaptor(LearnActivity.this, result);
 				lessonView.setAdapter(adaptor);
 				lessonView.setOnItemClickListener(new LessonItemClickListener());
 			}
