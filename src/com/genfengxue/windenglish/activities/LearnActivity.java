@@ -108,7 +108,7 @@ public class LearnActivity extends Activity {
 		progress.add(info);
 		VideoDownloadHandler handler = new VideoDownloadHandler(info, lessonView, progress);
 		new Thread(new LessonVideoDownloader
-				(info.getCourseId(), info.getLessonId(), handler)).start();
+				(info.getCourseNo(), info.getLessonNo(), handler)).start();
 	}
 
 	private class LessonItemClickListener implements
@@ -152,8 +152,8 @@ public class LearnActivity extends Activity {
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
 			Intent intent = null;
-			int courseId = info.getCourseId();
-			int lessonId = info.getLessonId();
+			int courseId = info.getCourseNo();
+			int lessonId = info.getLessonNo();
 			switch (which) {
 			case 0: // 看视频
 				intent = new Intent(LearnActivity.this, VideoPlayActivity.class);
@@ -276,14 +276,14 @@ public class LearnActivity extends Activity {
 				info.updateState();
 				progress.remove(info);
 				updateProgressBar();
-				Toast.makeText(lessonView.getContext(), String.format(template, info.getLessonId()),
+				Toast.makeText(lessonView.getContext(), String.format(template, info.getLessonNo()),
 						Toast.LENGTH_SHORT).show();
 				break;
 			}
 		}
 		
 		private void updateProgressBar() {
-			int id = info.getLessonId();
+			int id = info.getLessonNo();
 			if (id >= lessonView.getFirstVisiblePosition() && id <= lessonView.getLastVisiblePosition()) {
 				((LessonAdaptor) lessonView.getAdapter()).notifyDataSetChanged();
 			}
@@ -314,7 +314,7 @@ public class LearnActivity extends Activity {
 
 					@Override
 					public int compare(LessonInfo lhs, LessonInfo rhs) {
-						return lhs.getLessonId() - rhs.getLessonId();
+						return lhs.getLessonNo() - rhs.getLessonNo();
 					}
 				});
 			} catch (JSONException e) {

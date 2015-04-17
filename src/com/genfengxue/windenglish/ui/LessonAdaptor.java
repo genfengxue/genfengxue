@@ -48,7 +48,7 @@ public class LessonAdaptor extends BaseAdapter {
 		LazyImageViewUriFiller.fill(rl.getContext(), image, info.getImageUri());
 
 		// put content
-		((TextView) rl.findViewById(R.id.ItemTitle)).setText(String.valueOf(info.getLessonId()));
+		((TextView) rl.findViewById(R.id.ItemTitle)).setText(String.valueOf(info.getLessonNo()));
 		((TextView) rl.findViewById(R.id.ItemTextChinese)).setText(info.getChTitle());
 		((TextView) rl.findViewById(R.id.ItemTextEnglish)).setText(info.getEnTitle());
 		Drawable draw = rl.getResources().getDrawable(getIcon(info));

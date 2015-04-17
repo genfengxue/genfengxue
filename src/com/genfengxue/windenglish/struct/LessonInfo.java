@@ -21,8 +21,8 @@ public class LessonInfo {
 	public static final int RECORDED = 4;
 	public static final int SUBMITTED = 5;
 	
-	private int lessonId;
-	private int courseId;
+	private int lessonNo;
+	private int courseNo;
 	private int learnState;
 	private String chTitle;
 	private String enTitle;
@@ -33,10 +33,10 @@ public class LessonInfo {
 	private LessonState downloadState;
 	private int downloadProgress;
 
-	public LessonInfo(int lessonId, int courseId, int learnState, String chTitle,
+	public LessonInfo(int lessonNo, int courseNo, int learnState, String chTitle,
 			String enTitle, String imageUri) {
-		this.lessonId = lessonId;
-		this.courseId = courseId;
+		this.lessonNo = lessonNo;
+		this.courseNo = courseNo;
 		this.learnState = learnState;
 		this.chTitle = chTitle;
 		this.enTitle = enTitle;
@@ -49,17 +49,17 @@ public class LessonInfo {
 		return courseId + "-" + lessonId;
 	}
 	
-	public int getLessonId() {
-		return lessonId;
+	public int getLessonNo() {
+		return lessonNo;
 	}
 
-	public int getCourseId() {
-		return courseId;
+	public int getCourseNo() {
+		return courseNo;
 	}
 
 	public String getVideoUri(int part) {
 		if (videoUri == null) {
-			videoUri = UriUtils.getLessonVideoUri(courseId, lessonId, part);
+			videoUri = UriUtils.getLessonVideoUri(courseNo, lessonNo, part);
 		}
 
 		return videoUri;
@@ -67,7 +67,7 @@ public class LessonInfo {
 
 	public String getVideoPath(int part) {
 		if (videoPath == null) {
-			videoPath = UriUtils.getLessonVideoPath(courseId, lessonId, part);
+			videoPath = UriUtils.getLessonVideoPath(courseNo, lessonNo, part);
 		}
 
 		return videoPath;
@@ -116,6 +116,6 @@ public class LessonInfo {
 	}
 
 	public String toString() {
-		return "Course " + courseId + ", Lesson " + lessonId;
+		return "Course " + courseNo + ", Lesson " + lessonNo;
 	}
 }
