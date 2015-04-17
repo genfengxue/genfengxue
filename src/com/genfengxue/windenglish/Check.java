@@ -415,70 +415,66 @@ public class Check extends Activity{
         	if(checkText[end+1]==' ')
         	{
 
-                String texttt = null;
-        		try {
-        			texttt = getKnowledgeText(line,no);
-        		} catch (JSONException e) {
-        			// 
-        			e.printStackTrace();
-        		}
-        		if(!texttt.equals("nothing"))
-        		{
-                    setUnderline(line,no);
-        		}
-        		
-        		while(checkText[end+1]==' ')
-        		{
-	            ClickableSpan clickSpan = getClickableSpan(line,no);    
-	            if(start==0)
-	            {
-	            	start--;
-	            }
-	            spans.setSpan(clickSpan, start+1, end+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-	            no++;
-	        	end++;
-	        	start=end;
-        		}
+				String texttt = null;
+				try {
+					texttt = getKnowledgeText(line, no);
+				} catch (JSONException e) {
+					//
+					e.printStackTrace();
+				}
+				if (!texttt.equals("nothing")) {
+					setUnderline(line, no);
+				}
+
+				while (checkText[end + 1] == ' ') {
+					ClickableSpan clickSpan = getClickableSpan(line, no);
+					if (start == 0) {
+						start--;
+					}
+					spans.setSpan(clickSpan, start + 1, end + 1,
+							Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+					no++;
+					end++;
+					start = end;
+				}
         	}
         	else if(checkText[end+1]=='\n')
         	{
 
-                String texttt = null;
-        		try {
-        			texttt = getKnowledgeText(line,no);
-        		} catch (JSONException e) {
-        			// 
-        			e.printStackTrace();
-        		}
-        		if(!texttt.equals("nothing"))
-        		{
-                    setUnderline(line,no);
-        		}
-        		
-	            ClickableSpan clickSpan = getClickableSpan(line,no);   
-	            if(start==0)
-	            {
-	            	start--;
-	            }      
-	            spans.setSpan(clickSpan, start+1, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); 
-        		end+=2;
-        		while(checkText[end]!='\n')
-        			end++;
-        		start=end;
-        		line++;
-        		if(line>lineindices.length/2)
-        		{
-        			break;
-        		}
-        		no=1;
-        		while(checkText[end+1]==' ')
-            	{
-    	            ClickableSpan clickSpan1 = getClickableSpan(line,no);      
-    	            spans.setSpan(clickSpan1, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);     
-    	            no++;
-    	        	end+=2;
-    	        	start=end;
-            	}
+				String texttt = null;
+				try {
+					texttt = getKnowledgeText(line, no);
+				} catch (JSONException e) {
+					//
+					e.printStackTrace();
+				}
+				if (!texttt.equals("nothing")) {
+					setUnderline(line, no);
+				}
+
+				ClickableSpan clickSpan = getClickableSpan(line, no);
+				if (start == 0) {
+					start--;
+				}
+				spans.setSpan(clickSpan, start + 1, end,
+						Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+				end += 2;
+				while (checkText[end] != '\n')
+					end++;
+				start = end;
+				line++;
+				if (line > lineindices.length / 2) {
+					break;
+				}
+				no = 1;
+				while (checkText[end + 1] == ' ') {
+					ClickableSpan clickSpan1 = getClickableSpan(line, no);
+					spans.setSpan(clickSpan1, start, end,
+							Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+					no++;
+					end += 2;
+					start = end;
+				}
         	}
         	end++;
         }
