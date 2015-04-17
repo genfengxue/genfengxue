@@ -22,6 +22,9 @@ public class Constants {
 	 *  use http post to get the token
 	 */
 	public static final String GET_TOKEN_URI = API_BASE_URI + "/auth/local";
+
+	public static final String GET_LATEST_RELEASE_URI = API_BASE_URI + 
+			"/release_notes/latest";
 	
 	public static final String TOKEN_VALIDATE_URI = API_BASE_URI + "/auth";
 	

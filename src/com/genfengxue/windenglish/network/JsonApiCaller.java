@@ -171,4 +171,8 @@ public class JsonApiCaller {
 			body.addStringQuery("nickname", nickname);
 		return postApiContent(urlStr, body.getQuery());
 	}
+	
+	public static String getLastestRelease() {
+		return getApiContent(Constants.GET_LATEST_RELEASE_URI, true);
+	}
 }
