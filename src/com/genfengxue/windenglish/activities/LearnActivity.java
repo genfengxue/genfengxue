@@ -104,6 +104,13 @@ public class LearnActivity extends Activity {
 		new GetLessonListTask(forceRefresh).execute(2);
 	}
 	
+	private void doDownloadLessonVideo(LessonInfo info) {
+		progress.add(info);
+		VideoDownloadHandler handler = new VideoDownloadHandler(info, lessonView, progress);
+		new Thread(new LessonVideoDownloader
+				(info.getCourseId(), info.getLessonId(), handler)).start();
+	}
+
 	private class LessonItemClickListener implements
 			ListView.OnItemClickListener {
 
@@ -185,13 +192,6 @@ public class LearnActivity extends Activity {
 		}
 	}
 	
-	private void doDownloadLessonVideo(LessonInfo info) {
-		progress.add(info);
-		VideoDownloadHandler handler = new VideoDownloadHandler(info, lessonView, progress);
-		new Thread(new LessonVideoDownloader
-				(info.getCourseId(), info.getLessonId(), handler)).start();
-	}
-
 	private class GetLessonListTask extends
 			AsyncTask<Integer, Void, List<LessonInfo>> {
 
