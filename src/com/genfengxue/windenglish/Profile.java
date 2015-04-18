@@ -7,8 +7,6 @@ package com.genfengxue.windenglish;
 
 import java.io.FileOutputStream;
 
-import com.genfengxue.windenglish.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +18,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.genfengxue.windenglish.activities.LearnActivity;
 
 public class Profile extends Activity{
 
@@ -84,7 +84,7 @@ public class Profile extends Activity{
 		            e.printStackTrace();  
 		        }  
 
-				Intent intent = new Intent(Profile.this, Main.class);
+				Intent intent = new Intent(Profile.this, LearnActivity.class);
 				startActivity(intent);
 			}
 		});

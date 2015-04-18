@@ -9,8 +9,6 @@ import java.io.FileOutputStream;
 
 import org.apache.http.util.EncodingUtils;
 
-import com.genfengxue.windenglish.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -29,6 +27,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.VideoView;
+
+import com.genfengxue.windenglish.activities.LearnActivity;
 
 public class Record extends Activity{
 
@@ -150,7 +150,7 @@ public class Record extends Activity{
         								public void onClick(DialogInterface dialog, int which) {
         									// TODO Auto-generated method stub
 
-        									Intent intent = new Intent(Record.this, Main.class);
+        									Intent intent = new Intent(Record.this, LearnActivity.class);
         									isTrue=false;
         									startActivity(intent);
         									Record.this.finish();
@@ -276,7 +276,7 @@ public class Record extends Activity{
 			        	mediaRecorder.stop();  
 			        	mediaRecorder.release();  
 			        	mediaRecorder = null;  
-						Intent intent = new Intent(Record.this, Main.class);
+						Intent intent = new Intent(Record.this, LearnActivity.class);
 						isTrue=false;
 						startActivity(intent);
 						Record.this.finish();
@@ -356,7 +356,7 @@ public class Record extends Activity{
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
 												// TODO Auto-generated method stub
-												Intent intent = new Intent(Record.this, Main.class);
+												Intent intent = new Intent(Record.this, LearnActivity.class);
 												isTrue=false;
 	        									startActivity(intent);
 	        									Record.this.finish();
@@ -466,7 +466,7 @@ public class Record extends Activity{
 	        	mediaRecorder.stop();
 	        	mediaRecorder.release();
 	        	mediaRecorder = null;
-				Intent intent = new Intent(Record.this, Main.class);
+				Intent intent = new Intent(Record.this, LearnActivity.class);
 				isTrue=false;
 				startActivity(intent);
 				Record.this.finish();

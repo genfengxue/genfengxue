@@ -37,8 +37,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.genfengxue.windenglish.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -73,6 +71,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 //import android.widget.VideoView;
 import android.widget.TextView.BufferType;
+
+import com.genfengxue.windenglish.activities.LearnActivity;
 
 
 public class CheckTest extends Activity{
@@ -389,7 +389,7 @@ public class CheckTest extends Activity{
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}  
-						Intent intent = new Intent(CheckTest.this, Main.class);
+						Intent intent = new Intent(CheckTest.this, LearnActivity.class);
 						startActivity(intent);
 						CheckTest.this.finish();
 					}
@@ -562,7 +562,7 @@ public class CheckTest extends Activity{
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}  
-									Intent intent = new Intent(CheckTest.this, Main.class);
+									Intent intent = new Intent(CheckTest.this, LearnActivity.class);
 									startActivity(intent);
 									CheckTest.this.finish();
 								}
@@ -599,7 +599,7 @@ public class CheckTest extends Activity{
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}  
-						Intent intent = new Intent(CheckTest.this, Main.class);
+						Intent intent = new Intent(CheckTest.this, LearnActivity.class);
 						startActivity(intent);
 						CheckTest.this.finish();
 					}
@@ -789,7 +789,7 @@ public class CheckTest extends Activity{
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}  
-							Intent intent = new Intent(CheckTest.this, Main.class);
+							Intent intent = new Intent(CheckTest.this, LearnActivity.class);
 							startActivity(intent);
 							CheckTest.this.finish();
 						}
@@ -1392,7 +1392,7 @@ public class CheckTest extends Activity{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}  
-				Intent intent = new Intent(CheckTest.this, Main.class);
+				Intent intent = new Intent(CheckTest.this, LearnActivity.class);
 				startActivity(intent);
 				CheckTest.this.finish();
 			}

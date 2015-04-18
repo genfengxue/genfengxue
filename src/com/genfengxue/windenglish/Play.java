@@ -9,8 +9,6 @@ import java.io.FileOutputStream;
 
 import org.apache.http.util.EncodingUtils;
 
-import com.genfengxue.windenglish.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -26,6 +24,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.VideoView;
+
+import com.genfengxue.windenglish.activities.LearnActivity;
 
 public class Play extends Activity{
 
@@ -205,7 +205,7 @@ public class Play extends Activity{
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO Auto-generated method stub
 
-						Intent intent = new Intent(Play.this, Main.class);
+						Intent intent = new Intent(Play.this, LearnActivity.class);
 						startActivity(intent);
 						Play.this.finish();
 					}
@@ -350,7 +350,7 @@ public class Play extends Activity{
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 
-				Intent intent = new Intent(Play.this, Main.class);
+				Intent intent = new Intent(Play.this, LearnActivity.class);
 				startActivity(intent);
 				Play.this.finish();
 			}

@@ -30,6 +30,7 @@ import javax.mail.internet.MimeUtility;
 import org.apache.http.util.EncodingUtils;
 
 import com.genfengxue.windenglish.R;
+import com.genfengxue.windenglish.activities.LearnActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -228,7 +229,7 @@ public class CheckBackup extends Activity{
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO Auto-generated method stub
 
-						Intent intent = new Intent(CheckBackup.this, Main.class);
+						Intent intent = new Intent(CheckBackup.this, LearnActivity.class);
 						startActivity(intent);
 						CheckBackup.this.finish();
 					}
@@ -392,7 +393,7 @@ public class CheckBackup extends Activity{
 								public void onClick(DialogInterface dialog, int which) {
 									// TODO Auto-generated method stub
 									
-									Intent intent = new Intent(CheckBackup.this, Main.class);
+									Intent intent = new Intent(CheckBackup.this, LearnActivity.class);
 									startActivity(intent);
 									CheckBackup.this.finish();
 								}
@@ -420,7 +421,7 @@ public class CheckBackup extends Activity{
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO Auto-generated method stub
 
-						Intent intent = new Intent(CheckBackup.this, Main.class);
+						Intent intent = new Intent(CheckBackup.this, LearnActivity.class);
 						startActivity(intent);
 						CheckBackup.this.finish();
 					}
@@ -599,7 +600,7 @@ public class CheckBackup extends Activity{
 						public void onClick(DialogInterface dialog, int which) {
 							// TODO Auto-generated method stub
 							
-							Intent intent = new Intent(CheckBackup.this, Main.class);
+							Intent intent = new Intent(CheckBackup.this, LearnActivity.class);
 							startActivity(intent);
 							CheckBackup.this.finish();
 						}
@@ -810,7 +811,7 @@ public class CheckBackup extends Activity{
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 
-				Intent intent = new Intent(CheckBackup.this, Main.class);
+				Intent intent = new Intent(CheckBackup.this, LearnActivity.class);
 				startActivity(intent);
 				CheckBackup.this.finish();
 			}
