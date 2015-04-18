@@ -1180,7 +1180,7 @@ public class Main extends Activity {
             map.put("ItemState", R.drawable.waitingrecord);
         listItem.add(map);
 
-        mSimpleAdapter = new SimpleAdapter(this, listItem, R.layout.videolistitem, new String[] {
+        mSimpleAdapter = new SimpleAdapter(this, listItem, R.layout.lessonlistitem, new String[] {
                 "ItemImage", "ItemTitle", "ItemTextEnglish", "ItemTextChinese", "ItemState"
         }, new int[] {
                 R.id.ItemImage, R.id.ItemTitle, R.id.ItemTextEnglish, R.id.ItemTextChinese,

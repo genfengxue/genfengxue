@@ -3,13 +3,13 @@ package com.genfengxue.windenglish.ui;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,16 +21,12 @@ import com.genfengxue.windenglish.struct.LessonInfo.LessonState;
 
 public class LessonAdaptor extends BaseAdapter {
 
-	List<LessonInfo> infos;
-	LayoutInflater inflater;
-	RelativeLayout layouts[];
-	ListView parent;
+	private List<LessonInfo> infos;
+	private LayoutInflater inflater;
 	
-	public LessonAdaptor(ListView parent, List<LessonInfo> infos) {
+	public LessonAdaptor(Context ctx, List<LessonInfo> infos) {
 		this.infos = infos;
-		this.parent = parent;
-		inflater = LayoutInflater.from(parent.getContext());
-		layouts = new RelativeLayout[infos.size()];
+		inflater = LayoutInflater.from(ctx);
 	}
 	
 
@@ -40,7 +36,7 @@ public class LessonAdaptor extends BaseAdapter {
 		LessonInfo info = getItem(position);
 		RelativeLayout rl = (RelativeLayout) convertView;
 		if (rl == null) {
-			rl = (RelativeLayout) inflater.inflate(R.layout.videolistitem, null);
+			rl = (RelativeLayout) inflater.inflate(R.layout.lessonlistitem, null);
 		}
 		
 		// download image
@@ -48,7 +44,7 @@ public class LessonAdaptor extends BaseAdapter {
 		LazyImageViewUriFiller.fill(rl.getContext(), image, info.getImageUri());
 
 		// put content
-		((TextView) rl.findViewById(R.id.ItemTitle)).setText(String.valueOf(info.getLessonId()));
+		((TextView) rl.findViewById(R.id.ItemTitle)).setText(String.valueOf(info.getLessonNo()));
 		((TextView) rl.findViewById(R.id.ItemTextChinese)).setText(info.getChTitle());
 		((TextView) rl.findViewById(R.id.ItemTextEnglish)).setText(info.getEnTitle());
 		Drawable draw = rl.getResources().getDrawable(getIcon(info));

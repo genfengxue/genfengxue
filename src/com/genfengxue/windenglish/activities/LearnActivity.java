@@ -18,12 +18,15 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -53,6 +56,8 @@ import com.genfengxue.windenglish.utils.UriUtils;
  */
 public class LearnActivity extends Activity {
 
+	private static final String TAG = "LearnActivity";
+	
 	private Set<LessonInfo> progress = 
 			Collections.newSetFromMap(new WeakHashMap<LessonInfo, Boolean>()); 
 	
@@ -81,6 +86,8 @@ public class LearnActivity extends Activity {
 						R.string.update_lesson, Toast.LENGTH_SHORT).show();
 			}
 		});
+		
+		new UpdateTask().execute();
 	}
 	
 	public void onStart() {
@@ -97,6 +104,13 @@ public class LearnActivity extends Activity {
 		new GetLessonListTask(forceRefresh).execute(2);
 	}
 	
+	private void doDownloadLessonVideo(LessonInfo info) {
+		progress.add(info);
+		VideoDownloadHandler handler = new VideoDownloadHandler(info, lessonView, progress);
+		new Thread(new LessonVideoDownloader
+				(info.getCourseNo(), info.getLessonNo(), handler)).start();
+	}
+
 	private class LessonItemClickListener implements
 			ListView.OnItemClickListener {
 
@@ -138,8 +152,8 @@ public class LearnActivity extends Activity {
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
 			Intent intent = null;
-			int courseId = info.getCourseId();
-			int lessonId = info.getLessonId();
+			int courseId = info.getCourseNo();
+			int lessonId = info.getLessonNo();
 			switch (which) {
 			case 0: // 看视频
 				intent = new Intent(LearnActivity.this, VideoPlayActivity.class);
@@ -178,13 +192,6 @@ public class LearnActivity extends Activity {
 		}
 	}
 	
-	private void doDownloadLessonVideo(LessonInfo info) {
-		progress.add(info);
-		VideoDownloadHandler handler = new VideoDownloadHandler(info, lessonView, progress);
-		new Thread(new LessonVideoDownloader
-				(info.getCourseId(), info.getLessonId(), handler)).start();
-	}
-
 	private class GetLessonListTask extends
 			AsyncTask<Integer, Void, List<LessonInfo>> {
 
@@ -211,7 +218,7 @@ public class LearnActivity extends Activity {
 
 		protected void onPostExecute(List<LessonInfo> result) {
 			if (result != null) {
-				LessonAdaptor adaptor = new LessonAdaptor(lessonView, result);
+				LessonAdaptor adaptor = new LessonAdaptor(LearnActivity.this, result);
 				lessonView.setAdapter(adaptor);
 				lessonView.setOnItemClickListener(new LessonItemClickListener());
 			}
@@ -269,14 +276,14 @@ public class LearnActivity extends Activity {
 				info.updateState();
 				progress.remove(info);
 				updateProgressBar();
-				Toast.makeText(lessonView.getContext(), String.format(template, info.getLessonId()),
+				Toast.makeText(lessonView.getContext(), String.format(template, info.getLessonNo()),
 						Toast.LENGTH_SHORT).show();
 				break;
 			}
 		}
 		
 		private void updateProgressBar() {
-			int id = info.getLessonId();
+			int id = info.getLessonNo();
 			if (id >= lessonView.getFirstVisiblePosition() && id <= lessonView.getLastVisiblePosition()) {
 				((LessonAdaptor) lessonView.getAdapter()).notifyDataSetChanged();
 			}
@@ -307,7 +314,7 @@ public class LearnActivity extends Activity {
 
 					@Override
 					public int compare(LessonInfo lhs, LessonInfo rhs) {
-						return lhs.getLessonId() - rhs.getLessonId();
+						return lhs.getLessonNo() - rhs.getLessonNo();
 					}
 				});
 			} catch (JSONException e) {
@@ -352,4 +359,56 @@ public class LearnActivity extends Activity {
 			doDownloadLessonVideo(info);
 		}
 	}
+	
+	private class UpdateTask extends AsyncTask<Void, Void, JSONObject> {
+
+		@Override
+		protected JSONObject doInBackground(Void... params) {
+			JSONObject obj = null;
+			String jsonStr = JsonApiCaller.getLastestRelease();
+			if (jsonStr != null) {
+				try {
+					obj = new JSONObject(jsonStr);
+				} catch (JSONException e) {
+					Log.w(TAG, "failed to parse json: " + e.getMessage());
+				}
+			}
+			return obj;
+		}
+
+		protected void onPostExecute(JSONObject obj) {
+			if (obj != null) {
+				try {
+					int newVersionCode = obj.optInt("versionCode", 1);
+					int versionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+					if (newVersionCode > versionCode) {
+						String uri = obj.optString("url");
+						ConfirmationDialog dialog = new ConfirmationDialog(
+								getResources().getString(R.string.new_version_found), 
+								new DoUpdateListener(uri), ConfirmationDialog.DEAF_LISTENER);
+						dialog.show(getFragmentManager(), "update");
+					}
+				} catch (NameNotFoundException e) {
+					Log.e(TAG, e.getMessage());
+				}
+			}
+		}
+	}
+	
+	private class DoUpdateListener implements OnClickListener {
+
+		private Uri uri;
+		
+		DoUpdateListener(String uri) {
+			this.uri = Uri.parse(uri);
+		}
+		
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+			startActivity(intent);
+		}
+		
+	}
+	
 }
