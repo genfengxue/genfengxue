@@ -27,6 +27,7 @@ import java.util.List;
 //import javax.mail.internet.MimeMultipart;
 //import javax.mail.internet.MimeUtility;
 
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -41,6 +42,8 @@ import org.json.JSONObject;
 
 import com.genfengxue.windenglish.R;
 //import com.sun.mail.util.MailSSLSocketFactory;
+
+import com.genfengxue.windenglish.activities.LearnActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -161,7 +164,7 @@ public class Check extends Activity{
 							// 
 							e.printStackTrace();
 						}  
-						Intent intent = new Intent(Check.this, Main.class);
+						Intent intent = new Intent(Check.this, LearnActivity.class);
 						startActivity(intent);
 						Check.this.finish();
 					}
@@ -467,7 +470,7 @@ public class Check extends Activity{
 							// 
 							e.printStackTrace();
 						}  
-						Intent intent = new Intent(Check.this, Main.class);
+						Intent intent = new Intent(Check.this, LearnActivity.class);
 						startActivity(intent);
 						Check.this.finish();
 					}
@@ -651,7 +654,7 @@ public class Check extends Activity{
 										// 
 										e.printStackTrace();
 									}  
-									Intent intent = new Intent(Check.this, Main.class);
+									Intent intent = new Intent(Check.this, LearnActivity.class);
 									startActivity(intent);
 									Check.this.finish();
 								}
@@ -688,7 +691,7 @@ public class Check extends Activity{
 							// 
 							e.printStackTrace();
 						}  
-						Intent intent = new Intent(Check.this, Main.class);
+						Intent intent = new Intent(Check.this, LearnActivity.class);
 						startActivity(intent);
 						Check.this.finish();
 					}
@@ -1600,7 +1603,7 @@ public class Check extends Activity{
 					// 
 					e.printStackTrace();
 				}  
-				Intent intent = new Intent(Check.this, Main.class);
+				Intent intent = new Intent(Check.this, LearnActivity.class);
 				startActivity(intent);
 				Check.this.finish();
 			}
