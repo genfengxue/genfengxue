@@ -36,7 +36,7 @@ public class FunctionUtils {
 	public static void deleteFiles(String path) {
 		deleteFiles(new File(path));
 	}
-	
+
 	public static void deleteFiles(File dir) {
 		if (dir.exists()) {
 			if (dir.isFile()) {
@@ -49,10 +49,10 @@ public class FunctionUtils {
 		}
 
 	}
-	
+
 	public static void setupApp() {
 		if (BuildConfig.DEBUG) {
-//			FunctionUtils.deleteFiles(Constants.APP_DIR);
+			// FunctionUtils.deleteFiles(Constants.APP_DIR);
 		}
 		FunctionUtils.mkdirs(Constants.APP_DIR);
 		FunctionUtils.mkdirs(Constants.CACHE_DIR);

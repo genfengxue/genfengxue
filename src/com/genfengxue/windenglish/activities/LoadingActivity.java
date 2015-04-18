@@ -2,6 +2,7 @@ package com.genfengxue.windenglish.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,7 @@ import android.view.Window;
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.mgr.AccountMgr;
 import com.genfengxue.windenglish.struct.UserProfile;
+import com.genfengxue.windenglish.utils.Constants;
 import com.genfengxue.windenglish.utils.FunctionUtils;
 
 public class LoadingActivity extends Activity {
@@ -35,7 +37,14 @@ public class LoadingActivity extends Activity {
 	}
 	
 	private void goLearn() {
-		Intent intent = new Intent(LoadingActivity.this, LearnActivity.class);
+		Class<? extends Activity> target = null;
+		SharedPreferences pref = getSharedPreferences(Constants.COURSE_STATE_PREF, MODE_PRIVATE);
+		if (pref.contains("courseNo")) {
+			target = LearnActivity.class;
+		} else {
+			target = CourseActivity.class;
+		}
+		Intent intent = new Intent(LoadingActivity.this, target);
 		goActivity(intent);
 	}
 	

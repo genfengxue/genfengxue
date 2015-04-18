@@ -61,6 +61,7 @@ public class LearnActivity extends Activity {
 	private Set<LessonInfo> progress = 
 			Collections.newSetFromMap(new WeakHashMap<LessonInfo, Boolean>()); 
 	
+	private int courseNo;
 	private ListView lessonView;
 	
 	private String[] learnOptions; 
@@ -73,6 +74,9 @@ public class LearnActivity extends Activity {
 		UserProfile userProfile = AccountMgr.getUserProfile(this);
 		((TextView) findViewById(R.id.mainUsername)).setText(userProfile.getNickname());
 
+		Intent intent = getIntent();
+		courseNo = intent.getIntExtra("courseNo", 2);
+		
 		lessonView = (ListView) findViewById(R.id.videoList);
 		learnOptions = getResources().getStringArray(R.array.learn_options);
 		
@@ -101,7 +105,7 @@ public class LearnActivity extends Activity {
 	}
 	
 	private void refreshLessionList(boolean forceRefresh) {
-		new GetLessonListTask(forceRefresh).execute(2);
+		new GetLessonListTask(forceRefresh).execute(courseNo);
 	}
 	
 	private void doDownloadLessonVideo(LessonInfo info) {
@@ -207,8 +211,7 @@ public class LearnActivity extends Activity {
 
 		@Override
 		protected List<LessonInfo> doInBackground(Integer... params) {
-			// TODO hard code courseNo, should be replaced later
-			String jsonStr = JsonApiCaller.getLessonListApi(2, forceRefresh);
+			String jsonStr = JsonApiCaller.getLessonListApi(params[0], forceRefresh);
 			if (jsonStr != null) {
 				return new LessonJsonHandler().handleJsonString(jsonStr);
 			}
@@ -228,7 +231,6 @@ public class LearnActivity extends Activity {
 			}
 			client.close();
 		}
-
 	}
 
 	private static class VideoDownloadHandler extends Handler {

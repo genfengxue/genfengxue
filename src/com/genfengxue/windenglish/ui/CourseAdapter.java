@@ -14,11 +14,11 @@ import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.cache.LazyImageViewUriFiller;
 import com.genfengxue.windenglish.struct.CourseInfo;
 
-public class CourseAdaptor extends BaseAdapter {
+public class CourseAdapter extends BaseAdapter {
 	private List<CourseInfo> infos;
 	LayoutInflater inflater;
 	
-	public CourseAdaptor(Context ctx, List<CourseInfo> infos) {
+	public CourseAdapter(Context ctx, List<CourseInfo> infos) {
 		this.infos = infos;
 		inflater = LayoutInflater.from(ctx);
 	}

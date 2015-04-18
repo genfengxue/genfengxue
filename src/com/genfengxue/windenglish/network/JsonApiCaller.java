@@ -129,6 +129,10 @@ public class JsonApiCaller {
 				.append(qb.getQuery());
 		return getApiContent(sb.toString(), forceRefresh);
 	}
+	
+	public static String getCourseListApi() {
+		return getApiContent(Constants.COURSE_LIST_API_URI, false);
+	}
 
 	public static String getLessonListApi(int courseNo) {
 		return getLessonListApi(courseNo, false);

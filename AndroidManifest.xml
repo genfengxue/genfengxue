@@ -81,6 +81,10 @@
             android:name="com.genfengxue.windenglish.activities.ProfileActivity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity 
+            android:name="com.genfengxue.windenglish.activities.CourseActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

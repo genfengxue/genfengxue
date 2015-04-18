@@ -18,6 +18,9 @@ public class Constants {
 	public static final String LESSON_LIST_API_URI = API_BASE_URI + 
 			"/lessons";
 	
+	public static final String COURSE_LIST_API_URI = API_BASE_URI + 
+			"/courses";
+	
 	/**
 	 *  use http post to get the token
 	 */
@@ -41,4 +44,6 @@ public class Constants {
 	public static final String USER_PROFILE_PREF = APP_NAME + ".userprofile";
 	
 	public static final String LESSON_STATE_PREF = APP_NAME + ".lessonstate";
+	
+	public static final String COURSE_STATE_PREF = APP_NAME + ".coursestate";
 }
