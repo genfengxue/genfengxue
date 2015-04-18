@@ -432,6 +432,12 @@ public class LearnActivity extends Activity {
 	private class SwipeBackListener implements OnTouchListener {
 
 		private float downX, downY, upX, upY;
+		private int maxX;
+		
+		@SuppressWarnings("deprecation")
+		public SwipeBackListener() {
+			maxX = getWindowManager().getDefaultDisplay().getWidth();
+		}
 		
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
@@ -445,7 +451,7 @@ public class LearnActivity extends Activity {
 				upY = event.getY();
 				float deltaX = Math.abs(upX - downX);
 				float deltaY = Math.abs(upY - downY);
-				if (upX > downX && deltaX > deltaY * 4) {
+				if (upX > downX && deltaX * 2 > maxX && deltaX > deltaY * 4) {
 					goCourseActivity();
 				}
 				v.performClick();

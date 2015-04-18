@@ -56,7 +56,6 @@ public class CourseActivity extends Activity {
 				editor.putInt("courseNo", courseNo);
 				editor.apply();
 				startActivity(intent);
-				CourseActivity.this.finish();
 			}
 		});
 		
