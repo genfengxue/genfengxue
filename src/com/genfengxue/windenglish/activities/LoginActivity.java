@@ -7,6 +7,7 @@ package com.genfengxue.windenglish.activities;
 import android.accounts.AccountAuthenticatorActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.mgr.AccountMgr;
 import com.genfengxue.windenglish.struct.UserProfile;
+import com.genfengxue.windenglish.utils.Constants;
 
 public class LoginActivity extends AccountAuthenticatorActivity {
 	
@@ -145,7 +147,14 @@ public class LoginActivity extends AccountAuthenticatorActivity {
 				Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
 				startActivity(intent);
 			} else {
-				Intent intent = new Intent(LoginActivity.this, LearnActivity.class);
+				SharedPreferences pref = getSharedPreferences(Constants.COURSE_STATE_PREF, MODE_PRIVATE);
+				Class<?> target = null;
+				if (pref.contains("courseNo")) {
+					target = LearnActivity.class;
+				} else {
+					target = CourseActivity.class;
+				}
+				Intent intent = new Intent(LoginActivity.this, target);
 				startActivity(intent);
 			}
 			finish();
