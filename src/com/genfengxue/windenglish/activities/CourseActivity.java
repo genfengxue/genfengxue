@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -55,9 +56,10 @@ public class CourseActivity extends Activity {
 				editor.putInt("courseNo", courseNo);
 				editor.apply();
 				startActivity(intent);
-				CourseActivity.this.finish();
 			}
 		});
+		
+		((ImageView) findViewById(R.id.refreshBtn)).setVisibility(View.INVISIBLE);
 		
 		new UpdateCourseTask().execute();
 	}

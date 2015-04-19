@@ -27,10 +27,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +47,7 @@ import com.genfengxue.windenglish.struct.LessonInfo.LessonState;
 import com.genfengxue.windenglish.struct.UserProfile;
 import com.genfengxue.windenglish.ui.ConfirmationDialog;
 import com.genfengxue.windenglish.ui.ItemsDialog;
-import com.genfengxue.windenglish.ui.LessonAdaptor;
+import com.genfengxue.windenglish.ui.LessonAdapter;
 import com.genfengxue.windenglish.utils.Constants;
 import com.genfengxue.windenglish.utils.UriUtils;
 
@@ -92,6 +95,9 @@ public class LearnActivity extends Activity {
 		});
 		
 		new UpdateTask().execute();
+		((RelativeLayout) findViewById(R.id.main_layout)).setOnTouchListener(
+				new SwipeBackListener());
+		lessonView.setOnTouchListener(new SwipeBackListener());
 	}
 	
 	public void onStart() {
@@ -115,6 +121,12 @@ public class LearnActivity extends Activity {
 				(info.getCourseNo(), info.getLessonNo(), handler)).start();
 	}
 
+	private void goCourseActivity() {
+		Intent intent = new Intent(this, CourseActivity.class);
+		startActivity(intent);
+		finish();
+	}
+	
 	private class LessonItemClickListener implements
 			ListView.OnItemClickListener {
 
@@ -188,7 +200,7 @@ public class LearnActivity extends Activity {
 					new File(path).delete();
 				}
 				info.updateState();
-				((LessonAdaptor) lessonView.getAdapter()).notifyDataSetChanged();
+				((LessonAdapter) lessonView.getAdapter()).notifyDataSetChanged();
 				Toast.makeText(LearnActivity.this, 
 						R.string.delete_video_hint, Toast.LENGTH_SHORT).show();
 				break;
@@ -221,7 +233,7 @@ public class LearnActivity extends Activity {
 
 		protected void onPostExecute(List<LessonInfo> result) {
 			if (result != null) {
-				LessonAdaptor adaptor = new LessonAdaptor(LearnActivity.this, result);
+				LessonAdapter adaptor = new LessonAdapter(LearnActivity.this, result);
 				lessonView.setAdapter(adaptor);
 				lessonView.setOnItemClickListener(new LessonItemClickListener());
 			}
@@ -285,9 +297,13 @@ public class LearnActivity extends Activity {
 		}
 		
 		private void updateProgressBar() {
-			int id = info.getLessonNo();
-			if (id >= lessonView.getFirstVisiblePosition() && id <= lessonView.getLastVisiblePosition()) {
-				((LessonAdaptor) lessonView.getAdapter()).notifyDataSetChanged();
+			int start = lessonView.getFirstVisiblePosition();
+			int end = lessonView.getLastVisiblePosition();
+			LessonAdapter adapter = (LessonAdapter) lessonView.getAdapter();
+			for (int pos = start; pos <= end; ++pos) {
+				if (info == adapter.getItem(pos)) {
+					adapter.notifyDataSetChanged();
+				}
 			}
 		}
 	}
@@ -412,5 +428,36 @@ public class LearnActivity extends Activity {
 		}
 		
 	}
-	
+
+	private class SwipeBackListener implements OnTouchListener {
+
+		private float downX, downY, upX, upY;
+		private int maxX;
+		
+		@SuppressWarnings("deprecation")
+		public SwipeBackListener() {
+			maxX = getWindowManager().getDefaultDisplay().getWidth();
+		}
+		
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			switch (event.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				downX = event.getX();
+				downY = event.getY();
+				break;
+			case MotionEvent.ACTION_UP:
+				upX = event.getX();
+				upY = event.getY();
+				float deltaX = Math.abs(upX - downX);
+				float deltaY = Math.abs(upY - downY);
+				if (upX > downX && deltaX * 2 > maxX && deltaX > deltaY * 4) {
+					goCourseActivity();
+				}
+				v.performClick();
+				break;
+			}
+			return false;
+		}
+	}
 }

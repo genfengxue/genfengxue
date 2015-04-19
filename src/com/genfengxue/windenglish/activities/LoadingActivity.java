@@ -37,15 +37,15 @@ public class LoadingActivity extends Activity {
 	}
 	
 	private void goLearn() {
-		Class<? extends Activity> target = null;
 		SharedPreferences pref = getSharedPreferences(Constants.COURSE_STATE_PREF, MODE_PRIVATE);
 		if (pref.contains("courseNo")) {
-			target = LearnActivity.class;
+			Intent intent = new Intent(LoadingActivity.this, LearnActivity.class);
+			intent.putExtra("courseNo", pref.getInt("courseNo", 2));
+			goActivity(intent);
 		} else {
-			target = CourseActivity.class;
+			Intent intent = new Intent(LoadingActivity.this, CourseActivity.class);
+			goActivity(intent);
 		}
-		Intent intent = new Intent(LoadingActivity.this, target);
-		goActivity(intent);
 	}
 	
 	private void goActivity(final Intent intent) {

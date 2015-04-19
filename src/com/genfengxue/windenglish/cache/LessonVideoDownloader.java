@@ -87,17 +87,22 @@ public class LessonVideoDownloader implements Runnable {
 
 		private int part;
 		private int partByteNum;
+		private int lastProg;
 		
 		public ProgressUpdater(int part, int partByteNum) {
 			this.part = part;
 			this.partByteNum = partByteNum;
+			this.lastProg = -1;
 		}
 		
 		@Override
 		public void update(int byteNum) {
 			int prog = (int) ((byteNum * 100 / partByteNum + (part - 1) * 100) / VIDEO_PART_NUM);
-			Message msg = handler.obtainMessage(DOWNLOAD_PROGRESS, prog);
-			handler.sendMessage(msg);
+			if (prog != lastProg) {
+				Message msg = handler.obtainMessage(DOWNLOAD_PROGRESS, prog);
+				handler.sendMessage(msg);
+				lastProg = prog;
+			}
 		}
 	}
 }

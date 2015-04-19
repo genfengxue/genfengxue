@@ -19,12 +19,12 @@ import com.genfengxue.windenglish.cache.LazyImageViewUriFiller;
 import com.genfengxue.windenglish.struct.LessonInfo;
 import com.genfengxue.windenglish.struct.LessonInfo.LessonState;
 
-public class LessonAdaptor extends BaseAdapter {
+public class LessonAdapter extends BaseAdapter {
 
 	private List<LessonInfo> infos;
 	private LayoutInflater inflater;
 	
-	public LessonAdaptor(Context ctx, List<LessonInfo> infos) {
+	public LessonAdapter(Context ctx, List<LessonInfo> infos) {
 		this.infos = infos;
 		inflater = LayoutInflater.from(ctx);
 	}
