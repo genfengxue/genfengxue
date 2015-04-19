@@ -18,7 +18,7 @@
     <string name="check_sub">提交</string>
     <string name="check_video_back">向前3秒</string>
     <string name="check_video_pause">暂停</string>
-    <string name="versions">v0.3.9.1</string>
+    <string name="versions">v0.4</string>
     <string name="login_emailHint">Please input your email:</string>
     <string name="login_password">请输入密码</string>
     <string name="login_userno_number">用户编号需要为数字</string>
