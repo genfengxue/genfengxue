@@ -1,18 +1,11 @@
-/**
- * 注册/登陆界面@author vita
- */
-
 package com.genfengxue.windenglish.activities;
 
 import android.accounts.AccountAuthenticatorActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -68,33 +61,6 @@ public class LoginActivity extends AccountAuthenticatorActivity {
 				doLogin();
 			}
 		});  
-		
-		//监听输入框
-		TextWatcher textWatcher = new TextWatcher() {
-			
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-			}
-			
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-			}
-			
-			@Override
-			public void afterTextChanged(Editable s) {
-				int userNoLength   = userNoText.getText().toString().length();  
-				int passwordLength = passwordText.getText().toString().length();  
-				if (userNoLength > 0 && passwordLength > 0) {
-					loginButton.setBackgroundColor(Color.parseColor("#691281"));
-				} else {
-					loginButton.setBackgroundColor(Color.parseColor("#aaaaaa"));
-				}
-			}
-		};
-		
-		userNoText.addTextChangedListener(textWatcher);
-		passwordText.addTextChangedListener(textWatcher);
 		
 		passwordText.setOnEditorActionListener(new OnEditorActionListener() {
 			
