@@ -3,10 +3,13 @@ package com.genfengxue.windenglish.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
+import android.widget.TextView;
 
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.mgr.AccountMgr;
@@ -16,11 +19,23 @@ import com.genfengxue.windenglish.utils.FunctionUtils;
 
 public class LoadingActivity extends Activity {
 
+	private TextView versionName;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.loading);
+		
+		versionName = (TextView)findViewById(R.id.version_name);
+		PackageInfo pi;
+		try {
+			pi = getPackageManager().getPackageInfo(getPackageName(), 0);
+			versionName.setText("v" + pi.versionName);//版本号前面加个v作为前缀吧^_^
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+			versionName.setText("");
+		}
+		
 		FunctionUtils.setupApp();
 
 		new CheckUserTask().execute();

@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -50,6 +51,11 @@ public class VideoPlayActivity extends Activity {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		
 		setContentView(R.layout.play);
 		
 		infoArr = getResources().getStringArray(R.array.video_info_arr);
@@ -66,7 +72,13 @@ public class VideoPlayActivity extends Activity {
 		
 		videoView = (VideoView) findViewById(R.id.videoView);
 		controller = new MediaController(this, false);
-		
+        controller.setAnchorView(videoView);
+
+		//录音时禁用播放器控件
+        if (part == 4) {
+        	controller.setVisibility(View.INVISIBLE);
+        }
+        
 		// TODO controller will be removed in later development
 		// we can have our own controller style
 		videoView.setMediaController(controller);
@@ -181,6 +193,7 @@ public class VideoPlayActivity extends Activity {
 		if (recordPath == null) {
 			recordPath = UriUtils.getRecordPath(courseNo, lessonNo);
 		}
+
 		recorder = new MediaRecorder();
 		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 		recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
