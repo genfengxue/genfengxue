@@ -29,16 +29,18 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.genfengxue.windenglish.R;
+import com.genfengxue.windenglish.mgr.AccountMgr;
+import com.genfengxue.windenglish.struct.UserProfile;
 import com.sun.mail.util.MailSSLSocketFactory;
 
-public class Question extends Activity{
+public class Question extends Activity {
 	private Context  context = this;  
 	private EditText editText;
 	private static String tempQuestion = "";
@@ -54,6 +56,7 @@ public class Question extends Activity{
 		//配置文本框
 		final String hintString = intent.getStringExtra("Text");
 		
+		//读出临时文件的内容
 		try{   
 	         FileInputStream fin = openFileInput("questionTemp");   
 	         int length = fin.available();   
@@ -81,7 +84,6 @@ public class Question extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				FileOutputStream out = null;  
 				tempQuestion=editText.getText().toString();
 		        try {  
@@ -103,45 +105,22 @@ public class Question extends Activity{
 			@Override
 			public void onClick(View v) {
 				//获取信息
-			    String[] names;
-			    String userdata = null;
-				try{   
-			         FileInputStream fin = openFileInput("userdata");   
-			         int length = fin.available();   
-			         byte [] buffer = new byte[length];   
-			         fin.read(buffer);       
-			         userdata = EncodingUtils.getString(buffer, "UTF-8");   
-			         fin.close();       
-			     }   
-			     catch(Exception e){   
-			         e.printStackTrace();   
-			     }   
-				names=userdata.split("\\?");
-				
-				String videoId = intent.getStringExtra("videoId");
+				UserProfile userProfile = AccountMgr.getUserProfile(Question.this);
 				int courseNo = intent.getIntExtra("courseNo", 1);
 				int lessonNo = intent.getIntExtra("lessonNo", 1);
 				
-				String email = null;
-				try{   
-			         FileInputStream fin = openFileInput("email");   
-			         int length = fin.available();   
-			         byte [] buffer = new byte[length];   
-			         fin.read(buffer);       
-			         email = EncodingUtils.getString(buffer, "UTF-8");   
-			         fin.close();       
-			     }   
-			     catch(Exception e){   
-			         e.printStackTrace();   
-			     }   
+				String nickname = userProfile.getNickname();
+				String email = userProfile.getEmail();
 				
 				//组装邮件
-				String mailTitle = "【跟风学】" + names[0] + "的提问";
-				String mailText = names[0]+ "在第" + videoId + "课问到：\n";
+				Resources res = getResources();
+				String mailTitle = res.getString(R.string.question_email_subject, nickname);
+				String mailText  = res.getString(R.string.question_email_content, nickname, courseNo, lessonNo);
+
+				mailText+="原文是："+hintString+ "\n";
 				mailText+=editText.getText().toString();
 				mailText+="\n";
-				mailText+="原文是："+hintString+ "\n";
-				mailText+="邮箱地址是： ";
+				mailText+="邮箱地址是：";
 				mailText+=email;
 				
 				//准备邮件
@@ -155,7 +134,6 @@ public class Question extends Activity{
 		        Properties props = new Properties();  
 		        props.put("mail.smtp.auth","true");        
 		        props.put("mail.transport.protocol","smtp");        
-
 		        
 
 		        //SSL
@@ -166,7 +144,6 @@ public class Question extends Activity{
 			        sf.setTrustAllHosts(true);  
 			        props.put("mail.smtp.ssl.socketFactory", sf);  
 				} catch (GeneralSecurityException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}  
 		        
@@ -228,7 +205,6 @@ public class Question extends Activity{
 				            out.write(tempQuestion.getBytes("UTF-8"));  
 					        out.close();
 				        } catch (Exception e) {  
-							// TODO Auto-generated catch block
 				            e.printStackTrace();  
 				        }  
 						Question.this.finish();
@@ -243,7 +219,6 @@ public class Question extends Activity{
 	
 	@Override
 	public void onBackPressed() {
-		// TODO Auto-generated method stub
 		super.onBackPressed();
 		FileOutputStream out = null;  
 		tempQuestion=editText.getText().toString();
@@ -252,7 +227,6 @@ public class Question extends Activity{
             out.write(tempQuestion.getBytes("UTF-8"));  
 	        out.close();
         } catch (Exception e) {  
-			// TODO Auto-generated catch block
             e.printStackTrace();  
         }  
         Question.this.finish();

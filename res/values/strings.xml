@@ -85,4 +85,7 @@
 	<string name="new_version_found">发现新版本，是否升级？</string>
 	
 	<string name="lesson_desc">课程图片</string>
+	<string name="question_email_subject">【跟风学】%s的提问</string>
+	<string name="question_email_content">%1$s在course%2$d lesson%3$d问到：\n</string>
+	
 </resources>

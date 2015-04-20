@@ -13,7 +13,7 @@ public class UserProfile {
 	private String avatar;
 	private String email;
 
-	public UserProfile(int userNo, int role, String nickName, String avatar,
+	private UserProfile(int userNo, int role, String nickName, String avatar,
 			String email) {
 		this.userNo = userNo;
 		this.role = role;
