@@ -2,7 +2,7 @@
  * 提问页面@author vita
  */
 
-package com.genfengxue.windenglish;
+package com.genfengxue.windenglish.activities;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -36,11 +36,13 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.genfengxue.windenglish.PopupAuthenticator;
+import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.mgr.AccountMgr;
 import com.genfengxue.windenglish.struct.UserProfile;
 import com.sun.mail.util.MailSSLSocketFactory;
 
-public class Question extends Activity {
+public class QuestionActivity extends Activity {
 	private Context  context = this;  
 	private EditText editText;
 	private static String tempQuestion = "";
@@ -94,7 +96,7 @@ public class Question extends Activity {
 					// TODO Auto-generated catch block
 		            e.printStackTrace();  
 		        }  
-		        Question.this.finish();
+		        QuestionActivity.this.finish();
 			}
 		});
 		
@@ -105,7 +107,7 @@ public class Question extends Activity {
 			@Override
 			public void onClick(View v) {
 				//获取信息
-				UserProfile userProfile = AccountMgr.getUserProfile(Question.this);
+				UserProfile userProfile = AccountMgr.getUserProfile(QuestionActivity.this);
 				int courseNo = intent.getIntExtra("courseNo", 1);
 				int lessonNo = intent.getIntExtra("lessonNo", 1);
 				
@@ -190,7 +192,7 @@ public class Question extends Activity {
 		            e.printStackTrace();  
 		        }  
 
-	            Dialog alertDialogAfterSub = new AlertDialog.Builder(Question.this)
+	            Dialog alertDialogAfterSub = new AlertDialog.Builder(QuestionActivity.this)
 	            .setMessage("提问成功！")
 	    		.setCancelable(false)
 				.setPositiveButton("确定",new DialogInterface.OnClickListener() {
@@ -207,7 +209,7 @@ public class Question extends Activity {
 				        } catch (Exception e) {  
 				            e.printStackTrace();  
 				        }  
-						Question.this.finish();
+						QuestionActivity.this.finish();
 					}
 				})
 				.create();
@@ -229,7 +231,7 @@ public class Question extends Activity {
         } catch (Exception e) {  
             e.printStackTrace();  
         }  
-        Question.this.finish();
+        QuestionActivity.this.finish();
 	}
 	
 }

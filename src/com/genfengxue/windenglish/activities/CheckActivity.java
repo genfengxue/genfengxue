@@ -10,6 +10,7 @@ import java.util.List;
 //import java.lang.reflect.Field;
 //import java.util.Properties;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,7 +56,6 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
 import com.genfengxue.windenglish.DensityUtil;
-import com.genfengxue.windenglish.Question;
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.network.JsonApiCaller;
 import com.genfengxue.windenglish.utils.FileUtils;
@@ -101,7 +101,7 @@ public class CheckActivity extends Activity {
 
 		//初始化播放界面
 
-		questionIntent = new Intent(CheckActivity.this, Question.class);
+		questionIntent = new Intent(CheckActivity.this, QuestionActivity.class);
 		
 		DisplayMetrics mDisplayMetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(mDisplayMetrics);
@@ -245,7 +245,6 @@ public class CheckActivity extends Activity {
 		}
 		
 		player.start();
-		
 	}
 	
 	private void initListener() {
