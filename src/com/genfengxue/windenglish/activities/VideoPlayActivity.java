@@ -21,7 +21,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.genfengxue.windenglish.R;
@@ -121,8 +120,10 @@ public class VideoPlayActivity extends Activity {
 					startRecording();
 				videoView.start();
 			} else {
-				// TODO
-				Toast.makeText(VideoPlayActivity.this, "Go CheckActivity Answer", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(VideoPlayActivity.this, CheckActivity.class);
+				intent.putExtra("courseNo", courseNo);
+				intent.putExtra("lessonNo", lessonNo);
+				startActivity(intent);
 			}
 		} 
 	}

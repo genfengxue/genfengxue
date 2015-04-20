@@ -198,7 +198,6 @@ public class LearnActivity extends Activity {
 				intent.putExtra("courseNo", courseNo);
 				intent.putExtra("lessonNo", lessonNo);
 				startActivity(intent);
-//				Toast.makeText(getApplicationContext(), "shit dui daan", Toast.LENGTH_SHORT).show();
 				break;
 			case 3: // 删除视频
 				for (int i = 1; i <= 4; ++i) {

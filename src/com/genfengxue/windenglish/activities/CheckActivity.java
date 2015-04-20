@@ -60,52 +60,22 @@ import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.network.JsonApiCaller;
 import com.genfengxue.windenglish.utils.FileUtils;
 import com.genfengxue.windenglish.utils.UriUtils;
-//import javax.activation.CommandMap;
-//import javax.activation.DataHandler;
-//import javax.activation.FileDataSource;
-//import javax.activation.MailcapCommandMap;
-//import javax.mail.Address;
-//import javax.mail.Multipart;
-//import javax.mail.Session;
-//import javax.mail.Transport;
-//import javax.mail.internet.AddressException;
-//import javax.mail.internet.InternetAddress;
-//import javax.mail.internet.MimeBodyPart;
-//import javax.mail.internet.MimeMessage;
-//import javax.mail.internet.MimeMultipart;
-//import javax.mail.internet.MimeUtility;
-//import com.sun.mail.util.MailSSLSocketFactory;
-
 
 public class CheckActivity extends Activity {
 
-	//private VideoView videoView;
-	//private MediaController mediaController;
 	private Button backButton;
-	//private String fileName;
-	//private String datapath; 
-	//private Address[] to;
-	//private Transport transport;
-	//private SeekBar seekBar;
 	private static int formerUnderline=0,formerChange = 0,formerLine=0;
 	private static TextView answer;
-//	private static String jsonFileName;
 	private static String KID;
 	private static TextView knowledge;
     private static MediaPlayer player;
     private static Button likeButton,questionButton;
     private String likedPath;
 
-	//private Context context = this;  
-    //private String userdata;
-//    private static String videoId;
     private static String jsonText;
     private static JSONArray jsonArray = new JSONArray();
     private static JSONArray jsonLikedArray = new JSONArray();
     private static int nowLine,nowNo;
-    //private String[] names;
-    //private boolean isPlaying;
-    //private Button subButton;
     private static Intent questionIntent;
     private Button backVideoButton;
     private static String[] keyNumbers;
@@ -113,12 +83,10 @@ public class CheckActivity extends Activity {
     private static Button pauseVideoButton;
     private static float floatX,floatY;
     private RelativeLayout checkRelative;
-//    private static File f;
     private static int H;
     static PopupWindow popupWindow;    
     private LayoutInflater inflater;
     private static View popLayout;
-//    private MimeMessage message;
     private static View checkLayout;
 	
     private int courseNo;
