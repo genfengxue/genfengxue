@@ -16,9 +16,7 @@
     <string name="check_back">退出</string>
     <string name="check_title">对答案</string>
     <string name="check_answer">对答案</string>
-
     <string name="getting_sentences">正在获取对答案文本……</string>
-    
     <string name="check_sub">提交</string>
     <string name="check_video_back">向前3秒</string>
     <string name="check_video_pause">暂停</string>
@@ -26,28 +24,24 @@
     <string name="login_password">请输入密码</string>
     <string name="login_userno_number">用户编号需要为数字</string>
     <string name="submit">提交</string>
-    
+
     <string-array name="video_info_arr">
         <item>视频共播放三遍，第一遍无字幕</item>
         <item>第二遍有英文字幕</item>
         <item>第三遍有中文字幕</item>
         <item>点击开始看视频录音</item>
     </string-array>
-    
+
     <string name="on_login">正在登录……</string>
     <string name="login_failed">登录失败，请重试</string>
     <string name="login_tip">用户编号和密码不得为空</string>
-    
     <string name="course_desc">课程预览</string>
-	
     <string name="downloading_video">视频正在下载</string>
     <string name="downloading_video_start">视频下载开始</string>
     <string name="downloading_video_finish">视频下载完成</string>
     <string name="downloading_video_failed">第%d课下载失败，请重试</string>
-
     <string name="yes">是</string>
     <string name="no">否</string>
-    
     <string name="comfirm_download">需要先下载视频，现在下载？</string>
     <string name="no_wifi_download">您当前未连接WIFI，仍然下载？</string>
 
@@ -57,8 +51,8 @@
         <item>对答案</item>
         <item>删除视频</item>
     </string-array>
+
     <string name="delete_video_hint">视频删除完成</string>
-    
     <string name="video_exit_alert">播放还未结束，现在退出下次仍需观看3遍</string>
     <string name="confirm_exit">确认退出</string>
     <string name="continue_watch">继续观看</string>
@@ -67,12 +61,9 @@
     <string name="record_again">重新录音</string>
     <string name="record_finish">录音结束</string>
     <string name="recording">录音中</string>
-    
     <string name="update_lesson">正在刷新课程</string>
     <string name="update_lesson_finish">课程刷新完毕</string>
-    
     <string name="watch_video_hint">请先观看视频，再录音</string>
-    
     <string name="profile_hint">提示：您还没有个人信息，请如实填写，谢谢！</string>
     <string name="email_label">电子邮件：</string>
     <string name="email_hint">请输入电子邮件</string>
@@ -80,15 +71,12 @@
     <string name="nickname_label">昵称：</string>
     <string name="submit_profile">填写个人信息</string>
     <string name="update_profile_success">个人信息更新成功</string>
-    
     <string name="err_email_dup">当前Email已被注册</string>
     <string name="err_nickname_dup">当前昵称已被注册</string>
     <string name="same_hint">您填写的信息与原信息相同，请重新输入</string>
-    
-	<string name="new_version_found">发现新版本，是否升级？</string>
-	
-	<string name="lesson_desc">课程图片</string>
-	<string name="question_email_subject">【跟风学】%s的提问</string>
-	<string name="question_email_content">%1$s在course%2$d lesson%3$d问到：\n</string>
-	
+    <string name="new_version_found">发现新版本，是否升级？</string>
+    <string name="lesson_desc">课程图片</string>
+    <string name="question_email_subject">【跟风学】%s的提问</string>
+    <string name="question_email_content">%1$s在course%2$d lesson%3$d问到：\n</string>
+
 </resources>
