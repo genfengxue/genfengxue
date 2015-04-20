@@ -102,8 +102,6 @@ public class Question extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
 				//获取信息
 			    String[] names;
 			    String userdata = null;
@@ -121,6 +119,8 @@ public class Question extends Activity{
 				names=userdata.split("\\?");
 				
 				String videoId = intent.getStringExtra("videoId");
+				int courseNo = intent.getIntExtra("courseNo", 1);
+				int lessonNo = intent.getIntExtra("lessonNo", 1);
 				
 				String email = null;
 				try{   

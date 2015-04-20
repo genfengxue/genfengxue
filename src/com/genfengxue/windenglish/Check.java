@@ -5,55 +5,14 @@
 package com.genfengxue.windenglish;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 //import java.security.GeneralSecurityException;
 import java.util.List;
 //import java.lang.reflect.Field;
 //import java.util.Properties;
 
-//import javax.activation.CommandMap;
-//import javax.activation.DataHandler;
-//import javax.activation.FileDataSource;
-//import javax.activation.MailcapCommandMap;
-//import javax.mail.Address;
-//import javax.mail.Multipart;
-//import javax.mail.Session;
-//import javax.mail.Transport;
-//import javax.mail.internet.AddressException;
-//import javax.mail.internet.InternetAddress;
-//import javax.mail.internet.MimeBodyPart;
-//import javax.mail.internet.MimeMessage;
-//import javax.mail.internet.MimeMultipart;
-//import javax.mail.internet.MimeUtility;
-
-
-
-
-
-
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EncodingUtils;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.genfengxue.windenglish.R;
-//import com.sun.mail.util.MailSSLSocketFactory;
-
-
-import com.genfengxue.windenglish.activities.LearnActivity;
-import com.genfengxue.windenglish.network.JsonApiCaller;
-import com.genfengxue.windenglish.utils.Constants;
-import com.genfengxue.windenglish.utils.FileUtils;
-import com.genfengxue.windenglish.utils.UriUtils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -67,7 +26,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 //import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 //import android.os.Handler;
 //import android.os.Message;
 import android.os.StrictMode;
@@ -95,6 +53,26 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 //import android.widget.VideoView;
 import android.widget.TextView.BufferType;
+
+import com.genfengxue.windenglish.activities.LearnActivity;
+import com.genfengxue.windenglish.network.JsonApiCaller;
+import com.genfengxue.windenglish.utils.FileUtils;
+import com.genfengxue.windenglish.utils.UriUtils;
+//import javax.activation.CommandMap;
+//import javax.activation.DataHandler;
+//import javax.activation.FileDataSource;
+//import javax.activation.MailcapCommandMap;
+//import javax.mail.Address;
+//import javax.mail.Multipart;
+//import javax.mail.Session;
+//import javax.mail.Transport;
+//import javax.mail.internet.AddressException;
+//import javax.mail.internet.InternetAddress;
+//import javax.mail.internet.MimeBodyPart;
+//import javax.mail.internet.MimeMessage;
+//import javax.mail.internet.MimeMultipart;
+//import javax.mail.internet.MimeUtility;
+//import com.sun.mail.util.MailSSLSocketFactory;
 
 
 public class Check extends Activity{
@@ -211,7 +189,7 @@ public class Check extends Activity{
 			// 
 			e2.printStackTrace();
 		}
-        Check.getEachWord(answer);
+        getEachWord(answer);
         answer.setMovementMethod(LinkMovementMethod.getInstance());
         
         //读取标记记录
@@ -223,7 +201,12 @@ public class Check extends Activity{
         	String jsonLikedText = FileUtils.readFile(likedPath);
 
         	if (jsonLikedText != null) {
-        		jsonLikedArray = new JSONArray(jsonLikedText);
+        		try {
+					jsonLikedArray = new JSONArray(jsonLikedText);
+				} catch (JSONException e) {
+					e.printStackTrace();
+					jsonLikedArray = new JSONArray();
+				}
         		for(int i = 0; i < jsonLikedArray.length(); i++)
         		{
         			int line = 0;
@@ -249,16 +232,11 @@ public class Check extends Activity{
         //设置音频播放参数
         player = new MediaPlayer();
         String playerPath = UriUtils.getRecordPath(courseNo, lessonNo);
-//        String  playerPath = Environment.getExternalStorageDirectory().getAbsolutePath();  
-//        playerPath = playerPath + "/windenglish/";
-//        playerPath = playerPath + videoId;
-//        playerPath = playerPath + ".3gp";
-//	    final String affix = playerPath;
+
         try {
 			player.setDataSource(playerPath);
 			player.prepare();
 		} catch (Exception e) {
-			// 
 			e.printStackTrace();
 		}
         
@@ -279,7 +257,6 @@ public class Check extends Activity{
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						// 
 
 						//videoView.start();
 						player.start();
@@ -290,22 +267,7 @@ public class Check extends Activity{
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						// 
-						String jsonKnowledgeText = jsonLikedArray.toString();
-						FileOutputStream outputStream;
-						try {
-							outputStream = openFileOutput(jsonFileName,  
-							        Activity.MODE_PRIVATE);
-					        outputStream.write(jsonKnowledgeText.getBytes());  
-					        outputStream.flush();  
-					        outputStream.close();  
-						} catch (Exception e) {
-							// 
-							e.printStackTrace();
-						}  
-						Intent intent = new Intent(Check.this, LearnActivity.class);
-						startActivity(intent);
-						Check.this.finish();
+						negativeButtonClick();
 					}
 				})
 				.create();
@@ -373,7 +335,7 @@ public class Check extends Activity{
 
 	//:
 	//得到每个word
-    private static void getEachWord(TextView answer2) {
+    private void getEachWord(TextView answer2) {
     	//首先得到每一行 
         int start = 0;        
         int end = 0;       
@@ -458,7 +420,7 @@ public class Check extends Activity{
 
 
 	//响应知识点事件
-	private static ClickableSpan getClickableSpan(final int line,final int no) {
+	private ClickableSpan getClickableSpan(final int line,final int no) {
 		//          
         return new ClickableSpan() {                
             @Override                
@@ -467,7 +429,7 @@ public class Check extends Activity{
             	Check.changeHighLight(line, no, 2);
         		nowLine = line;
         		nowNo = no;
-                Check.showKnowledge(line,no);
+                showKnowledge(line,no);
             }                
             @Override                  
             public void updateDrawState(TextPaint ds) {                          
@@ -514,7 +476,7 @@ public class Check extends Activity{
 
 
 	//显示文本和实例化按钮
-	protected static void showKnowledge(int line,int no){
+	protected void showKnowledge(int line,int no){
 		// 初始化
 		likeButton = (Button)popLayout.findViewById(R.id.checkLike);
 		questionButton = (Button)popLayout.findViewById(R.id.checkQuestion);
@@ -585,11 +547,12 @@ public class Check extends Activity{
 					JSONObject jsonObject = jsonArray.getJSONObject(nowLine-1);
 					hintText=jsonObject.getString("english");
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				questionIntent.putExtra("Text", hintText);
-				questionIntent.putExtra("videoId", videoId);
+//				questionIntent.putExtra("videoId", videoId);
+				questionIntent.putExtra("courseNo", courseNo);
+				questionIntent.putExtra("lessonNo", lessonNo);
 				v.getContext().startActivity(questionIntent);
 			}
 		});
@@ -844,8 +807,6 @@ public class Check extends Activity{
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				// 
-
 				//videoView.start();
 				player.start();
 				
@@ -855,26 +816,19 @@ public class Check extends Activity{
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				// 
-				String jsonKnowledgeText = jsonLikedArray.toString();
-				FileOutputStream outputStream;
-				try {
-					outputStream = openFileOutput(jsonFileName,  
-					        Activity.MODE_PRIVATE);
-			        outputStream.write(jsonKnowledgeText.getBytes());  
-			        outputStream.flush();  
-			        outputStream.close();  
-				} catch (Exception e) {
-					// 
-					e.printStackTrace();
-				}  
-				Intent intent = new Intent(Check.this, LearnActivity.class);
-				startActivity(intent);
-				Check.this.finish();
+				negativeButtonClick();
 			}
 		})
 		.create();
-    alertDialog.show(); 
+		alertDialog.show(); 
     }
     
+	private void negativeButtonClick() {
+		FileUtils.writeFile(likedPath, jsonLikedArray.toString());
+		Intent intent = new Intent(Check.this, LearnActivity.class);
+		intent.putExtra("courseNo", courseNo);
+		intent.putExtra("lessonNo", lessonNo);
+		startActivity(intent);
+		Check.this.finish();
+	}
 }

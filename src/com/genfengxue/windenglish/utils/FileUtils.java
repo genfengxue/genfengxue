@@ -3,6 +3,7 @@ package com.genfengxue.windenglish.utils;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -10,6 +11,8 @@ import java.io.OutputStream;
 import android.util.Log;
 
 public class FileUtils {
+	
+	public static final String TAG = FileUtils.class.getSimpleName();
 
 	public static void pipeIo(InputStream is, OutputStream os) throws IOException {
 		pipeIo(is, os, null);
@@ -38,6 +41,24 @@ public class FileUtils {
 
 	public interface ProgressUpdater {
 		void update(int byteNum);
+	}
+	
+	public static void writeFile(String path, String content) {
+		FileWriter fw;
+		try {
+			fw = new FileWriter(path);
+			try {
+				fw.write(content);
+			} catch (Exception e) {
+				Log.e(TAG, path + " write content error: " + content);
+				e.printStackTrace();
+			} finally {
+				fw.close();
+			}
+		} catch (IOException e) {
+			Log.e(TAG, path + " error");
+			e.printStackTrace();
+		}
 	}
 	
 	public static String readFile(String path) {
