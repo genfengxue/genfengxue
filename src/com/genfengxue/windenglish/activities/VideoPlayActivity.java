@@ -15,8 +15,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -44,6 +44,7 @@ public class VideoPlayActivity extends Activity {
 	private boolean recordFinished = false;
 	private MediaRecorder recorder;
 	private String recordPath;
+	private int videoPosition = -1;
 
 	private int courseNo, lessonNo, part;
 	
@@ -176,6 +177,14 @@ public class VideoPlayActivity extends Activity {
 		}
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, 
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		
+		if (videoPosition > 0) 
+			videoView.seekTo(videoPosition);
+	}
+	
+	protected void onPause() {
+		super.onPause();
+		videoPosition = videoView.getCurrentPosition();
 	}
 	
 	public void onBackPressed() {
