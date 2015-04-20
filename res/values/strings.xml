@@ -9,6 +9,7 @@
     <string name="login_text">输入昵称</string>
     <string name="username">default_username</string>
     <string name="start_play">开始</string>
+    <string name="skip_this_part">跳过此段</string>
     <string name="popup_string_1">视频共播放三遍，第一遍无字幕</string>
     <string name="popup_string_2">第二遍有英文字幕</string>
     <string name="popup_string_3">第三遍有中文字幕</string>

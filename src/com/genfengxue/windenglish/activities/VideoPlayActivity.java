@@ -38,7 +38,7 @@ public class VideoPlayActivity extends Activity {
 	private MediaController controller;
 	
 	private TextView infoTextView;
-	private Button startVideoBtn;
+	private Button startVideoBtn, skipThisPartBtn;
 	
 	// represent whether user finish his record
 	private boolean recordFinished = false;
@@ -64,19 +64,36 @@ public class VideoPlayActivity extends Activity {
 		startVideoBtn.setOnClickListener(new StartVideoBtnListener());
 		infoTextView = (TextView) findViewById(R.id.part_info);
 		
+		skipThisPartBtn = (Button)findViewById(R.id.skip_this_part_button);
+		
 		Intent intent = getIntent();
 		courseNo = intent.getIntExtra("courseNo", 1);
 		lessonNo = intent.getIntExtra("lessonNo", 1);
 		part = intent.getIntExtra("part", 1);
 		infoTextView.setText(infoArr[part - 1]);
 		
+		skipThisPartBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(VideoPlayActivity.this, VideoPlayActivity.class);
+				intent.putExtra("courseNo", courseNo);
+				intent.putExtra("lessonNo", lessonNo);
+				intent.putExtra("part", part + 1);
+				updateLearnState(part);
+				VideoPlayActivity.this.startActivity(intent);
+				VideoPlayActivity.this.finish();
+			}
+		});
+		
 		videoView = (VideoView) findViewById(R.id.videoView);
 		controller = new MediaController(this, false);
         controller.setAnchorView(videoView);
 
-		//录音时禁用播放器控件
+        //应该在视频开始播放之后才显示
+        controller.setVisibility(View.INVISIBLE);
+        
         if (part == 4) {
-        	controller.setVisibility(View.INVISIBLE);
+        	skipThisPartBtn.setVisibility(View.GONE);
         }
         
 		// TODO controller will be removed in later development
@@ -127,9 +144,15 @@ public class VideoPlayActivity extends Activity {
 				infoTextView.setVisibility(View.INVISIBLE);
 				startVideoBtn.setEnabled(false);
 				startVideoBtn.setVisibility(View.INVISIBLE);
-				
-				if (part == infoArr.length)
+				skipThisPartBtn.setVisibility(View.INVISIBLE);
+	
+				//录音时播放器控件继续不显示，其它情况应该显示出来
+				if (part == infoArr.length) {
 					startRecording();
+				} else {
+			        controller.setVisibility(View.VISIBLE);
+				}
+
 				videoView.start();
 			} else {
 				Intent intent = new Intent(VideoPlayActivity.this, CheckActivity.class);
