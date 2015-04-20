@@ -58,5 +58,6 @@ public class FunctionUtils {
 		FunctionUtils.mkdirs(Constants.CACHE_DIR);
 		FunctionUtils.mkdirs(Constants.RECORD_DIR);
 		FunctionUtils.mkdirs(Constants.VIDEO_DIR);
+		FunctionUtils.mkdirs(Constants.LIKED_DIR);
 	}
 }

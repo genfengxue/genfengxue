@@ -37,6 +37,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.genfengxue.windenglish.Check;
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.cache.LessonVideoDownloader;
 import com.genfengxue.windenglish.mgr.AccountMgr;
@@ -49,6 +50,7 @@ import com.genfengxue.windenglish.ui.ConfirmationDialog;
 import com.genfengxue.windenglish.ui.ItemsDialog;
 import com.genfengxue.windenglish.ui.LessonAdapter;
 import com.genfengxue.windenglish.utils.Constants;
+import com.genfengxue.windenglish.utils.NetworkUtils;
 import com.genfengxue.windenglish.utils.UriUtils;
 
 /**
@@ -77,6 +79,8 @@ public class LearnActivity extends Activity {
 		UserProfile userProfile = AccountMgr.getUserProfile(this);
 		((TextView) findViewById(R.id.mainUsername)).setText(userProfile.getNickname());
 
+		Log.i(TAG, "network state: " + NetworkUtils.isNetworkConnected(this));
+		
 		Intent intent = getIntent();
 		courseNo = intent.getIntExtra("courseNo", 2);
 		
@@ -168,13 +172,13 @@ public class LearnActivity extends Activity {
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
 			Intent intent = null;
-			int courseId = info.getCourseNo();
-			int lessonId = info.getLessonNo();
+			int courseNo = info.getCourseNo();
+			int lessonNo = info.getLessonNo();
 			switch (which) {
 			case 0: // 看视频
 				intent = new Intent(LearnActivity.this, VideoPlayActivity.class);
-				intent.putExtra("courseId", courseId);
-				intent.putExtra("lessonId", lessonId);
+				intent.putExtra("courseNo", courseNo);
+				intent.putExtra("lessonNo", lessonNo);
 				intent.putExtra("part", 1);
 				LearnActivity.this.startActivity(intent);
 				break;
@@ -184,19 +188,22 @@ public class LearnActivity extends Activity {
 					Toast.makeText(LearnActivity.this, R.string.watch_video_hint, Toast.LENGTH_SHORT).show();
 				} else {
 					intent = new Intent(LearnActivity.this, VideoPlayActivity.class);
-					intent.putExtra("courseId", courseId);
-					intent.putExtra("lessonId", lessonId);
+					intent.putExtra("courseNo", courseNo);
+					intent.putExtra("lessonNo", lessonNo);
 					intent.putExtra("part", 4);
 					startActivity(intent);
 				}
 				break;
 			case 2: // 对答案
-				// TODO 
-				Toast.makeText(getApplicationContext(), "shit dui daan", Toast.LENGTH_SHORT).show();
+				intent = new Intent(LearnActivity.this, Check.class);
+				intent.putExtra("courseNo", courseNo);
+				intent.putExtra("lessonNo", lessonNo);
+				startActivity(intent);
+//				Toast.makeText(getApplicationContext(), "shit dui daan", Toast.LENGTH_SHORT).show();
 				break;
 			case 3: // 删除视频
 				for (int i = 1; i <= 4; ++i) {
-					String path = UriUtils.getLessonVideoPath(courseId, lessonId, i);
+					String path = UriUtils.getLessonVideoPath(courseNo, lessonNo, i);
 					new File(path).delete();
 				}
 				info.updateState();

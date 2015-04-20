@@ -45,8 +45,8 @@ public class LessonInfo {
 		updateState();
 	}
 
-	public static String preferenceKey(int courseId, int lessonId) {
-		return courseId + "-" + lessonId;
+	public static String preferenceKey(int courseNo, int lessonNo) {
+		return courseNo + "-" + lessonNo;
 	}
 	
 	public int getLessonNo() {

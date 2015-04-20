@@ -20,7 +20,7 @@ public class LessonVideoDownloader implements Runnable {
 
 	private static final String TAG = "LessonVideoDownloader";
 	
-	private int courseId, lessonId;
+	private int courseNo, lessonNo;
 	private Handler handler;
 
 	public static final int DOWNLOAD_START = 0;
@@ -30,10 +30,10 @@ public class LessonVideoDownloader implements Runnable {
 
 	private static final int VIDEO_PART_NUM = 4;
 
-	public LessonVideoDownloader(int courseId, int lessonId,
+	public LessonVideoDownloader(int courseNo, int lessonNo,
 			Handler progressHandler) {
-		this.courseId = courseId;
-		this.lessonId = lessonId;
+		this.courseNo = courseNo;
+		this.lessonNo = lessonNo;
 		this.handler = progressHandler;
 	}
 
@@ -42,7 +42,7 @@ public class LessonVideoDownloader implements Runnable {
 		handler.sendEmptyMessage(DOWNLOAD_START);
 
 		for (int part = 1; part <= VIDEO_PART_NUM; ++part) {
-			String path = UriUtils.getLessonVideoPath(courseId, lessonId, part);
+			String path = UriUtils.getLessonVideoPath(courseNo, lessonNo, part);
 			File file = new File(path);
 			AndroidHttpClient client = AndroidHttpClient.newInstance("Mozilla/5.0");
 			if (!file.exists()) {
@@ -50,7 +50,7 @@ public class LessonVideoDownloader implements Runnable {
 					File tmpFile = new File(path + "_tmp");
 					int code = 0;
 					HttpGet get = new HttpGet(
-							UriUtils.getLessonVideoUri(courseId, lessonId, part));
+							UriUtils.getLessonVideoUri(courseNo, lessonNo, part));
 					HttpResponse response = client.execute(get);
 					
 					if (200 == (code = response.getStatusLine().getStatusCode())) {

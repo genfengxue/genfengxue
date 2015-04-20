@@ -14,15 +14,22 @@ public class UriUtils {
 	private static final String RECORD_PATH_TEMPLATE = Constants.RECORD_DIR
 			+ "/%d_%d.3gp";
 
-	public static String getLessonVideoUri(int courseId, int lessonId, int part) {
-		return String.format(LESSON_URI_TEMPLATE, courseId, lessonId, part);
+	private static final String LIKED_PATH_TEMPLATE = Constants.LIKED_DIR
+			+ "/%d_%d.json";
+
+	public static String getLessonVideoUri(int courseNo, int lessonNo, int part) {
+		return String.format(LESSON_URI_TEMPLATE, courseNo, lessonNo, part);
 	}
 
-	public static String getLessonVideoPath(int courseId, int lessonId, int part) {
-		return String.format(LESSON_PATH_TEMPLATE, courseId, lessonId, part);
+	public static String getLessonVideoPath(int courseNo, int lessonNo, int part) {
+		return String.format(LESSON_PATH_TEMPLATE, courseNo, lessonNo, part);
 	}
 	
-	public static String getRecordPath(int courseId, int lessonId) {
-		return String.format(RECORD_PATH_TEMPLATE, courseId, lessonId);
+	public static String getRecordPath(int courseNo, int lessonNo) {
+		return String.format(RECORD_PATH_TEMPLATE, courseNo, lessonNo);
+	}
+	
+	public static String getLikedPath(int courseNo, int lessonNo) {
+		return String.format(LIKED_PATH_TEMPLATE, courseNo, lessonNo);
 	}
 }

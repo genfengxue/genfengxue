@@ -138,7 +138,7 @@ public class JsonApiCaller {
 		return getLessonListApi(courseNo, false);
 	}
 	
-	public static String buildGetUrl(String baseUrl, QueryBuilder qb) {
+	private static String buildGetUrl(String baseUrl, QueryBuilder qb) {
 		return baseUrl + "?" + qb.getQuery();
 	}
 	
@@ -146,6 +146,14 @@ public class JsonApiCaller {
 		QueryBuilder qb = new QueryBuilder();
 		qb.addStringQuery("access_token", token);
 		String urlStr = buildGetUrl(Constants.USER_PROFILE_URI, qb);
+		return getApiContent(urlStr, true);
+	}
+	
+	public static String getSentenceListApi(int courseNo, int lessonNo) {
+		QueryBuilder qb = new QueryBuilder();
+		qb.addIntQuery("courseNo", courseNo);
+		qb.addIntQuery("lessonNo", lessonNo);
+		String urlStr = buildGetUrl(Constants.SENTENCE_LIST_API_URI, qb);
 		return getApiContent(urlStr, true);
 	}
 

@@ -45,7 +45,7 @@ public class VideoPlayActivity extends Activity {
 	private MediaRecorder recorder;
 	private String recordPath;
 
-	private int courseId, lessonId, part;
+	private int courseNo, lessonNo, part;
 	
 	private String[] infoArr;
 	
@@ -60,8 +60,8 @@ public class VideoPlayActivity extends Activity {
 		infoTextView = (TextView) findViewById(R.id.part_info);
 		
 		Intent intent = getIntent();
-		courseId = intent.getIntExtra("courseId", 1);
-		lessonId = intent.getIntExtra("lessonId", 1);
+		courseNo = intent.getIntExtra("courseNo", 1);
+		lessonNo = intent.getIntExtra("lessonNo", 1);
 		part = intent.getIntExtra("part", 1);
 		infoTextView.setText(infoArr[part - 1]);
 		
@@ -72,7 +72,7 @@ public class VideoPlayActivity extends Activity {
 		// we can have our own controller style
 		videoView.setMediaController(controller);
 		videoView.setVideoPath(
-				UriUtils.getLessonVideoPath(courseId, lessonId, part));
+				UriUtils.getLessonVideoPath(courseNo, lessonNo, part));
 		
 		videoView.setOnPreparedListener(new OnPreparedListener() {
 			
@@ -88,8 +88,8 @@ public class VideoPlayActivity extends Activity {
 			public void onCompletion(MediaPlayer mp) {
 				if (part != infoArr.length) {
 					Intent intent = new Intent(VideoPlayActivity.this, VideoPlayActivity.class);
-					intent.putExtra("courseId", courseId);
-					intent.putExtra("lessonId", lessonId);
+					intent.putExtra("courseNo", courseNo);
+					intent.putExtra("lessonNo", lessonNo);
 					intent.putExtra("part", part + 1);
 					updateLearnState(part);
 					VideoPlayActivity.this.startActivity(intent);
@@ -177,7 +177,7 @@ public class VideoPlayActivity extends Activity {
 	
 	private void startRecording() {
 		if (recordPath == null) {
-			recordPath = UriUtils.getRecordPath(courseId, lessonId);
+			recordPath = UriUtils.getRecordPath(courseNo, lessonNo);
 		}
 		recorder = new MediaRecorder();
 		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -207,7 +207,7 @@ public class VideoPlayActivity extends Activity {
 	private void updateLearnState(int part) {
 		Editor editor = getSharedPreferences(
 				Constants.LESSON_STATE_PREF, MODE_PRIVATE).edit();
-		String key = LessonInfo.preferenceKey(courseId, lessonId);
+		String key = LessonInfo.preferenceKey(courseNo, lessonNo);
 		switch (part) {
 		case 1:
 			editor.putInt(key, LessonInfo.WATCH_1_VIDEO);

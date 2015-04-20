@@ -13,6 +13,8 @@ public class Constants {
 	
 	public static final String RECORD_DIR = APP_DIR + "/Record";
 	
+	public static final String LIKED_DIR = APP_DIR + "/Liked";
+	
 	public static final String API_BASE_URI = "http://data.genfengxue.com/api";
 	
 	public static final String LESSON_LIST_API_URI = API_BASE_URI + 
@@ -21,6 +23,8 @@ public class Constants {
 	public static final String COURSE_LIST_API_URI = API_BASE_URI + 
 			"/courses";
 	
+	public static final String SENTENCE_LIST_API_URI = API_BASE_URI + 
+			"/sentences";	
 	/**
 	 *  use http post to get the token
 	 */

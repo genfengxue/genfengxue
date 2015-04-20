@@ -28,6 +28,11 @@ import java.util.List;
 //import javax.mail.internet.MimeUtility;
 
 
+
+
+
+
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -43,6 +48,12 @@ import org.json.JSONObject;
 import com.genfengxue.windenglish.R;
 //import com.sun.mail.util.MailSSLSocketFactory;
 
+
+import com.genfengxue.windenglish.activities.LearnActivity;
+import com.genfengxue.windenglish.network.JsonApiCaller;
+import com.genfengxue.windenglish.utils.Constants;
+import com.genfengxue.windenglish.utils.FileUtils;
+import com.genfengxue.windenglish.utils.UriUtils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -98,16 +109,16 @@ public class Check extends Activity{
 	//private SeekBar seekBar;
 	private static int formerUnderline=0,formerChange = 0,formerLine=0;
 	private static TextView answer;
-	private static String jsonFileName;
+//	private static String jsonFileName;
 	private static String KID;
 	private static TextView knowledge;
     private static MediaPlayer player;
     private static Button likeButton,questionButton;
-    private static String likedPath;
+    private String likedPath;
 
 	//private Context context = this;  
     //private String userdata;
-    private static String videoId;
+//    private static String videoId;
     private static String jsonText;
     private static JSONArray jsonArray = new JSONArray();
     private static JSONArray jsonLikedArray = new JSONArray();
@@ -122,7 +133,7 @@ public class Check extends Activity{
     private static Button pauseVideoButton;
     private static float floatX,floatY;
     private RelativeLayout checkRelative;
-    private static File f;
+//    private static File f;
     private static int H;
     static PopupWindow popupWindow;    
     private LayoutInflater inflater;
@@ -130,6 +141,8 @@ public class Check extends Activity{
 //    private MimeMessage message;
     private static View checkLayout;
 	
+    private int courseNo;
+    private int lessonNo;
     
 	@SuppressLint("InflateParams")
 	@Override
@@ -157,7 +170,6 @@ public class Check extends Activity{
         popupWindow.update();
 		
 		//根据播放次数自定义布局
-        Intent intent = getIntent();
         setContentView(R.layout.check);
         
         if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -166,11 +178,9 @@ public class Check extends Activity{
         }
         
         //获取播放的视频文件名
-        videoId = intent.getStringExtra("videoId");
-        String path = "video";
-        path = path + videoId;
-        path = path + "_4";
-
+        Intent intent = getIntent();
+        courseNo = intent.getIntExtra("courseNo", 1);
+        lessonNo = intent.getIntExtra("lessonNo", 1);
 
         answer = (TextView)findViewById(R.id.answer);
         
@@ -181,28 +191,8 @@ public class Check extends Activity{
 		
 		
         //从服务器端获取json
-        String jsonPath = "http://data.genfengxue.com/api/sentences?lessonNo=";
-        jsonPath += videoId;
-        jsonText = null;
-        HttpClient httpClient = new DefaultHttpClient();
-        try {
-            HttpGet httpget = new HttpGet(jsonPath);
-            HttpResponse httpResponse = httpClient.execute(httpget);
-            int status = httpResponse.getStatusLine().getStatusCode();
-            if(status == HttpStatus.SC_OK)
-            {
-                HttpEntity httpEntity = httpResponse.getEntity();
-                if(httpEntity != null)
-                {
-                    jsonText = EntityUtils.toString(httpEntity,"utf8");
-                }
-            }
-		} catch (Exception e) {
-			;
-			// 
-		}
-        httpClient.getConnectionManager().shutdown();
-        
+        jsonText = JsonApiCaller.getSentenceListApi(courseNo, lessonNo);
+
         //处理文本
         String englishText = "";
         try {
@@ -225,60 +215,44 @@ public class Check extends Activity{
         answer.setMovementMethod(LinkMovementMethod.getInstance());
         
         //读取标记记录
-        
-        likedPath = "/data/data/com.example.windenglish/files/lessons";
-        likedPath += videoId;
-        f=new File(likedPath);
-    	jsonFileName = "lessons";
-    	jsonFileName += videoId;
-        if(f.exists())
+        likedPath = UriUtils.getLikedPath(courseNo, lessonNo);
+        File likedJsonFile = new File(likedPath);
+
+        if(likedJsonFile.exists())
         {
-        	String jsonLikedText = null;
-    		try{   
-    	         FileInputStream fin = openFileInput(jsonFileName);   
-    	         int length = fin.available();   
-    	         byte [] buffer = new byte[length];   
-    	         fin.read(buffer);       
-    	         jsonLikedText = EncodingUtils.getString(buffer, "UTF-8");   
-    	         fin.close();       
-    	     }   
-    	     catch(Exception e){   
-    	         e.printStackTrace();   
-    	     }
-        	try {
-				jsonLikedArray = new JSONArray(jsonLikedText);
-			} catch (JSONException e) {
-				// 
-				e.printStackTrace();
-			}
-			for(int i=0;i<jsonLikedArray.length();i++)
-			{
-				int line = 0;
-				String keys = null;
-				JSONObject eachKnowledge;
-				try {
-					eachKnowledge = jsonLikedArray.getJSONObject(i);
-					keys = eachKnowledge.getString("key");
-					line = eachKnowledge.getInt("line");
-				} catch (JSONException e1) {
-					// 
-					e1.printStackTrace();
-				}
-				String[] keyss = keys.split(",");
-				for(int j=0;j<keyss.length;j++)
-				{
-					int theno = Integer.parseInt(keyss[j]);
-					changeHighLight(line, theno, 1);
-				}
-			}
+        	String jsonLikedText = FileUtils.readFile(likedPath);
+
+        	if (jsonLikedText != null) {
+        		jsonLikedArray = new JSONArray(jsonLikedText);
+        		for(int i = 0; i < jsonLikedArray.length(); i++)
+        		{
+        			int line = 0;
+        			String keys = null;
+        			JSONObject eachKnowledge;
+        			try {
+        				eachKnowledge = jsonLikedArray.getJSONObject(i);
+        				keys = eachKnowledge.getString("key");
+        				line = eachKnowledge.getInt("line");
+        			} catch (JSONException e1) {
+        				e1.printStackTrace();
+        			}
+        			String[] keyss = keys.split(",");
+        			for(int j=0;j<keyss.length;j++)
+        			{
+        				int theno = Integer.parseInt(keyss[j]);
+        				changeHighLight(line, theno, 1);
+        			}
+        		}
+        	}
         }
         
         //设置音频播放参数
-        player  =   new MediaPlayer();
-        String  playerPath = Environment.getExternalStorageDirectory().getAbsolutePath();  
-        playerPath = playerPath + "/windenglish/";
-        playerPath = playerPath + videoId;
-        playerPath = playerPath + ".3gp";
+        player = new MediaPlayer();
+        String playerPath = UriUtils.getRecordPath(courseNo, lessonNo);
+//        String  playerPath = Environment.getExternalStorageDirectory().getAbsolutePath();  
+//        playerPath = playerPath + "/windenglish/";
+//        playerPath = playerPath + videoId;
+//        playerPath = playerPath + ".3gp";
 //	    final String affix = playerPath;
         try {
 			player.setDataSource(playerPath);
@@ -329,7 +303,7 @@ public class Check extends Activity{
 							// 
 							e.printStackTrace();
 						}  
-						Intent intent = new Intent(Check.this, Main.class);
+						Intent intent = new Intent(Check.this, LearnActivity.class);
 						startActivity(intent);
 						Check.this.finish();
 					}
@@ -894,7 +868,7 @@ public class Check extends Activity{
 					// 
 					e.printStackTrace();
 				}  
-				Intent intent = new Intent(Check.this, Main.class);
+				Intent intent = new Intent(Check.this, LearnActivity.class);
 				startActivity(intent);
 				Check.this.finish();
 			}
