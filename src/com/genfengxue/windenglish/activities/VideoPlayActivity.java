@@ -131,6 +131,7 @@ public class VideoPlayActivity extends Activity {
 					startVideoBtn.setText(R.string.check_answer);
 					startVideoBtn.setVisibility(View.VISIBLE);
 					startVideoBtn.setEnabled(true);
+					skipThisPartBtn.setVisibility(View.GONE);
 				}
 			}
 		});
