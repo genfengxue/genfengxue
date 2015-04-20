@@ -161,7 +161,7 @@ public class CheckBackup extends Activity{
         player.start();
         /*
         //弹出对话框
-        Dialog alertDialogOnPlay = new AlertDialog.Builder(Check.this)
+        Dialog alertDialogOnPlay = new AlertDialog.Builder(CheckActivity.this)
         							.setPositiveButton("开始对答案",new DialogInterface.OnClickListener() {
         								
         								@Override

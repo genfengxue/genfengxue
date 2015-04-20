@@ -122,7 +122,7 @@ public class VideoPlayActivity extends Activity {
 				videoView.start();
 			} else {
 				// TODO
-				Toast.makeText(VideoPlayActivity.this, "Go Check Answer", Toast.LENGTH_SHORT).show();
+				Toast.makeText(VideoPlayActivity.this, "Go CheckActivity Answer", Toast.LENGTH_SHORT).show();
 			}
 		} 
 	}

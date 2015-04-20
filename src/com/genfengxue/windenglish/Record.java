@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import com.genfengxue.windenglish.activities.CheckActivity;
 import com.genfengxue.windenglish.activities.LearnActivity;
 
 public class Record extends Activity{
@@ -215,7 +216,7 @@ public class Record extends Activity{
 				        	Intent newIntent = new Intent();
 					        isTrue=false;
 			 		     	newIntent.putExtra("videoId",videoId);
-			 		     	newIntent.setClass(Record.this, Check.class);
+			 		     	newIntent.setClass(Record.this, CheckActivity.class);
 			 		     	Record.this.startActivity(newIntent);
 							Record.this.finish();
 				}
@@ -346,7 +347,7 @@ public class Record extends Activity{
              							        Intent newIntent = new Intent();
              							        isTrue=false;
            						 		     	newIntent.putExtra("videoId",videoId);
-           						 		     	newIntent.setClass(Record.this, Check.class);
+           						 		     	newIntent.setClass(Record.this, CheckActivity.class);
            						 		     	Record.this.startActivity(newIntent);
              									Record.this.finish();
              								}

@@ -57,7 +57,7 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name="com.genfengxue.windenglish.Check"
+            android:name="com.genfengxue.windenglish.activities.CheckActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="landscape" >
         </activity>

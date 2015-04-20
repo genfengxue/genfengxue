@@ -2,7 +2,7 @@
  * 对答案界面 @author vita
  */
 
-package com.genfengxue.windenglish;
+package com.genfengxue.windenglish.activities;
 
 import java.io.File;
 //import java.security.GeneralSecurityException;
@@ -54,7 +54,9 @@ import android.widget.TextView;
 //import android.widget.VideoView;
 import android.widget.TextView.BufferType;
 
-import com.genfengxue.windenglish.activities.LearnActivity;
+import com.genfengxue.windenglish.DensityUtil;
+import com.genfengxue.windenglish.Question;
+import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.network.JsonApiCaller;
 import com.genfengxue.windenglish.utils.FileUtils;
 import com.genfengxue.windenglish.utils.UriUtils;
@@ -75,7 +77,7 @@ import com.genfengxue.windenglish.utils.UriUtils;
 //import com.sun.mail.util.MailSSLSocketFactory;
 
 
-public class Check extends Activity{
+public class CheckActivity extends Activity {
 
 	//private VideoView videoView;
 	//private MediaController mediaController;
@@ -128,7 +130,7 @@ public class Check extends Activity{
 
 		//初始化播放界面
 
-		questionIntent = new Intent(Check.this, Question.class);
+		questionIntent = new Intent(CheckActivity.this, Question.class);
 		
 		DisplayMetrics mDisplayMetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(mDisplayMetrics);
@@ -250,7 +252,7 @@ public class Check extends Activity{
 			{
 				//videoView.pause();
 				player.pause();
-				Dialog alertDialog = new AlertDialog.Builder(Check.this)
+				Dialog alertDialog = new AlertDialog.Builder(CheckActivity.this)
 				.setMessage("现在退出，下次要重新对答案")
 				.setCancelable(false)
 				.setPositiveButton("继续对答案",new DialogInterface.OnClickListener() {
@@ -426,7 +428,7 @@ public class Check extends Activity{
             @Override                
             public void onClick(View widget) { 
             	
-            	Check.changeHighLight(line, no, 2);
+            	CheckActivity.changeHighLight(line, no, 2);
         		nowLine = line;
         		nowNo = no;
                 showKnowledge(line,no);
@@ -800,7 +802,7 @@ public class Check extends Activity{
 	public void onBackPressed(){
 		//videoView.pause();
 		player.pause();
-		Dialog alertDialog = new AlertDialog.Builder(Check.this)
+		Dialog alertDialog = new AlertDialog.Builder(CheckActivity.this)
 		.setMessage("现在退出，下次要重新对答案")
 		.setCancelable(false)
 		.setPositiveButton("继续对答案",new DialogInterface.OnClickListener() {
@@ -825,10 +827,10 @@ public class Check extends Activity{
     
 	private void negativeButtonClick() {
 		FileUtils.writeFile(likedPath, jsonLikedArray.toString());
-		Intent intent = new Intent(Check.this, LearnActivity.class);
+		Intent intent = new Intent(CheckActivity.this, LearnActivity.class);
 		intent.putExtra("courseNo", courseNo);
 		intent.putExtra("lessonNo", lessonNo);
 		startActivity(intent);
-		Check.this.finish();
+		CheckActivity.this.finish();
 	}
 }

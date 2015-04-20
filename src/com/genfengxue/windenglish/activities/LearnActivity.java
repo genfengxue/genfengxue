@@ -37,7 +37,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.genfengxue.windenglish.Check;
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.cache.LessonVideoDownloader;
 import com.genfengxue.windenglish.mgr.AccountMgr;
@@ -195,7 +194,7 @@ public class LearnActivity extends Activity {
 				}
 				break;
 			case 2: // 对答案
-				intent = new Intent(LearnActivity.this, Check.class);
+				intent = new Intent(LearnActivity.this, CheckActivity.class);
 				intent.putExtra("courseNo", courseNo);
 				intent.putExtra("lessonNo", lessonNo);
 				startActivity(intent);
