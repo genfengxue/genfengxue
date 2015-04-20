@@ -7,9 +7,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.mgr.AccountMgr;
@@ -19,6 +22,8 @@ import com.genfengxue.windenglish.utils.FunctionUtils;
 
 public class LoadingActivity extends Activity {
 
+	private static final String TAG = "LoadingActivity";
+	
 	private TextView versionName;
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -27,18 +32,35 @@ public class LoadingActivity extends Activity {
 		setContentView(R.layout.loading);
 		
 		versionName = (TextView)findViewById(R.id.version_name);
+	}
+	
+	protected void onStart() {
+		super.onStart();
 		PackageInfo pi;
 		try {
 			pi = getPackageManager().getPackageInfo(getPackageName(), 0);
-			versionName.setText("v" + pi.versionName);//版本号前面加个v作为前缀吧^_^
+			versionName.setText("v" + pi.versionName);
 		} catch (NameNotFoundException e) {
-			e.printStackTrace();
-			versionName.setText("");
+			Log.e(TAG, e.getMessage());
+		}
+		
+		if (!checkExternalStorage()) {
+			goActivity(null);
+			return;
 		}
 		
 		FunctionUtils.setupApp();
 
-		new CheckUserTask().execute();
+		new CheckUserTask().execute();		
+	}
+	
+	private boolean checkExternalStorage() {
+		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+			return true;
+		} else {
+			Toast.makeText(this, R.string.external_storage_unmounted, Toast.LENGTH_SHORT).show();
+			return false;
+		}
 	}
 	
 	private void goLogin() {
@@ -67,7 +89,8 @@ public class LoadingActivity extends Activity {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				startActivity(intent);
+				if (intent != null)
+					startActivity(intent);
 				LoadingActivity.this.finish();
 			}
 		}, 1000);
