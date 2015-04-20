@@ -18,16 +18,16 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 //import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 //import android.net.Uri;
 import android.os.Bundle;
-//import android.os.Handler;
-//import android.os.Message;
 import android.os.StrictMode;
 import android.text.Spannable;
 import android.text.Spanned;
@@ -59,7 +59,10 @@ import com.genfengxue.windenglish.Question;
 import com.genfengxue.windenglish.R;
 import com.genfengxue.windenglish.network.JsonApiCaller;
 import com.genfengxue.windenglish.utils.FileUtils;
+import com.genfengxue.windenglish.utils.NetworkUtils;
 import com.genfengxue.windenglish.utils.UriUtils;
+//import android.os.Handler;
+//import android.os.Message;
 
 public class CheckActivity extends Activity {
 
@@ -135,15 +138,47 @@ public class CheckActivity extends Activity {
         knowledge = (TextView)popLayout.findViewById(R.id.checkPopupText);
         String ssss="This is a popupWindows";
 		knowledge.setText(ssss);
-        //加载答案
+		initListener();
 		
+		new CheckAnswerTask(courseNo, lessonNo).execute();
+	}
+	
+	private class CheckAnswerTask extends AsyncTask<Void, Void, String> {
+		private int courseNo;
+		private int lessonNo;
+		private ProgressDialog progressDialog;
 		
-        //从服务器端获取json
-        jsonText = JsonApiCaller.getSentenceListApi(courseNo, lessonNo);
-
-        //处理文本
-        String englishText = "";
-        try {
+		public CheckAnswerTask(int courseNo, int lessonNo) {
+			this.courseNo = courseNo;
+			this.lessonNo = lessonNo;
+			progressDialog = new ProgressDialog(CheckActivity.this);
+			progressDialog.setTitle(R.string.getting_sentences);
+		}
+		
+		protected void onPreExecute() {
+			progressDialog.show();
+		}
+		
+		@Override
+		protected String doInBackground(Void... params) {
+			if (NetworkUtils.isNetworkConnected(CheckActivity.this)) {
+				return JsonApiCaller.getSentenceListApi(courseNo, lessonNo, true);
+			} else {
+				return JsonApiCaller.getSentenceListApi(courseNo, lessonNo);
+			}
+		}
+		
+		protected void onPostExecute(String result) {
+			progressDialog.dismiss();
+			jsonText = result;
+			initCheck();
+		}
+	}
+	
+	private void initCheck() {
+		//处理文本
+		String englishText = "";
+		try {
 			jsonArray = new JSONArray(jsonText);
 			for(int i=0;i<jsonArray.length();i++)
 			{
@@ -156,96 +191,97 @@ public class CheckActivity extends Activity {
 			answer.setText(englishText,BufferType.SPANNABLE);
 			
 		} catch (JSONException e2) {
-			// 
 			e2.printStackTrace();
 		}
-        getEachWord(answer);
-        answer.setMovementMethod(LinkMovementMethod.getInstance());
-        
-        //读取标记记录
-        likedPath = UriUtils.getLikedPath(courseNo, lessonNo);
-        File likedJsonFile = new File(likedPath);
-
-        if(likedJsonFile.exists())
-        {
-        	String jsonLikedText = FileUtils.readFile(likedPath);
-
-        	if (jsonLikedText != null) {
-        		try {
+		getEachWord(answer);
+		answer.setMovementMethod(LinkMovementMethod.getInstance());
+		
+		//读取标记记录
+		likedPath = UriUtils.getLikedPath(courseNo, lessonNo);
+		File likedJsonFile = new File(likedPath);
+		
+		if(likedJsonFile.exists())
+		{
+			String jsonLikedText = FileUtils.readFile(likedPath);
+			
+			if (jsonLikedText != null) {
+				try {
 					jsonLikedArray = new JSONArray(jsonLikedText);
 				} catch (JSONException e) {
 					e.printStackTrace();
 					jsonLikedArray = new JSONArray();
 				}
-        		for(int i = 0; i < jsonLikedArray.length(); i++)
-        		{
-        			int line = 0;
-        			String keys = null;
-        			JSONObject eachKnowledge;
-        			try {
-        				eachKnowledge = jsonLikedArray.getJSONObject(i);
-        				keys = eachKnowledge.getString("key");
-        				line = eachKnowledge.getInt("line");
-        			} catch (JSONException e1) {
-        				e1.printStackTrace();
-        			}
-        			String[] keyss = keys.split(",");
-        			for(int j=0;j<keyss.length;j++)
-        			{
-        				int theno = Integer.parseInt(keyss[j]);
-        				changeHighLight(line, theno, 1);
-        			}
-        		}
-        	}
-        }
-        
-        //设置音频播放参数
-        player = new MediaPlayer();
-        String playerPath = UriUtils.getRecordPath(courseNo, lessonNo);
-
-        try {
+				for(int i = 0; i < jsonLikedArray.length(); i++)
+				{
+					int line = 0;
+					String keys = null;
+					JSONObject eachKnowledge;
+					try {
+						eachKnowledge = jsonLikedArray.getJSONObject(i);
+						keys = eachKnowledge.getString("key");
+						line = eachKnowledge.getInt("line");
+					} catch (JSONException e1) {
+						e1.printStackTrace();
+					}
+					String[] keyss = keys.split(",");
+					for(int j=0;j<keyss.length;j++)
+					{
+						int theno = Integer.parseInt(keyss[j]);
+						changeHighLight(line, theno, 1);
+					}
+				}
+			}
+		}
+		
+		//设置音频播放参数
+		player = new MediaPlayer();
+		String playerPath = UriUtils.getRecordPath(courseNo, lessonNo);
+		
+		try {
 			player.setDataSource(playerPath);
 			player.prepare();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        
-        player.start();
-        
-        //设置back按钮
-
-		backButton = (Button)findViewById(R.id.checkBackButton);
-		backButton.setOnClickListener(new Button.OnClickListener(){
-			public void onClick(View v)
-			{
-				//videoView.pause();
+		
+		player.start();
+		
+	}
+	
+	private void initListener() {
+		// 设置back按钮
+		backButton = (Button) findViewById(R.id.checkBackButton);
+		backButton.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				// videoView.pause();
 				player.pause();
 				Dialog alertDialog = new AlertDialog.Builder(CheckActivity.this)
 				.setMessage("现在退出，下次要重新对答案")
 				.setCancelable(false)
-				.setPositiveButton("继续对答案",new DialogInterface.OnClickListener() {
-					
+				.setPositiveButton("继续对答案",
+						new DialogInterface.OnClickListener() {
 					@Override
-					public void onClick(DialogInterface dialog, int which) {
-
-						//videoView.start();
+					public void onClick(DialogInterface dialog,
+							int which) {
+						
+						// videoView.start();
 						player.start();
 						
 					}
 				})
-				.setNegativeButton("确认退出",new DialogInterface.OnClickListener() {
+				.setNegativeButton("确认退出",
+						new DialogInterface.OnClickListener() {
 					
 					@Override
-					public void onClick(DialogInterface dialog, int which) {
+					public void onClick(DialogInterface dialog,
+							int which) {
 						negativeButtonClick();
 					}
-				})
-				.create();
-	        alertDialog.show(); 
+				}).create();
+				alertDialog.show();
 			}
 		});
 		
-
 		//设置向前按钮
 		backVideoButton = (Button)findViewById(R.id.backVideoButton);
 		backVideoButton.setOnClickListener(new Button.OnClickListener(){
@@ -295,16 +331,10 @@ public class CheckActivity extends Activity {
 					player.start();
 					pauseVideoButton.setBackgroundResource(R.drawable.pause);
 				}
-				
 			}
 		});
-		
-		
 	}
 
-
-	//:
-	//得到每个word
     private void getEachWord(TextView answer2) {
     	//首先得到每一行 
         int start = 0;        
@@ -317,10 +347,8 @@ public class CheckActivity extends Activity {
         Spannable spans = (Spannable)answer2.getText();
         while(end < checkText.length)
         {
-    		
         	if(checkText[end+1]==' ')
         	{
-
 				String texttt = null;
 				try {
 					texttt = getKnowledgeText(line, no);
@@ -385,7 +413,6 @@ public class CheckActivity extends Activity {
         	end++;
         }
         answer2.setHighlightColor(Color.argb(180, 205, 205, 205)); 
-        
 	}
 
 
@@ -531,8 +558,6 @@ public class CheckActivity extends Activity {
 		pauseVideoButton.setBackgroundResource(R.drawable.play);
         popupWindow.showAtLocation(checkLayout, Gravity.TOP|Gravity.LEFT, (int)floatX, (int)floatY);
 	}
-
-
 
 	//高亮文字方法
 	@SuppressLint("RtlHardcoded")
@@ -801,4 +826,5 @@ public class CheckActivity extends Activity {
 		startActivity(intent);
 		CheckActivity.this.finish();
 	}
+
 }

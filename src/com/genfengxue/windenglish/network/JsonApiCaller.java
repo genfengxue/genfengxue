@@ -149,14 +149,18 @@ public class JsonApiCaller {
 		return getApiContent(urlStr, true);
 	}
 	
-	public static String getSentenceListApi(int courseNo, int lessonNo) {
+	public static String getSentenceListApi(int courseNo, int lessonNo, boolean forceRefresh) {
 		QueryBuilder qb = new QueryBuilder();
 		qb.addIntQuery("courseNo", courseNo);
 		qb.addIntQuery("lessonNo", lessonNo);
 		String urlStr = buildGetUrl(Constants.SENTENCE_LIST_API_URI, qb);
-		return getApiContent(urlStr, true);
+		return getApiContent(urlStr, forceRefresh);
 	}
 
+	public static String getSentenceListApi(int courseNo, int lessonNo) {
+		return getSentenceListApi(courseNo, lessonNo, false);
+	}
+	
 	/**
 	 * Get user token with post api
 	 * 

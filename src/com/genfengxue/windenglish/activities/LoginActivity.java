@@ -65,7 +65,7 @@ public class LoginActivity extends AccountAuthenticatorActivity {
 	private void initListener() {
 		loginButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-					doLogin();
+				doLogin();
 			}
 		});  
 		

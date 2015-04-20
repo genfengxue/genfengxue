@@ -123,7 +123,8 @@ public class VideoPlayActivity extends Activity {
 				Intent intent = new Intent(VideoPlayActivity.this, CheckActivity.class);
 				intent.putExtra("courseNo", courseNo);
 				intent.putExtra("lessonNo", lessonNo);
-				startActivity(intent);
+				VideoPlayActivity.this.startActivity(intent);
+				VideoPlayActivity.this.finish();
 			}
 		} 
 	}

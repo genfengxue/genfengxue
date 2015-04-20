@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.genfengxue.windenglish.network.JsonApiCaller;
 import com.genfengxue.windenglish.utils.FileUtils;
 import com.genfengxue.windenglish.utils.UriUtils;
 
@@ -80,6 +81,8 @@ public class LessonVideoDownloader implements Runnable {
 			handler.sendMessage(msg);
 		}
 
+		//在有网络的时候，强制刷新sentence，这一句将来应该放在其它地方，先暂时放在这里吧
+		JsonApiCaller.getSentenceListApi(courseNo, lessonNo, true);
 		handler.sendEmptyMessage(DOWNLOAD_FINISHED);
 	}
 	
