@@ -39,7 +39,7 @@ public class LoadingActivity extends Activity {
 		PackageInfo pi;
 		try {
 			pi = getPackageManager().getPackageInfo(getPackageName(), 0);
-			versionName.setText("v" + pi.versionName);
+			versionName.setText(pi.versionName);
 		} catch (NameNotFoundException e) {
 			Log.e(TAG, e.getMessage());
 		}
