@@ -168,7 +168,7 @@ public class LearnActivity extends Activity {
 
 			new ConfirmationDialog(getResources().getString(R.string.comfirm_download), 
 					new DownloadListener(info), 
-					ConfirmationDialog.DEAF_LISTENER).show(getFragmentManager(), "Download");
+					ConfirmationDialog.DEAF_CLICK_LISTENER).show(getFragmentManager(), "Download");
 		}
 
 	}
@@ -374,7 +374,7 @@ public class LearnActivity extends Activity {
 			} else {
 				new ConfirmationDialog(getResources().getString(R.string.no_wifi_download),
 						new DoDownloadListener(info),
-						ConfirmationDialog.DEAF_LISTENER).show(getFragmentManager(), "WIFI");
+						ConfirmationDialog.DEAF_CLICK_LISTENER).show(getFragmentManager(), "WIFI");
 			}
 		}
 	}
@@ -417,7 +417,7 @@ public class LearnActivity extends Activity {
 						String uri = obj.optString("url");
 						ConfirmationDialog dialog = new ConfirmationDialog(
 								getResources().getString(R.string.new_version_found), 
-								new DoUpdateListener(uri), ConfirmationDialog.DEAF_LISTENER);
+								new DoUpdateListener(uri), ConfirmationDialog.DEAF_CLICK_LISTENER);
 						dialog.show(getFragmentManager(), "update");
 					}
 				} catch (NameNotFoundException e) {
