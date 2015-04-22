@@ -78,5 +78,9 @@
     <string name="lesson_desc">课程图片</string>
     <string name="question_email_subject">【跟风学】%s的提问</string>
     <string name="question_email_content">%1$s在course%2$d lesson%3$d问到：\n</string>
-	<string name="external_storage_unmounted">外部存储区未连接，请检查后重新启动</string>
+    <string name="external_storage_unmounted">外部存储区未连接，请检查后重新启动</string>
+    <string name="title_user_rank_list">学习排行榜</string>
+    <string name="title_user_rank_list_section1">日排行</string>
+    <string name="title_user_rank_list_section2">周排行</string>
+
 </resources>

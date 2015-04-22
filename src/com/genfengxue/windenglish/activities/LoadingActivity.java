@@ -85,6 +85,12 @@ public class LoadingActivity extends Activity {
 		}
 	}
 	
+
+	private void goUserRankList() {
+		Intent intent = new Intent(LoadingActivity.this, UserRankListActivity.class);
+		goActivity(intent);
+	}
+	
 	private void goActivity(final Intent intent) {
 		new Handler().postDelayed(new Runnable() {
 			@Override
@@ -107,12 +113,14 @@ public class LoadingActivity extends Activity {
 			if (user == null) {
 				goLogin();
 			} else {
-				if (user.isNeedUpdate()) {
-					goUpdateProfile();
-				} else {
-					goLearn();
-				}
+				goUserRankList();
+//				if (user.isNeedUpdate()) {
+//					goUpdateProfile();
+//				} else {
+//					goLearn();
+//				}
 			}
 	    }
+
 	}
 }
