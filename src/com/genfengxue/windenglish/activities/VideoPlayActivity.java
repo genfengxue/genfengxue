@@ -189,32 +189,41 @@ public class VideoPlayActivity extends Activity {
 	
 	public void onBackPressed() {
 		if (part < infoArr.length) {
+			pauseVideo();
 			new ConfirmationDialog(
 					getResources().getString(R.string.video_exit_alert), 
 					getResources().getString(R.string.confirm_exit), 
 					new ExitListener(), null, null,
 					getResources().getString(R.string.continue_watch),
-					ConfirmationDialog.DEAF_LISTENER).show(getFragmentManager(), "Confirm");
+					new CancelExitListener()).show(getFragmentManager(), "Confirm");
 		} else if (!recordFinished) {
 			new ConfirmationDialog(
 					getResources().getString(R.string.record_exit_alert), 
 					getResources().getString(R.string.confirm_exit), new ExitListener(), 
 					null, null, 
 					getResources().getString(R.string.continue_record), 
-					ConfirmationDialog.DEAF_LISTENER).show(getFragmentManager(), "Record");
+					ConfirmationDialog.DEAF_CLICK_LISTENER).show(getFragmentManager(), "Record");
 		} else {
 			super.onBackPressed();
 		}
 	}
 	
-	public class ExitListener implements android.content.DialogInterface.OnClickListener {
+	private class ExitListener implements DialogInterface.OnClickListener {
 
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
 			cleanAndExit();
 		}
 	}
+	
+	private class CancelExitListener implements DialogInterface.OnClickListener {
 
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			resumeVideo();
+		}
+	}
+	
 	private void cleanAndExit() {
 		// TODO release media info
 		if (part == infoArr.length)
@@ -249,6 +258,18 @@ public class VideoPlayActivity extends Activity {
 			recorder.stop();
 			recorder.release();
 			recorder = null;
+		}
+	}
+	
+	private void resumeVideo() {
+		if (!videoView.isPlaying()) {
+			videoView.start();
+		}
+	}
+	
+	private void pauseVideo() {
+		if (videoView.isPlaying() && videoView.canPause()) {
+			videoView.pause();
 		}
 	}
 	
