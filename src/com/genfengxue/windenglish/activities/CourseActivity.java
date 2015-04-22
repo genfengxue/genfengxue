@@ -38,9 +38,6 @@ public class CourseActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		UserProfile profile = AccountMgr.getUserProfile(this);
-		((TextView) findViewById(R.id.mainUsername)).setText(profile.getNickname());
-		
 		courseViem = (ListView) findViewById(R.id.videoList);
 		courseViem.setOnItemClickListener(new OnItemClickListener() {
 
@@ -60,8 +57,22 @@ public class CourseActivity extends Activity {
 		});
 		
 		((ImageView) findViewById(R.id.refreshBtn)).setVisibility(View.INVISIBLE);
-		
+		((TextView) findViewById(R.id.mainUsername)).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(CourseActivity.this, ProfileActivity.class);
+				startActivity(intent);
+			}
+		});
+
 		new UpdateCourseTask().execute();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		UserProfile profile = AccountMgr.getUserProfile(this);
+		((TextView) findViewById(R.id.mainUsername)).setText(profile.getNickname());
 	}
 	
 	private class UpdateCourseTask extends AsyncTask<Void, Void, List<CourseInfo>> {

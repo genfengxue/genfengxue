@@ -96,7 +96,7 @@ public class ProfileActivity extends Activity {
 			if ("OK".equals(result)) {
 				Toast.makeText(ProfileActivity.this, R.string.update_profile_success, 
 						Toast.LENGTH_SHORT).show();
-				Intent learn = new Intent(ProfileActivity.this, LearnActivity.class);
+				Intent learn = new Intent(ProfileActivity.this, CourseActivity.class);
 				startActivity(learn);
 				finish();
 			} else {

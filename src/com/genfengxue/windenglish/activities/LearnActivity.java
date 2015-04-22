@@ -74,10 +74,6 @@ public class LearnActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		// init user name bar
-		UserProfile userProfile = AccountMgr.getUserProfile(this);
-		((TextView) findViewById(R.id.mainUsername)).setText(userProfile.getNickname());
-
 		Log.i(TAG, "network state: " + NetworkUtils.isNetworkConnected(this));
 		
 		Intent intent = getIntent();
@@ -97,6 +93,15 @@ public class LearnActivity extends Activity {
 			}
 		});
 		
+		((TextView) findViewById(R.id.mainUsername)).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(LearnActivity.this, ProfileActivity.class);
+				startActivity(intent);
+			}
+		});
+		
+		
 		new UpdateTask().execute();
 		((RelativeLayout) findViewById(R.id.main_layout)).setOnTouchListener(
 				new SwipeBackListener());
@@ -107,6 +112,15 @@ public class LearnActivity extends Activity {
 		super.onStart();
 		// set content of lesson list
 		refreshLessionList(false);
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		// init user name bar
+		UserProfile userProfile = AccountMgr.getUserProfile(this);
+		((TextView) findViewById(R.id.mainUsername)).setText(userProfile.getNickname());
 	}
 
 	public void onSaveInstanceState(Bundle outState) {
