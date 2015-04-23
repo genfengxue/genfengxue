@@ -100,7 +100,15 @@ public class LearnActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+
 		
+		((ImageView) findViewById(R.id.go_webview)).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(LearnActivity.this, WebviewActivity.class);
+				startActivity(intent);
+			}
+		});
 		
 		new UpdateTask().execute();
 		((RelativeLayout) findViewById(R.id.main_layout)).setOnTouchListener(
@@ -130,6 +138,8 @@ public class LearnActivity extends Activity {
 	private void refreshLessionList(boolean forceRefresh) {
 		new GetLessonListTask(forceRefresh).execute(courseNo);
 	}
+	
+	
 	
 	private void doDownloadLessonVideo(LessonInfo info) {
 		progress.add(info);

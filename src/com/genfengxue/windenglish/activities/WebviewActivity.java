@@ -17,6 +17,6 @@ public class WebviewActivity extends Activity {
 		
 		webView = (WebView)findViewById(R.id.webview);
 		webView.setWebViewClient(new WebViewClient());
-		webView.loadUrl("http://data.genfengxue.com/release_notes?embedded");
+		webView.loadUrl("http://weiqing.genfengxue.com/app/index.php?i=2&c=entry&id=11&do=detail&m=news&wxref=mp.weixin.qq.com#wechat_redirect");
 	}
 }

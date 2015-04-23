@@ -66,7 +66,7 @@ public class CourseActivity extends Activity {
 			}
 		});
 		
-		((TextView) findViewById(R.id.go_webview)).setOnClickListener(new View.OnClickListener() {
+		((ImageView) findViewById(R.id.go_webview)).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(CourseActivity.this, WebviewActivity.class);
