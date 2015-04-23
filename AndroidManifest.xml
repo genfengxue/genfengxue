@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.genfengxue.windenglish"
-    android:versionCode="5"
-    android:versionName="v0.9.2" >
+    android:versionCode="6"
+    android:versionName="v1.0" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -83,6 +83,10 @@
         </activity>
         <activity 
             android:name="com.genfengxue.windenglish.activities.CourseActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity 
+            android:name="com.genfengxue.windenglish.activities.WebviewActivity"
             android:screenOrientation="portrait">
         </activity>
     </application>

@@ -37,18 +37,33 @@
             android:textColor="#ffffff"
             android:textSize="22sp" />
 
+        
+        <ImageView
+            android:id="@+id/go_webview"
+            android:layout_toRightOf="@+id/mainUsername"
+            android:layout_toEndOf="@+id/mainUsername"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:src="@drawable/pile" 
+            android:contentDescription="@string/go_webview"/>
+        
         <ImageView
             android:id="@+id/refreshBtn"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:clickable="true"
             android:contentDescription="@string/hello_world"
             android:src="@drawable/refesh" />
+
     </RelativeLayout>
 
     <LinearLayout

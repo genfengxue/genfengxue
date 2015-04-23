@@ -53,6 +53,7 @@ public class CourseActivity extends Activity {
 				editor.putInt("courseNo", courseNo);
 				editor.apply();
 				startActivity(intent);
+				finish();
 			}
 		});
 		
@@ -61,6 +62,14 @@ public class CourseActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(CourseActivity.this, ProfileActivity.class);
+				startActivity(intent);
+			}
+		});
+		
+		((ImageView) findViewById(R.id.go_webview)).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(CourseActivity.this, WebviewActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -73,6 +82,11 @@ public class CourseActivity extends Activity {
 		super.onResume();
 		UserProfile profile = AccountMgr.getUserProfile(this);
 		((TextView) findViewById(R.id.mainUsername)).setText(profile.getNickname());
+	}
+
+	@Override
+	public void onBackPressed() {
+		finish();
 	}
 	
 	private class UpdateCourseTask extends AsyncTask<Void, Void, List<CourseInfo>> {
