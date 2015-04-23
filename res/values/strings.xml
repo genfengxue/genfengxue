@@ -14,7 +14,6 @@
     <string name="popup_string_2">第二遍有英文字幕</string>
     <string name="popup_string_3">第三遍有中文字幕</string>
     <string name="check_back">退出</string>
-    <string name="check_title">对答案</string>
     <string name="check_answer">对答案</string>
     <string name="getting_sentences">正在获取对答案文本……</string>
     <string name="check_sub">提交</string>
@@ -25,6 +24,8 @@
     <string name="login_userno_number">用户编号需要为数字</string>
     <string name="submit">提交</string>
 
+    <string name="check_network">请检查您的网络连接是否正常</string>
+    
     <string-array name="video_info_arr">
         <item>视频共播放三遍，第一遍无字幕</item>
         <item>第二遍有英文字幕</item>

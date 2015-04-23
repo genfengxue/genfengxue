@@ -87,9 +87,14 @@ public class LearnActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				refreshLessionList(true);
-				Toast.makeText(LearnActivity.this, 
-						R.string.update_lesson, Toast.LENGTH_SHORT).show();
+				if (NetworkUtils.isNetworkConnected(LearnActivity.this)) {
+					refreshLessionList(true);
+					Toast.makeText(LearnActivity.this,
+							R.string.update_lesson, Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(LearnActivity.this,
+							R.string.check_network, Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 		
