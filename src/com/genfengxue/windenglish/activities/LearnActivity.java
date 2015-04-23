@@ -139,7 +139,12 @@ public class LearnActivity extends Activity {
 		new GetLessonListTask(forceRefresh).execute(courseNo);
 	}
 	
-	
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(this, CourseActivity.class);
+		startActivity(intent);
+		finish();
+	}
 	
 	private void doDownloadLessonVideo(LessonInfo info) {
 		progress.add(info);

@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,6 +53,7 @@ public class CourseActivity extends Activity {
 				editor.putInt("courseNo", courseNo);
 				editor.apply();
 				startActivity(intent);
+				finish();
 			}
 		});
 		
@@ -82,6 +82,11 @@ public class CourseActivity extends Activity {
 		super.onResume();
 		UserProfile profile = AccountMgr.getUserProfile(this);
 		((TextView) findViewById(R.id.mainUsername)).setText(profile.getNickname());
+	}
+
+	@Override
+	public void onBackPressed() {
+		finish();
 	}
 	
 	private class UpdateCourseTask extends AsyncTask<Void, Void, List<CourseInfo>> {
