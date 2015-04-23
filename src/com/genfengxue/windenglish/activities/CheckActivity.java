@@ -10,7 +10,6 @@ import java.util.List;
 //import java.lang.reflect.Field;
 //import java.util.Properties;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -819,11 +818,6 @@ public class CheckActivity extends Activity {
     
 	private void negativeButtonClick() {
 		FileUtils.writeFile(likedPath, jsonLikedArray.toString());
-		Intent intent = new Intent(CheckActivity.this, LearnActivity.class);
-		intent.putExtra("courseNo", courseNo);
-		intent.putExtra("lessonNo", lessonNo);
-		startActivity(intent);
 		CheckActivity.this.finish();
 	}
-
 }
