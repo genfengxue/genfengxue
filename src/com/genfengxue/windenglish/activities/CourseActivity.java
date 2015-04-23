@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -61,6 +62,14 @@ public class CourseActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(CourseActivity.this, ProfileActivity.class);
+				startActivity(intent);
+			}
+		});
+		
+		((TextView) findViewById(R.id.go_webview)).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(CourseActivity.this, WebviewActivity.class);
 				startActivity(intent);
 			}
 		});
