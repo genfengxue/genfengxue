@@ -1,10 +1,12 @@
 package com.genfengxue.windenglish.ui;
 
 import android.app.AlertDialog.Builder;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.DialogInterface.OnDismissListener;
 import android.os.Bundle;
 
 import com.genfengxue.windenglish.R;
@@ -58,13 +60,22 @@ public class ConfirmationDialog extends DialogFragment {
 			builder.setNeutralButton(nerualText, nerualListener);
 		}
 		
-		return builder.create();
+		AlertDialog res = builder.create();
+		res.setCanceledOnTouchOutside(false);
+		return res;
 	}
 	
-	public static final OnClickListener DEAF_LISTENER = new OnClickListener() {
+	public static final OnClickListener DEAF_CLICK_LISTENER = new OnClickListener() {
 		
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
+		}
+	};
+	
+	public static final OnDismissListener DEAF_DISMISS_LISTENER = new OnDismissListener() {
+		
+		@Override
+		public void onDismiss(DialogInterface dialog) {
 		}
 	};
 }
