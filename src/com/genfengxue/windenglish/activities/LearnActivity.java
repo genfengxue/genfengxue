@@ -319,13 +319,13 @@ public class LearnActivity extends Activity {
 				updateProgressBar();
 				break;
 			default: // LessonVideoDownloader.DOWNLOAD_FAILED
-				String template = lessonView.getResources().getString(
-						R.string.downloading_video_failed);
+				String toastMsg = lessonView.getResources().getString(
+						R.string.downloading_video_failed, info.getCourseNo());
 				info.updateState();
 				progress.remove(info);
 				updateProgressBar();
-				Toast.makeText(lessonView.getContext(), String.format(template, info.getLessonNo()),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(lessonView.getContext(), toastMsg + (String) msg.obj,
+						Toast.LENGTH_LONG).show();
 				break;
 			}
 		}

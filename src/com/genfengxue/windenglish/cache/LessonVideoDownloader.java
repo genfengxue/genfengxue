@@ -62,13 +62,15 @@ public class LessonVideoDownloader implements Runnable {
 						Log.i(TAG, "downloaded " + path);
 						tmpFile.renameTo(file);
 					} else {
-						Log.e(TAG, "fail to request url, status code: " + code);
-						handler.sendEmptyMessage(DOWNLOAD_FAILED);
+						String errMsg = "fail to request url, status code: " + code;
+						Log.e(TAG, errMsg);
+						handler.sendMessage(handler.obtainMessage(DOWNLOAD_FAILED, errMsg));
 						return;
 					}
 				} catch (IOException e) {
-					Log.e(TAG, "download failed for " + e.getMessage());
-					handler.sendEmptyMessage(DOWNLOAD_FAILED);
+					String errMsg = "download failed for " + e.getMessage();
+					Log.e(TAG, errMsg);
+					handler.sendMessage(handler.obtainMessage(DOWNLOAD_FAILED, errMsg));
 					return;
 				} finally {
 					client.close();
