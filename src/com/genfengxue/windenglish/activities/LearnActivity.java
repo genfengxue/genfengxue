@@ -120,23 +120,20 @@ public class LearnActivity extends Activity {
 		((RelativeLayout) findViewById(R.id.main_layout)).setOnTouchListener(
 				new SwipeBackListener());
 		lessonView.setOnTouchListener(new SwipeBackListener());
-	}
-	
-	public void onStart() {
-		super.onStart();
 		// set content of lesson list
 		refreshLessionList(false);
 	}
 	
+
 	@Override
 	public void onResume() {
-
 		super.onResume();
+		
 		// init user name bar
 		UserProfile userProfile = AccountMgr.getUserProfile(this);
 		((TextView) findViewById(R.id.mainUsername)).setText(userProfile.getNickname());
+		
 		Log.i(TAG, "onResume firstVisiblePositionInListView: " + firstVisiblePositionInListView);
-
 		lessonView.setSelection(firstVisiblePositionInListView);
 	}
 
