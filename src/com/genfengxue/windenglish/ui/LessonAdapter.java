@@ -50,7 +50,7 @@ public class LessonAdapter extends BaseAdapter {
 		Drawable draw = rl.getResources().getDrawable(getIcon(info));
 		((ImageView) rl.findViewById(R.id.ItemState)).setImageDrawable(draw);
 		
-		ProgressBar bar = (ProgressBar) rl.findViewById(R.id.prograss_bar);
+		ProgressBar bar = (ProgressBar) rl.findViewById(R.id.progress_bar);
 		if (info.getDownloadState() == LessonState.DOWNLOADING) {
 			bar.setVisibility(View.VISIBLE);
 			bar.setProgress(info.getDownloadProgress());

@@ -67,6 +67,7 @@ public class LearnActivity extends Activity {
 	
 	private int courseNo;
 	private ListView lessonView;
+	private int firstVisiblePositionInListView;
 	
 	private String[] learnOptions; 
 
@@ -129,13 +130,23 @@ public class LearnActivity extends Activity {
 	
 	@Override
 	public void onResume() {
-		super.onResume();
 
+		super.onResume();
 		// init user name bar
 		UserProfile userProfile = AccountMgr.getUserProfile(this);
 		((TextView) findViewById(R.id.mainUsername)).setText(userProfile.getNickname());
+		Log.i(TAG, "onResume firstVisiblePositionInListView: " + firstVisiblePositionInListView);
+
+		lessonView.setSelection(firstVisiblePositionInListView);
 	}
 
+	@Override
+	public void onPause() {
+		firstVisiblePositionInListView = lessonView.getFirstVisiblePosition();
+		Log.i(TAG, "onPause firstVisiblePositionInListView: " + firstVisiblePositionInListView);
+		super.onPause();
+	}
+	
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 	}
@@ -146,9 +157,7 @@ public class LearnActivity extends Activity {
 	
 	@Override
 	public void onBackPressed() {
-		Intent intent = new Intent(this, CourseActivity.class);
-		startActivity(intent);
-		finish();
+		goCourseActivity();
 	}
 	
 	private void doDownloadLessonVideo(LessonInfo info) {
